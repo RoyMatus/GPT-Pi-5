@@ -25,6 +25,9 @@ design, coding, documentation, and checks.
 - Instructions for Codex, Claude Code, GitHub Copilot, and other AI agents.
 - Examples of systemd and UI autostart configuration; deployment to the device has not been performed.
 
+- 11 project skills, 4 agent roles, and risk-based verification: [AI workflow](docs/AI_WORKFLOW.md) (Russian).
+- GitHub tools with a preview mode and environment diagnostics: [tools](tools/README.md) (Russian).
+
 ## Run on your computer
 
 Requires Python 3.11+. Run from the repository root:
