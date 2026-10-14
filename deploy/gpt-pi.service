@@ -1,0 +1,24 @@
+# Example only: install package in /opt/gpt-pi/.venv and create gptpi OS user first.
+[Unit]
+Description=GPT-Pi 5 local backend
+After=network.target
+
+[Service]
+Type=simple
+User=gptpi
+Group=gptpi
+WorkingDirectory=/opt/gpt-pi
+ExecStart=/opt/gpt-pi/.venv/bin/python -m gpt_pi
+Environment=GPT_PI_PROVIDER=offline
+Environment=GPT_PI_PORT=8765
+Environment=PYTHONDONTWRITEBYTECODE=1
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

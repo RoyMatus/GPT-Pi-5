@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=GPT-Pi 5
+Comment=Example kiosk launch; verify browser and desktop session before installation
+TryExec=chromium
+Exec=chromium --kiosk --no-first-run http://127.0.0.1:8765
+Terminal=false

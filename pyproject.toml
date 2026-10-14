@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gpt-pi-5"
+version = "0.1.0"
+description = "Offline development scaffold for a Raspberry Pi 5 desktop assistant"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+gpt-pi = "gpt_pi.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+gpt_pi = ["web/*.html"]
