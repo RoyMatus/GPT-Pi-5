@@ -99,10 +99,15 @@ python -m pip wheel . --no-deps -w dist
 
 Wheel builds require the bundled interface. Generated JS/CSS are neither edited nor
 committed; package-lock.json pins npm dependencies. Windows/Linux CI builds the UI,
-runs offline tests without cloud credentials, and builds the wheel. This does not
-replace physical Pi screen, audio or startup acceptance.
+runs offline tests without cloud credentials, and builds the wheel. A separate
+Chromium check on Ubuntu covers remembered sign-in, sign-out and voice controls
+with a synthetic cloud and microphone; commands are in [TESTING.md](TESTING.md).
+This does not replace physical Pi screen, audio or startup acceptance.
 
 ## Deployment and documentation
+
+Upcoming device dashboard: [design and tasks](https://github.com/RoyMatus/GPT-Pi-5/issues/2) ·
+[development board](https://github.com/users/RoyMatus/projects/8). Dashboard features are not implemented yet.
 
 Supporting documents are currently in Russian:
 [Install and rollback](deploy/README.md) · [Testing](TESTING.md) ·
