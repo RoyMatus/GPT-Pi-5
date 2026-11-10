@@ -34,6 +34,8 @@ class Connection:
     name: str
     token: dict = field(repr=False)
     refresh_lock: asyncio.Lock = field(default_factory=asyncio.Lock, repr=False)
+    persist: object = field(default=None, repr=False)
+    invalidate: object = field(default=None, repr=False)
 
     @property
     def sharing(self):
@@ -106,6 +108,8 @@ class ChatGPT:
             if not token:
                 raise CloudError('session_expired', 401)
             if token.get('expires_at', 0) > time.time() + 60:
+                if connection.persist:
+                    connection.persist()
                 return token['access_token']
             if not token.get('refresh_token'):
                 raise CloudError('session_expired', 401)
@@ -116,19 +120,32 @@ class ChatGPT:
                     raise CloudError('session_expired', 401)
                 updated.setdefault('scope', token.get('scope', ''))
                 updated.setdefault('refresh_token', token['refresh_token'])
+                updated.setdefault('id_token', token.get('id_token'))
+                if not updated.get('access_token'):
+                    raise CloudError('connection', 502)
                 connection.token = dict(updated)
+                if connection.persist:
+                    connection.persist()
                 if not connection.sharing:
                     raise CloudError('plan_permission', 403)
                 return updated['access_token']
             except CloudError:
                 raise
-            except Exception:
-                raise CloudError('session_expired', 401) from None
+            except Exception as exc:
+                terminal = {'invalid_grant', 'invalid_refresh_token', 'token_expired',
+                            'refresh_token_expired', 'refresh_token_invalidated', 'refresh_token_reused'}
+                if getattr(exc, 'error', None) in terminal:
+                    connection.token = {}
+                    if connection.invalidate:
+                        connection.invalidate()
+                    raise CloudError('session_expired', 401) from None
+                # A temporary network/server failure must not erase renewable credentials.
+                raise CloudError('connection', 502) from None
 
     @staticmethod
     def check(response):
         if response.status_code >= 400:
-            mapping = {401: ('session_expired', 401), 403: ('access_denied', 403), 429: ('usage_limit', 429)}
+            mapping = {401: ('access_rejected', 401), 403: ('access_denied', 403), 429: ('usage_limit', 429)}
             code, status = mapping.get(response.status_code, ('connection', 502))
             raise CloudError(code, status)
 

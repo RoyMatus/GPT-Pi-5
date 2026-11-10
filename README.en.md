@@ -17,11 +17,11 @@ developed with ChatGPT; not an official OpenAI or Raspberry Pi device.
   session revocation on sign-out are implemented.
 - Eligible ChatGPT plan usage through the documented Responses API, including
   streaming, cancellation, quota and network errors. No separately billed API fallback.
-- Chats and tokens exist only in server-session memory. Restart/sign-out clears them;
-  idle sessions expire after 30 minutes. HTTP access is scoped to the current session.
+- Personal-device sign-in survives restarts and does not expire after 30 idle minutes.
+  Sign-out removes saved access. Chats remain in RAM; HTTP access is session-scoped.
 - Loopback-only server with Host, Origin and CSRF checks. Access logging is disabled.
-  Personal disk storage contains only host/client registrations and hashed account identifiers
-  used to validate returning sign-ins.
+  Registrations and tokens stay in the backend user's data directory; Linux token
+  files have 0600 permissions. Disk encryption is not implemented.
 - A user-service and Wayland app-window installer for Pi, without sudo.
   The maximized window supports the desktop's squeekboard on-screen keyboard.
 - Optional local Russian speech: button-controlled recording up to 30 seconds,
@@ -39,7 +39,7 @@ the connected ChatGPT plan were verified on Pi. This confirms one account and it
 current connection, not eligibility for other accounts or regions.
 Persistent chats, memory, files and separate protected local profiles are not
 implemented. App sign-out does not sign out the ordinary OpenAI browser session;
-our kiosk launcher uses a separate private window.
+our kiosk launcher uses a separate persistent browser profile.
 
 ## Run from source
 
@@ -69,10 +69,12 @@ Linux / Raspberry Pi:
 Open http://127.0.0.1:8765 **on the server's machine**. To access Pi from another
 computer, use SSH forwarding with the same local port; do not expose the service
 to the LAN. The OAuth callback always uses `127.0.0.1`, not `localhost`.
-The app makes no OpenAI requests until sign-in is explicitly started.
+Without a remembered login, the app makes no OpenAI requests until sign-in is started.
 
-Settings: `GPT_PI_PORT`, `GPT_PI_PROVIDER=chatgpt|offline`, `GPT_PI_DATA_DIR`.
-Registration metadata defaults to the user's application-data directory.
+Settings: `GPT_PI_PORT`, `GPT_PI_PROVIDER=chatgpt|offline`, `GPT_PI_DATA_DIR`,
+`GPT_PI_REMEMBER_LOGIN=1` (default). Set `0` for RAM-only sign-in with a 30-minute
+idle timeout. Data defaults to the user's application-data directory.
+Remembered login does not override OpenAI's credential expiry or revocation.
 `.env` is not automatically loaded. API keys are not accepted.
 
 For local voice on Linux/Pi, run `python3 tools/install_voice.py` as the app user,

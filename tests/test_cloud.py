@@ -108,3 +108,24 @@ class CloudTests(unittest.IsolatedAsyncioTestCase):
         self.assertFalse(await cloud.revoke(conn))
         self.assertEqual({}, conn.token)
         self.assertFalse(any(r.url.host == 'evil.invalid' for r in counter))
+
+    async def test_temporary_refresh_failure_preserves_credentials(self):
+        def transport(request):
+            raise httpx.ConnectError('synthetic network outage', request=request)
+        cloud = ChatGPT(httpx.MockTransport(transport))
+        conn = Connection('oaiapp_test', 'synthetic', 'Test', {'scope': self.scope,
+                          'access_token': 'old', 'refresh_token': 'retained', 'expires_at': 1})
+        with self.assertRaises(CloudError) as error:
+            await cloud.access_token(conn)
+        self.assertEqual('connection', error.exception.code)
+        self.assertEqual(502, error.exception.status)
+        self.assertEqual('retained', conn.token['refresh_token'])
+
+    async def test_terminal_refresh_failure_requires_sign_in(self):
+        cloud = ChatGPT(httpx.MockTransport(lambda request:
+            httpx.Response(400, json={'error': 'invalid_grant'})))
+        conn = Connection('oaiapp_test', 'synthetic', 'Test', {'scope': self.scope,
+                          'access_token': 'old', 'refresh_token': 'expired', 'expires_at': 1})
+        with self.assertRaises(CloudError) as error:
+            await cloud.access_token(conn)
+        self.assertEqual('session_expired', error.exception.code)

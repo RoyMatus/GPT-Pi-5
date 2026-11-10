@@ -10,6 +10,7 @@ class Settings:
     provider: str = "chatgpt"
     data_dir: Path = Path.home() / '.local' / 'share' / 'gpt-pi'
     idle_seconds: int = 1800
+    remember_login: bool = True
 
     def __post_init__(self):
         if not 1 <= self.port <= 65535:
@@ -25,6 +26,7 @@ class Settings:
     def from_env(cls, env: Mapping[str, str]):
         return cls(port=int(env.get("GPT_PI_PORT", "8765")),
                    provider=env.get("GPT_PI_PROVIDER", "chatgpt"),
+                   remember_login=env.get('GPT_PI_REMEMBER_LOGIN', '1') == '1',
                    data_dir=Path(env.get('GPT_PI_DATA_DIR') or
                                  Path(env.get('LOCALAPPDATA') or env.get('XDG_DATA_HOME') or
                                       Path.home() / '.local' / 'share') / 'gpt-pi'))

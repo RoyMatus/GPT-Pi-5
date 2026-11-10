@@ -1,4 +1,4 @@
-"""Loopback-only personal prototype. All chats and credentials are session-scoped RAM."""
+"""Loopback-only personal prototype with remembered login and RAM-only chats."""
 import asyncio
 import contextlib
 import hashlib
@@ -22,6 +22,7 @@ from .cloud import ChatGPT, CloudError
 from .config import Settings
 from .voice import LocalVoice, VoiceError, MAX_AUDIO, MAX_SPEECH_TEXT, validate_audio
 from .audio_devices import AudioDevices
+from .credentials import CredentialStore
 
 COOKIE = 'gpt_pi_session'
 
@@ -36,6 +37,7 @@ class Session:
     chats: dict = field(default_factory=dict, repr=False)
     models: list = field(default_factory=list)
     tasks: set = field(default_factory=set, repr=False)
+    saved_token: object = field(default=None, repr=False)
 
     def stop(self):
         self.alive = False
@@ -60,6 +62,33 @@ class Runtime:
         else:
             self.registration = {'host_id': 'urn:uuid:' + str(uuid4()), 'accounts': []}
             self.save_registration()
+        self.credentials = CredentialStore(settings.data_dir) if settings.remember_login else None
+
+    def remember(self, key, session):
+        if (not self.credentials or not session.alive or not session.connection
+                or self.sessions.get(key) is not session):
+            return
+        if session.saved_token is session.connection.token:
+            return
+        try:
+            self.credentials.save(key, session.connection)
+            session.saved_token = session.connection.token
+        except OSError:
+            raise CloudError('session_storage', 503) from None
+
+    def attach(self, key, session):
+        if self.credentials:
+            session.connection.persist = lambda: self.remember(key, session)
+        session.connection.invalidate = lambda: self.forget(key, session)
+
+    def forget(self, key, session):
+        if self.credentials:
+            try:
+                self.credentials.delete(key)
+            except OSError:
+                raise CloudError('session_storage', 503) from None
+        session.stop()
+        self.sessions.pop(key, None)
 
     def save_registration(self):
         temp = self.path.with_suffix('.tmp')
@@ -77,6 +106,8 @@ class Runtime:
 
     def prune(self):
         for key, session in list(self.sessions.items()):
+            if self.credentials and session.connection:
+                continue
             if time.monotonic() - session.touched > self.settings.idle_seconds:
                 session.stop()
                 self.defer_revoke(session)
@@ -86,6 +117,15 @@ class Runtime:
         self.prune()
         key = request.cookies.get(COOKIE)
         session = self.sessions.get(key)
+        if session is None and self.credentials and self.settings.provider == 'chatgpt':
+            connection = self.credentials.load(key)
+            if connection:
+                identity = hashlib.sha256(connection.subject.encode()).hexdigest()
+                if any(a['client_id'] == connection.client_id and a.get('subject_hash') == identity
+                       for a in self.registration['accounts']):
+                    session = Session(connection=connection, saved_token=connection.token)
+                    self.sessions[key] = session
+                    self.attach(key, session)
         if not session or not session.alive or (authenticated and not session.connection):
             raise HTTPException(401, 'session_expired')
         return key, session
@@ -107,8 +147,9 @@ class Runtime:
         return key, session
 
 
-def cookie(response, key):
-    response.set_cookie(COOKIE, key, httponly=True, samesite='lax', path='/')
+def cookie(response, key, remembered=False):
+    response.set_cookie(COOKIE, key, httponly=True, samesite='lax', path='/',
+                        max_age=400 * 86400 if remembered else None)
     return response
 
 
@@ -171,20 +212,29 @@ def create_app(settings=None, cloud=None):
 
     @contextlib.asynccontextmanager
     async def lifespan(app):
+        if runtime.credentials:
+            runtime.credentials.acquire()
         async def reap():
             while True:
                 await asyncio.sleep(5)
                 runtime.prune()
         reaper = asyncio.create_task(reap())
-        yield
-        reaper.cancel()
-        with contextlib.suppress(asyncio.CancelledError):
-            await reaper
-        for session in list(runtime.sessions.values()):
-            session.stop()
-            runtime.defer_revoke(session)
-        if runtime.background:
-            await asyncio.gather(*runtime.background, return_exceptions=True)
+        try:
+            yield
+        finally:
+            reaper.cancel()
+            with contextlib.suppress(asyncio.CancelledError):
+                await reaper
+            try:
+                for session in list(runtime.sessions.values()):
+                    session.stop()
+                    if not runtime.credentials or session.saved_token is None:
+                        runtime.defer_revoke(session)
+                if runtime.background:
+                    await asyncio.gather(*runtime.background, return_exceptions=True)
+            finally:
+                if runtime.credentials:
+                    runtime.credentials.release()
 
     async def home(request):
         if request.url.hostname == 'localhost':
@@ -222,7 +272,8 @@ def create_app(settings=None, cloud=None):
                 'account': {'name': conn.name, 'sharing': conn.sharing} if conn else None,
                 'registrations': [{'id': a['client_id'], 'name': f'Подключение {i + 1}'}
                                   for i, a in enumerate(runtime.registration['accounts'])]}
-        return cookie(JSONResponse(data), key)
+        data['remember_login'] = settings.remember_login
+        return cookie(JSONResponse(data), key, bool(conn) and settings.remember_login)
 
     async def auth_start(request):
         _, session = runtime.mutation(request)
@@ -270,15 +321,21 @@ def create_app(settings=None, cloud=None):
             del runtime.sessions[old_key]
             key, replacement = runtime.new()
             replacement.connection = conn
-            return cookie(RedirectResponse('/?connected=1', status_code=303), key)
+            runtime.attach(key, replacement)
+            try:
+                runtime.remember(key, replacement)
+            except CloudError:
+                runtime.forget(key, replacement)
+                await runtime.cloud.revoke(conn)
+                raise
+            return cookie(RedirectResponse('/?connected=1', status_code=303), key, settings.remember_login)
         except (CloudError, HTTPException) as exc:
             error = exc.code if isinstance(exc, CloudError) else 'login_expired'
             return RedirectResponse('/?error=' + error, status_code=303)
 
     async def logout(request):
         key, session = runtime.mutation(request)
-        session.stop()
-        runtime.sessions.pop(key, None)
+        runtime.forget(key, session)
         revoked = True
         if session.connection:
             revoked = await runtime.cloud.revoke(session.connection)
@@ -430,6 +487,11 @@ def create_app(settings=None, cloud=None):
         return StreamingResponse(output(), media_type='text/event-stream', headers={'X-Accel-Buffering': 'no'})
 
     async def errors(request, exc):
+        if isinstance(exc, CloudError) and exc.code == 'session_expired':
+            with contextlib.suppress(HTTPException):
+                key, session = runtime.session(request)
+                runtime.forget(key, session)
+                session.connection = None
         return JSONResponse({'error': exc.code if isinstance(exc, (CloudError, VoiceError)) else str(exc.detail)},
                             status_code=exc.status if isinstance(exc, (CloudError, VoiceError)) else exc.status_code)
 

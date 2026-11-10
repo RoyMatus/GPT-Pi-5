@@ -52,7 +52,7 @@ class FakeCloud(ChatGPT):
 class WebTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
-        self.settings = Settings(data_dir=Path(self.temp.name))
+        self.settings = Settings(data_dir=Path(self.temp.name), remember_login=False)
         self.cloud = FakeCloud()
         self.app = create_app(self.settings, self.cloud)
         self.client = TestClient(self.app, base_url=self.settings.origin).__enter__()

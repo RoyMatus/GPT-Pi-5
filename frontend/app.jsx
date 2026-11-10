@@ -53,6 +53,8 @@ const errors = {
     login_expired: "Время на вход истекло. Попробуй ещё раз.",
     login_cancelled: "Вход отменён. Можно попробовать снова в любое время.",
     session_expired: "Сеанс завершён. Войди снова, чтобы продолжить.",
+    session_storage: "Не удалось сохранить вход на устройстве. Проверь свободное место и повтори.",
+    access_rejected: "OpenAI отклонил доступ. Вход сохранён; попробуй повторить запрос позже.",
     plan_permission:
         "Аккаунт подключён без разрешения использовать подписку. Заверши сеанс и разреши использование плана при входе.",
     access_denied:
@@ -150,7 +152,7 @@ function App() {
         const response = await fetch(path, options);
         if (!response.ok) {
             const result = await response.json().catch(() => ({}));
-            if (response.status === 401) {
+            if (response.status === 401 && result.error === "session_expired") {
                 clearPrivate();
                 sessionRef.current = null;
                 setSession(null);
@@ -208,6 +210,11 @@ function App() {
                     sessionRef.current = fresh;
                     setSession(fresh);
                     setNotice(explain("session_expired"));
+                } else if (fresh.csrf !== sessionRef.current?.csrf) {
+                    clearPrivate();
+                    setLoading(true);
+                    await bootstrap();
+                    setNotice("Приложение перезапустилось. Вход сохранён.");
                 }
             } catch {
                 /* Polling must not turn a transient outage into a new identity. */
@@ -270,7 +277,7 @@ function App() {
                 );
         } catch {
             setNotice(
-                "Связь с устройством прервалась. Закрой окно; сервер завершит неактивный сеанс автоматически.",
+                "Не удалось подтвердить выход. Проверь связь с устройством и нажми «Завершить сеанс» ещё раз.",
             );
         } finally {
             sessionRef.current = null;
@@ -765,6 +772,7 @@ function App() {
                                     подписки.
                                     <br />
                                     Отдельный платный API не подключается.
+                                    {session?.remember_login && <><br />Вход сохранится на этом личном устройстве.</>}
                                 </p>
                             </div>
                             <div className="privacy-line">
@@ -990,9 +998,13 @@ function App() {
                                 <p>После голосового ввода озвучивание включается автоматически. Голос синтезирован на устройстве.</p>
                                 <h3>Приватность</h3>
                                 <p>
-                                    Разговоры и токены доступны только в текущем
-                                    сеансе и не записываются на диск. После 30
-                                    минут без запросов сеанс завершается.
+                                    {session?.remember_login
+                                        ? "Вход сохраняется на этом личном устройстве и не сбрасывается по таймеру или при перезапуске приложения. Кнопка «Завершить сеанс» удаляет сохранённый доступ."
+                                        : "Вход не сохраняется. Неактивный сеанс завершается через 30 минут."}
+                                </p>
+                                <p>
+                                    Разговоры и записи голоса остаются только в памяти.
+                                    Перезапуск приложения очищает историю. Пароль ChatGPT приложение не получает.
                                 </p>
                                 <p>
                                     Это прототип для личного использования.
