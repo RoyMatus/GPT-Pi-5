@@ -10,6 +10,9 @@ Starlette/Uvicorn слушает только 127.0.0.1. Runtime владеет 
 сеансами, состоянием OAuth, connection, каталогом моделей, чатами и задачами
 streaming. HttpOnly/SameSite cookie содержит только случайный идентификатор;
 Origin+CSRF защищают изменения, Host-проверка ограничивает DNS rebinding.
+Cross-site обращения блокируются, кроме OAuth callback и GET корневого HTML
+как top-level document: браузер сохраняет cross-site при возврате из OpenAI.
+HTML не содержит данных сеанса; cross-site API и встраивание страницы запрещены.
 
 Authlib реализует OAuth/PKCE, PyJWT/cryptography — проверку RS256, issuer,
 audience, exp, iat, nonce и azp. Облачный transport подменяется в тестах.

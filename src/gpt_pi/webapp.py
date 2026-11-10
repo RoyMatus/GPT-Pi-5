@@ -140,7 +140,14 @@ class LocalBoundary:
         host = headers.get(b'host', b'').decode()
         valid = {f'127.0.0.1:{self.settings.port}', f'localhost:{self.settings.port}'}
         site = headers.get(b'sec-fetch-site', b'').decode()
-        if host not in valid or (site == 'cross-site' and scope['path'] != '/auth/callback'):
+        # OAuth redirects retain cross-site Fetch Metadata through the landing
+        # navigation. Only the inert app shell may load as a top-level document;
+        # API reads/writes and embedded documents remain blocked.
+        landing = (scope['path'] == '/' and scope['method'] == 'GET'
+                   and headers.get(b'sec-fetch-mode') == b'navigate'
+                   and headers.get(b'sec-fetch-dest') == b'document')
+        if host not in valid or (site == 'cross-site'
+                                 and scope['path'] != '/auth/callback' and not landing):
             return await Response('Forbidden', status_code=403)(scope, receive, send)
 
         async def secure_send(message):

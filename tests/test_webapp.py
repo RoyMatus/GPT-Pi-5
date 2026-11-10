@@ -131,6 +131,34 @@ class WebTests(unittest.TestCase):
         self.assertIn('invalid_login', result.headers['location'])
         self.assertEqual([], self.cloud.calls)
 
+    def test_oauth_redirect_landing_accepts_cross_site_document_navigation(self):
+        result = self.post('/api/auth/start').json()
+        params = parse_qs(urlparse(result['url']).query)
+        # Redirect chains keep the initiating cross-site Fetch Metadata value.
+        headers = {'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate',
+                   'Sec-Fetch-Dest': 'document'}
+        response = self.client.get('/auth/callback', params={
+            'code': 'synthetic-A', 'state': params['state'][0],
+            'client_id': 'oaiapp_synthetic'}, headers=headers)
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('/?connected=1', response.request.url.raw_path.decode())
+        self.assertIn('GPT-Pi 5', response.text)
+        self.assertTrue(self.client.get('/api/session').json()['authenticated'])
+
+    def test_cross_site_landing_exception_does_not_allow_api_frames_or_posts(self):
+        document = {'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate',
+                    'Sec-Fetch-Dest': 'document'}
+        for path in ('/api/session', '/api/chats', '/api/models'):
+            with self.subTest(path=path):
+                self.assertEqual(403, self.client.get(path, headers=document).status_code)
+        for headers in ({'Sec-Fetch-Site': 'cross-site'},
+                        {**document, 'Sec-Fetch-Mode': 'cors'},
+                        {**document, 'Sec-Fetch-Dest': 'iframe'},
+                        {**document, 'Host': 'evil.invalid'}):
+            with self.subTest(headers=headers):
+                self.assertEqual(403, self.client.get('/', headers=headers).status_code)
+        self.assertEqual(403, self.client.post('/', headers=document).status_code)
+
     def test_login_rotates_session_and_callback_is_single_use(self):
         old_cookie = self.client.cookies.get(COOKIE)
         params = self.login()

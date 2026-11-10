@@ -26,8 +26,9 @@ developed with ChatGPT; not an official OpenAI or Raspberry Pi device.
   The maximized window supports the desktop's squeekboard on-screen keyboard.
 
 Authentication and responses are covered by offline tests with a fake cloud transport.
-A completed sign-in and real OpenAI response for a particular account still require
-owner verification; an implemented button does not establish account/region eligibility.
+On 2026-11-10, the owner's real sign-in, model discovery and an OpenAI response using
+the connected ChatGPT plan were verified on Pi. This confirms one account and its
+current connection, not eligibility for other accounts or regions.
 Voice, persistent chats, memory, files and separate protected local profiles are not
 implemented. App sign-out does not sign out the ordinary OpenAI browser session;
 our kiosk launcher uses a separate private window.
