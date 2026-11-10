@@ -1,6 +1,40 @@
 # OpenAI: факты, ограничения и решения
 
-Проверка официальной документации: 2026-10-14. Повторить перед реализацией.
+Проверка официальной документации: 2026-11-10.
+
+## Реализация личного прототипа v0.2
+
+Используется документированный поток для локальных личных проектов:
+dynamic_agent_client для первоначальной регистрации, стабильный ext_agent_host_id,
+loopback callback, state/nonce/PKCE, выданный client_id для code exchange.
+Authlib и PyJWT/cryptography проверяют OAuth и подпись/claims. Только выданный
+scope chatgpt.tokens.use.direct разрешает inference. Каталог /v1/models читается
+как models с visibility=list; slug передаётся в /v1/responses. Каждый запрос
+store=false, stream=true; успех — только response.completed.
+
+Секреты только в памяти backend. Клиентская часть получает безопасный статус,
+модели и текст. Refresh сериализован, выход отменяет задачи и пытается отозвать
+renewable session через revocation_endpoint официального discovery. Неподтверждённый
+отзыв отображается пользователю. Нет обхода через cookies, backend-api или API-key.
+
+Контракт покрыт автономными тестами. Реальный вход владельца и inference не были
+выполнены; автоматическая проверка страницы авторизации встретила защитную страницу
+OpenAI. Она не доказывает ни отказ аккаунту, ни возможность входа вручную.
+
+Согласно текущему Cookbook, локальные личные проекты допускаются отдельно от OSS.
+Выбор лицензии остаётся открытым, но не объявляется техническим блокером личного
+локального прототипа. Платные/удалённо размещённые приложения требуют отдельного доступа.
+
+Для подходящих Pro/Business документированы включённые API-кредиты, в том числе
+для голоса. Они требуют активации в конкретном аккаунте и не реализованы как
+способ оплаты в этом прототипе. Наличие Pro само по себе не подтверждает активацию.
+
+Источники обновления:
+- https://developers.openai.com/cookbook/articles/sign-in-with-chatgpt
+- https://developers.openai.com/siwc/token-sharing-open-source/models-and-inference
+- https://developers.openai.com/api/docs/guides/chatgpt-api-credits
+- https://developers.openai.com/api/docs/supported-countries
+- https://fluent2.microsoft.design/get-started/develop
 
 ## Подтверждённые факты
 

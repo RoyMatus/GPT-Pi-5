@@ -28,3 +28,5 @@ credentials/
 .vscode/
 .DS_Store
 Thumbs.db
+node_modules/
+src/gpt_pi/web/assets/
