@@ -74,10 +74,10 @@ for attempt in $(seq 1 40); do
     if curl --fail --silent http://127.0.0.1:8765/health >/dev/null; then break; fi
     sleep .5
 done
-if command -v squeekboard >/dev/null && ! pgrep -u "$(id -u)" -x squeekboard >/dev/null; then
-    squeekboard >/dev/null 2>&1 &
-fi
-exec chromium --kiosk --incognito --no-first-run --no-default-browser-check --ozone-platform=wayland --enable-wayland-ime --user-data-dir="$HOME/.local/share/gpt-pi-browser" http://127.0.0.1:8765
+# The desktop owns squeekboard startup. A second instance can claim the input
+# method before losing the D-Bus name, leaving the surviving instance unusable.
+# Fullscreen windows cover squeekboard's top layer on labwc; use a maximized app.
+exec chromium --start-maximized --app=http://127.0.0.1:8765 --incognito --no-first-run --no-default-browser-check --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --user-data-dir="$HOME/.local/share/gpt-pi-browser"
 EOF
 chmod 700 "$HOME/.local/bin/gpt-pi-kiosk"
 cat > "$HOME/.config/autostart/gpt-pi.desktop" <<EOF

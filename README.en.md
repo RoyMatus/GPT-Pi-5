@@ -22,7 +22,8 @@ developed with ChatGPT; not an official OpenAI or Raspberry Pi device.
 - Loopback-only server with Host, Origin and CSRF checks. Access logging is disabled.
   Disk storage contains only host/client registrations and hashed account identifiers
   used to validate returning sign-ins.
-- A user-service and Wayland kiosk installer for Pi, without sudo.
+- A user-service and Wayland app-window installer for Pi, without sudo.
+  The maximized window supports the desktop's squeekboard on-screen keyboard.
 
 Authentication and responses are covered by offline tests with a fake cloud transport.
 A completed sign-in and real OpenAI response for a particular account still require
