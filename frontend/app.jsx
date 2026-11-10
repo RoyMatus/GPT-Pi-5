@@ -41,6 +41,7 @@ import {
     Speaker224Regular,
 } from "@fluentui/react-icons";
 import { Microphone } from "./voice.js";
+import { AudioCheck } from "./audio-check.jsx";
 import "./style.css";
 
 const errors = {
@@ -97,6 +98,9 @@ function App() {
     const [busy, setBusy] = useState(false);
     const [signingIn, setSigningIn] = useState(false);
     const [settingsOpen, setSettingsOpen] = useState(false);
+    const [audioCheckOpen, setAudioCheckOpen] = useState(false);
+    const audioCheckRef = useRef(false);
+    audioCheckRef.current = audioCheckOpen;
     const [registration, setRegistration] = useState("");
     const [notice, setNotice] = useState("");
     const [loading, setLoading] = useState(true);
@@ -119,6 +123,7 @@ function App() {
 
     function clearPrivate() {
         epoch.current++;
+        setAudioCheckOpen(false);
         cancelVoice();
         setAutoSpeak(false);
         abort.current?.abort();
@@ -475,7 +480,7 @@ function App() {
     async function playSpeech(text) {
         const current = epoch.current;
         await cancelVoice();
-        if (document.hidden || current !== epoch.current || !sessionRef.current?.authenticated) return;
+        if (document.hidden || audioCheckRef.current || current !== epoch.current || !sessionRef.current?.authenticated) return;
         if (text.length > 2500) { setNotice(explain("speech_text_limit")); return; }
         const mark = voiceEpoch.current;
         const controller = new AbortController();
@@ -498,6 +503,12 @@ function App() {
                 if (error.name !== "AbortError") setNotice(explain(error.message));
             }
         }
+    }
+
+    function openAudioCheck() {
+        audioCheckRef.current = true;
+        cancelVoice();
+        setAudioCheckOpen(true);
     }
 
     const prompts = [
@@ -760,6 +771,7 @@ function App() {
                                 <LockClosed24Regular />
                                 Пароль остаётся у OpenAI
                             </div>
+                            <Button icon={<Mic24Regular />} size="large" onClick={openAudioCheck}>Проверить звук</Button>
                         </section>
                     ) : !messages.length ? (
                         <section className="chat-welcome">
@@ -857,6 +869,9 @@ function App() {
                 {authenticated && (
                     <div className="composer-area">
                         <form className="composer" onSubmit={send}>
+                            <div className="audio-check-launcher">
+                                <Button type="button" appearance="subtle" icon={<Speaker224Regular />} onClick={openAudioCheck}>Проверить звук</Button>
+                            </div>
                             {voiceAvailable && (
                                 <div className="voice-controls">
                                     <Button type="button" appearance={voiceState === "recording" ? "primary" : "secondary"}
@@ -927,10 +942,12 @@ function App() {
                 )}
                 <footer className="footer">
                     <span>Создано для твоего Raspberry Pi</span>
-                    <span>{voiceState === "recording" ? "● Идёт запись"
+                    <span>{audioCheckOpen ? "Проверка звука" : voiceState === "recording" ? "● Идёт запись"
                         : voiceState === "permission" ? "Подключаю микрофон…" : "Микрофон выключен"}</span>
                 </footer>
             </main>
+
+            {audioCheckOpen && <AudioCheck onClose={() => setAudioCheckOpen(false)} />}
 
             <Dialog
                 open={settingsOpen}

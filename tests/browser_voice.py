@@ -19,9 +19,55 @@ def check(origin):
     with sync_playwright() as p:
         browser = p.chromium.launch(args=['--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream'])
         page = browser.new_page(viewport={'width': 720, 'height': 1280})
+        page.add_init_script("""window.testTracks = [];
+            if (navigator.mediaDevices) {
+            navigator.mediaDevices.enumerateDevices = async () => { throw new Error('Camera enumeration is forbidden'); };
+            const getMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+            navigator.mediaDevices.getUserMedia = async options => {
+                const stream = await getMedia(options);
+                window.testTracks.push(...stream.getTracks()); return stream;
+            }; }""")
         errors = []
         page.on('pageerror', lambda error: errors.append(str(error)))
+        page.route('**/api/audio/devices', lambda route: route.fulfill(json={'microphone': True, 'speaker': True}))
         page.goto(origin)
+        # Device checks must work before ChatGPT sign-in and stay local.
+        device_requests = []
+        page.on('request', lambda request: device_requests.append(request.url) if '/api/voice/' in request.url else None)
+        page.get_by_role('button', name='Проверить звук', exact=True).click(timeout=2500)
+        panel = page.get_by_role('dialog', name='Микрофон и динамик')
+        panel.get_by_role('button', name='Проверить микрофон', exact=True).click()
+        panel.get_by_text('Идёт запись · 5 секунд', exact=True).wait_for()
+        panel.get_by_role('button', name='Прослушать запись', exact=True).wait_for()
+        panel.get_by_role('button', name='Прослушать запись', exact=True).click()
+        panel.get_by_text('Воспроизвожу запись…', exact=True).wait_for()
+        panel.get_by_role('button', name='Остановить проверку', exact=True).click()
+        panel.get_by_role('button', name='Проверить динамик', exact=True).click()
+        panel.get_by_text('Воспроизвожу тестовый сигнал…', exact=True).wait_for()
+        panel.get_by_role('button', name='Закрыть проверку', exact=True).click()
+        page.get_by_role('button', name='Проверить звук', exact=True).click()
+        panel.get_by_role('button', name='Проверить микрофон', exact=True).click()
+        panel.get_by_text('Идёт запись · 5 секунд', exact=True).wait_for()
+        page.evaluate("Object.defineProperty(document, 'hidden', {configurable:true, get:()=>true}); document.dispatchEvent(new Event('visibilitychange'))")
+        panel.get_by_text('Проверка остановлена, запись удалена.', exact=True).wait_for()
+        assert page.evaluate("testTracks.every(track => track.readyState === 'ended')")
+        assert panel.get_by_role('button', name='Прослушать запись', exact=True).count() == 0
+        page.evaluate("delete document.hidden")
+        panel.get_by_role('button', name='Проверить микрофон', exact=True).click()
+        panel.get_by_text('Идёт запись · 5 секунд', exact=True).wait_for()
+        panel.get_by_role('button', name='Закрыть проверку', exact=True).click()
+        assert page.evaluate("testTracks.every(track => track.readyState === 'ended')")
+        assert not device_requests, 'guest device checks must not send audio to the backend'
+        absent = browser.new_page(viewport={'width': 720, 'height': 1280})
+        absent.route('**/api/audio/devices', lambda route: route.fulfill(json={'microphone': False, 'speaker': False}))
+        absent.add_init_script("navigator.mediaDevices.getUserMedia = async () => { throw new DOMException('No device', 'NotFoundError'); };")
+        absent.goto(origin)
+        absent.get_by_role('button', name='Проверить звук', exact=True).click()
+        absent.get_by_role('button', name='Проверить микрофон', exact=True).click()
+        absent.get_by_text('Микрофон не найден системой.', exact=True).wait_for()
+        absent.get_by_role('button', name='Проверить динамик', exact=True).click()
+        absent.get_by_text('Динамик не найден системой. Тестовый сигнал не запущен.', exact=True).wait_for()
+        absent.close()
         captured = []
         def auth(route):
             captured.append(parse_qs(urlparse(route.request.url).query))
@@ -55,7 +101,7 @@ def check(origin):
         assert page.get_by_text('Микрофон выключен', exact=True).count() == 1
         assert not errors, errors
         browser.close()
-    print('PASS: microphone, local transcription, text review, reply playback, logout stops recording; no browser errors')
+    print('PASS: guest audio checks, no microphone error, close/hide cleanup, local voice chat; no browser errors')
 
 if __name__ == '__main__':
     with tempfile.TemporaryDirectory() as directory, socket.socket() as listener:

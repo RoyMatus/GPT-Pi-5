@@ -23,6 +23,17 @@ export function pcmWave(chunks, sampleRate) {
     return new Blob([buffer], { type: "audio/wav" });
 }
 
+export function testSignal() {
+    const samples = new Float32Array(16000);
+    for (let i = 0; i < samples.length; i++) {
+        const t = i / 16000;
+        const within = t % .5;
+        const envelope = Math.max(0, Math.min(1, within / .02, (.35 - within) / .03));
+        samples[i] = .16 * envelope * Math.sin(2 * Math.PI * (t < .5 ? 520 : 660) * t);
+    }
+    return pcmWave([samples], 16000);
+}
+
 export class Microphone {
     constructor({ mediaDevices = navigator.mediaDevices, Context = AudioContext } = {}) {
         this.mediaDevices = mediaDevices;
@@ -30,9 +41,11 @@ export class Microphone {
         this.generation = 0;
         this.chunks = [];
     }
-    async start(onLimit, onEnded) {
+    async start(onLimit, onEnded, { onLevel, duration = 30000 } = {}) {
         this.cancel();
         const generation = this.generation;
+        // Resolve the current system microphone on every start; never pin a USB
+        // device ID or enumerate video devices (which can trigger camera portals).
         const stream = await this.mediaDevices.getUserMedia({
             audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true }, video: false,
         });
@@ -49,10 +62,16 @@ export class Microphone {
             this.rate = context.sampleRate;
             this.node = new AudioWorkletNode(context, "gpt-pi-recorder");
             let frames = 0;
+            let lastLevel = 0;
             this.node.port.onmessage = ({ data }) => {
                 if (generation !== this.generation) return;
                 frames += data.length;
                 if (frames <= this.rate * 30) this.chunks.push(data);
+                if (onLevel && performance.now() - lastLevel > 100) {
+                    lastLevel = performance.now();
+                    const power = data.reduce((sum, value) => sum + value * value, 0) / data.length;
+                    onLevel(Math.min(1, Math.sqrt(power) * 5));
+                }
             };
             this.source = context.createMediaStreamSource(stream);
             this.source.connect(this.node);
@@ -60,7 +79,7 @@ export class Microphone {
             this.node.connect(context.destination);
             await context.resume();
             if (generation !== this.generation) return false;
-            this.timer = setTimeout(onLimit, 30000);
+            this.timer = setTimeout(onLimit, Math.min(30000, Math.max(1000, duration)));
             stream.getAudioTracks().forEach(track => { track.onended = onEnded; });
             return true;
         } catch (error) {

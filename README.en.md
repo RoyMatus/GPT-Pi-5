@@ -28,6 +28,10 @@ developed with ChatGPT; not an official OpenAI or Raspberry Pi device.
   Vosk transcription, editable text before sending, and Piper speech output.
   Audio is never stored or uploaded to the cloud. Cancel, sign-out and leaving
   the page stop recording/playback. Replies up to 2500 characters can be read aloud.
+- “Проверить звук” is available before sign-in and in chat: five-second recording
+  with a level meter, recording playback and a speaker signal. Checks stay local,
+  never enumerate cameras or pin a USB port. On Pi, missing audio output is
+  distinguished from virtual Dummy Output.
 
 Authentication and responses are covered by offline tests with a fake cloud transport.
 On 2026-11-10, the owner's real sign-in, model discovery and an OpenAI response using

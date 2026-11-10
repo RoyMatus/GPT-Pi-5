@@ -117,6 +117,13 @@ class VoiceHTTPTests(unittest.TestCase):
         self.assertIn('microphone=(self)', response.headers['permissions-policy'])
         self.assertIn("media-src 'self' blob:", response.headers['content-security-policy'])
 
+    def test_audio_device_status_is_available_before_cloud_login(self):
+        response = self.client.get('/api/audio/devices')
+        self.assertEqual(200, response.status_code)
+        self.assertEqual({'microphone', 'speaker'}, set(response.json()))
+        self.assertEqual(403, self.client.get('/api/audio/devices', headers={
+            'Sec-Fetch-Site': 'cross-site'}).status_code)
+
     def test_cancel_and_text_limits_do_not_send_audio_or_call_cloud(self):
         self.login()
         for text in ('', 'x' * 2501, 123):

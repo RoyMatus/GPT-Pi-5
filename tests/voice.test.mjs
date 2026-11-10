@@ -24,3 +24,23 @@ test("permission arriving after cancel cannot open the microphone", async () => 
     assert.equal(await pending, false);
     assert.equal(stopped, 1);
 });
+
+test("each recording resolves system audio without enumerating cameras or pinning USB IDs", async () => {
+    const requested = [];
+    const mediaDevices = {
+        enumerateDevices: async () => { throw new Error('must not enumerate cameras'); },
+        getUserMedia: async options => {
+            requested.push(options);
+            throw new DOMException('Test has no physical microphone', 'NotFoundError');
+        },
+    };
+    const microphone = new Microphone({ mediaDevices, Context: class {} });
+    for (let i = 0; i < 2; i++) {
+        await assert.rejects(microphone.start(() => {}, () => {}), { name: 'NotFoundError' });
+    }
+    assert.equal(requested.length, 2);
+    for (const options of requested) {
+        assert.equal(options.video, false);
+        assert.equal(options.audio.deviceId, undefined);
+    }
+});

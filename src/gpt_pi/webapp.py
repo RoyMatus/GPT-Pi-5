@@ -21,6 +21,7 @@ from . import __version__
 from .cloud import ChatGPT, CloudError
 from .config import Settings
 from .voice import LocalVoice, VoiceError, MAX_AUDIO, MAX_SPEECH_TEXT, validate_audio
+from .audio_devices import AudioDevices
 
 COOKIE = 'gpt_pi_session'
 
@@ -49,6 +50,7 @@ class Runtime:
     def __init__(self, settings, cloud):
         self.settings, self.cloud = settings, cloud
         self.voice = LocalVoice(settings.data_dir)
+        self.audio_devices = AudioDevices()
         self.sessions = {}
         self.background = set()
         self.path = Path(settings.data_dir) / 'registration.json'
@@ -206,6 +208,9 @@ def create_app(settings=None, cloud=None):
         return JSONResponse({'text_chat': settings.provider == 'chatgpt', 'chatgpt_sign_in': settings.provider == 'chatgpt',
                              'voice': runtime.voice.available(), 'voice_mode': 'local',
                              'image_generation': False, 'private_profiles': False})
+
+    async def audio_devices(request):
+        return JSONResponse(await runtime.audio_devices.status())
 
     async def session_info(request):
         try:
@@ -430,6 +435,7 @@ def create_app(settings=None, cloud=None):
 
     app = Starlette(lifespan=lifespan, routes=[
         Route('/', home), Route('/assets/{name}', asset), Route('/health', health),
+        Route('/api/audio/devices', audio_devices),
         Route('/api/capabilities', capabilities), Route('/api/session', session_info),
         Route('/api/auth/start', auth_start, methods=['POST']), Route('/auth/callback', callback),
         Route('/api/logout', logout, methods=['POST']), Route('/api/models', models),
