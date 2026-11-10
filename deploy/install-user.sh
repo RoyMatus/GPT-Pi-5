@@ -74,8 +74,12 @@ for attempt in $(seq 1 40); do
     if curl --fail --silent http://127.0.0.1:8765/health >/dev/null; then break; fi
     sleep .5
 done
-# The desktop owns squeekboard startup. A second instance can claim the input
-# method before losing the D-Bus name, leaving the surviving instance unusable.
+# Enable automatic activation in the desktop user's settings on every launch.
+# A running squeekboard alone does not mean automatic activation is enabled.
+if command -v gsettings >/dev/null && gsettings list-schemas | grep -qx org.gnome.desktop.a11y.applications; then
+    gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
+fi
+# The desktop owns squeekboard startup; do not race it with a second instance.
 # Fullscreen windows cover squeekboard's top layer on labwc; use a maximized app.
 exec chromium --start-maximized --app=http://127.0.0.1:8765 --incognito --no-first-run --no-default-browser-check --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --user-data-dir="$HOME/.local/share/gpt-pi-browser"
 EOF
