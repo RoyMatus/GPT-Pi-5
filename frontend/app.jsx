@@ -475,7 +475,7 @@ function App() {
     async function playSpeech(text) {
         const current = epoch.current;
         await cancelVoice();
-        if (current !== epoch.current || !sessionRef.current?.authenticated) return;
+        if (document.hidden || current !== epoch.current || !sessionRef.current?.authenticated) return;
         if (text.length > 2500) { setNotice(explain("speech_text_limit")); return; }
         const mark = voiceEpoch.current;
         const controller = new AbortController();
