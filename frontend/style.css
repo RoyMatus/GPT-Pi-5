@@ -751,3 +751,13 @@ body {
     transition: none !important;
   }
 }
+.voice-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px 0;
+}
+.voice-controls button { min-height: 44px; }
+.voice-controls > span { font-size: 11px; }
+.recording-label { color: #c4314b; font-weight: 600; }

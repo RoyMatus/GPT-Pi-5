@@ -20,6 +20,7 @@ from starlette.routing import Route
 from . import __version__
 from .cloud import ChatGPT, CloudError
 from .config import Settings
+from .voice import LocalVoice, VoiceError, MAX_AUDIO, MAX_SPEECH_TEXT, validate_audio
 
 COOKIE = 'gpt_pi_session'
 
@@ -47,6 +48,7 @@ class Session:
 class Runtime:
     def __init__(self, settings, cloud):
         self.settings, self.cloud = settings, cloud
+        self.voice = LocalVoice(settings.data_dir)
         self.sessions = {}
         self.background = set()
         self.path = Path(settings.data_dir) / 'registration.json'
@@ -154,9 +156,9 @@ class LocalBoundary:
             if message['type'] == 'http.response.start':
                 message['headers'] += [(b'cache-control', b'no-store'), (b'x-content-type-options', b'nosniff'),
                     (b'x-frame-options', b'DENY'), (b'referrer-policy', b'no-referrer'),
-                    (b'permissions-policy', b'microphone=(), camera=()'),
+                    (b'permissions-policy', b'microphone=(self), camera=()'),
                     (b'content-security-policy', b"default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; "
-                     b"img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'")]
+                     b"img-src 'self' data:; connect-src 'self'; media-src 'self' blob:; worker-src 'self'; font-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'")]
             await send(message)
         await self.app(scope, receive, secure_send)
 
@@ -189,7 +191,7 @@ def create_app(settings=None, cloud=None):
 
     async def asset(request):
         name = request.path_params['name']
-        if name not in {'app.js', 'app.css', 'app.js.LEGAL.txt'}:
+        if name not in {'app.js', 'app.css', 'app.js.LEGAL.txt', 'recorder-worklet.js'}:
             raise HTTPException(404)
         path = files('gpt_pi').joinpath('web/assets/' + name)
         if not path.is_file():
@@ -202,7 +204,8 @@ def create_app(settings=None, cloud=None):
 
     async def capabilities(request):
         return JSONResponse({'text_chat': settings.provider == 'chatgpt', 'chatgpt_sign_in': settings.provider == 'chatgpt',
-                             'voice': False, 'image_generation': False, 'private_profiles': False})
+                             'voice': runtime.voice.available(), 'voice_mode': 'local',
+                             'image_generation': False, 'private_profiles': False})
 
     async def session_info(request):
         try:
@@ -311,6 +314,47 @@ def create_app(settings=None, cloud=None):
             task.cancel()
         return JSONResponse({'cancelled': True})
 
+    async def voice_request(request):
+        _, session = runtime.mutation(request, True)
+        if session.tasks:
+            raise HTTPException(409, 'busy')
+
+        async def work():
+            async with asyncio.timeout(100):
+                if request.url.path.endswith('/transcribe'):
+                    if request.headers.get('content-type', '').split(';')[0] != 'audio/wav':
+                        raise HTTPException(415, 'wav_required')
+                    data = bytearray()
+                    async for chunk in request.stream():
+                        if len(data) + len(chunk) > MAX_AUDIO:
+                            raise HTTPException(413, 'too_large')
+                        data.extend(chunk)
+                    validate_audio(data)
+                    text = await runtime.voice.transcribe(bytes(data))
+                    return JSONResponse({'text': text})
+                data = await body(request)
+                text = data.get('text')
+                if not isinstance(text, str) or not 1 <= len(text.strip()) <= MAX_SPEECH_TEXT:
+                    raise HTTPException(400, 'speech_text_limit')
+                audio = await runtime.voice.speak(text.strip())
+                return Response(audio, media_type='audio/wav')
+
+        task = asyncio.create_task(work())
+        session.tasks.add(task)
+        try:
+            response = await task
+            if not session.alive:
+                raise HTTPException(401, 'session_expired')
+            return response
+        except asyncio.CancelledError:
+            raise HTTPException(409 if session.alive else 401,
+                                'cancelled' if session.alive else 'session_expired') from None
+        except TimeoutError:
+            raise VoiceError('voice_timeout', 504) from None
+        finally:
+            task.cancel()
+            session.tasks.discard(task)
+
     async def message(request):
         _, session = runtime.mutation(request, True)
         data = await body(request)
@@ -381,8 +425,8 @@ def create_app(settings=None, cloud=None):
         return StreamingResponse(output(), media_type='text/event-stream', headers={'X-Accel-Buffering': 'no'})
 
     async def errors(request, exc):
-        return JSONResponse({'error': exc.code if isinstance(exc, CloudError) else str(exc.detail)},
-                            status_code=exc.status if isinstance(exc, CloudError) else exc.status_code)
+        return JSONResponse({'error': exc.code if isinstance(exc, (CloudError, VoiceError)) else str(exc.detail)},
+                            status_code=exc.status if isinstance(exc, (CloudError, VoiceError)) else exc.status_code)
 
     app = Starlette(lifespan=lifespan, routes=[
         Route('/', home), Route('/assets/{name}', asset), Route('/health', health),
@@ -391,8 +435,10 @@ def create_app(settings=None, cloud=None):
         Route('/api/logout', logout, methods=['POST']), Route('/api/models', models),
         Route('/api/chats', chats, methods=['GET', 'POST']), Route('/api/chats/{chat_id}', chat),
         Route('/api/chats/{chat_id}/messages', message, methods=['POST']),
+        Route('/api/voice/transcribe', voice_request, methods=['POST']),
+        Route('/api/voice/speak', voice_request, methods=['POST']),
         Route('/api/cancel', cancel, methods=['POST'])],
-        exception_handlers={HTTPException: errors, CloudError: errors})
+        exception_handlers={HTTPException: errors, CloudError: errors, VoiceError: errors})
     app.state.runtime = runtime
     app.add_middleware(LocalBoundary, settings=settings)
     return app

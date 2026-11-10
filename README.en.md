@@ -2,11 +2,11 @@
 
 [Русский](README.md) | **English**
 
-A desktop Raspberry Pi 5 assistant with a touchscreen and planned voice support.
+A desktop Raspberry Pi 5 assistant with a touchscreen and local speech input.
 An independent project by Roy Matus ([RoyMatus](https://github.com/RoyMatus)),
 developed with ChatGPT; not an official OpenAI or Raspberry Pi device.
 
-**Status: personal text prototype v0.2, not a finished multi-user voice assistant.**
+**Status: personal prototype v0.2. Physical microphone/speaker acceptance is not complete.**
 
 ## Included in the prototype
 
@@ -20,16 +20,20 @@ developed with ChatGPT; not an official OpenAI or Raspberry Pi device.
 - Chats and tokens exist only in server-session memory. Restart/sign-out clears them;
   idle sessions expire after 30 minutes. HTTP access is scoped to the current session.
 - Loopback-only server with Host, Origin and CSRF checks. Access logging is disabled.
-  Disk storage contains only host/client registrations and hashed account identifiers
+  Personal disk storage contains only host/client registrations and hashed account identifiers
   used to validate returning sign-ins.
 - A user-service and Wayland app-window installer for Pi, without sudo.
   The maximized window supports the desktop's squeekboard on-screen keyboard.
+- Optional local Russian speech: button-controlled recording up to 30 seconds,
+  Vosk transcription, editable text before sending, and Piper speech output.
+  Audio is never stored or uploaded to the cloud. Cancel, sign-out and leaving
+  the page stop recording/playback. Replies up to 2500 characters can be read aloud.
 
 Authentication and responses are covered by offline tests with a fake cloud transport.
 On 2026-11-10, the owner's real sign-in, model discovery and an OpenAI response using
 the connected ChatGPT plan were verified on Pi. This confirms one account and its
 current connection, not eligibility for other accounts or regions.
-Voice, persistent chats, memory, files and separate protected local profiles are not
+Persistent chats, memory, files and separate protected local profiles are not
 implemented. App sign-out does not sign out the ordinary OpenAI browser session;
 our kiosk launcher uses a separate private window.
 
@@ -67,12 +71,23 @@ Settings: `GPT_PI_PORT`, `GPT_PI_PROVIDER=chatgpt|offline`, `GPT_PI_DATA_DIR`.
 Registration metadata defaults to the user's application-data directory.
 `.env` is not automatically loaded. API keys are not accepted.
 
+For local voice on Linux/Pi, run `python3 tools/install_voice.py` as the app user,
+then reload the page. It downloads SHA-256-verified Russian models and creates a
+separate environment in data-dir/voice; no sudo or extra cloud API is required.
+If `GPT_PI_DATA_DIR` is set, pass the same directory through `--data-dir`.
+Press “Говорить”, allow microphone access, speak, then press “Закончить запись”.
+Review the transcription and send it with the arrow. Voice input enables spoken
+replies; disable them in Settings. This is a turn-based local voice interface,
+not ChatGPT's built-in Voice Mode. Synthetic speech has been checked on Pi;
+real capture and audible playback still need hardware acceptance.
+
 ## Checks and packaging
 
 Inside the activated venv:
 
 ```sh
 python -m unittest discover -s tests -v
+node --test tests/voice.test.mjs
 python -m pip wheel . --no-deps -w dist
 ```
 

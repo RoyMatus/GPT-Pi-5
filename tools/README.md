@@ -53,6 +53,11 @@ HTTP redirects запрещены, сообщения ошибок не вклю
 
 ## Диагностика среды
 
+Необязательный локальный голос на Linux/Pi: `python3 tools/install_voice.py`.
+Это установщик, а не диагностика: он скачивает модели с проверкой SHA-256 и создаёт
+отдельный venv Vosk/Piper в каталоге данных пользователя. Не запускается в CI.
+Настройка и ограничения — в [deploy/README.md](../deploy/README.md).
+
 ```sh
 python tools/execution_profile.py
 python tools/execution_profile.py --device

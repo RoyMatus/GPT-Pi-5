@@ -37,7 +37,10 @@ import {
     Edit24Regular,
     BookOpen24Regular,
     Dismiss24Regular,
+    Mic24Regular,
+    Speaker224Regular,
 } from "@fluentui/react-icons";
+import { Microphone } from "./voice.js";
 import "./style.css";
 
 const errors = {
@@ -67,6 +70,15 @@ const errors = {
     invalid_message: "Введи сообщение длиной до 8000 символов.",
     offline_mode:
         "Приложение запущено в автономном режиме. Вход сейчас отключён.",
+    voice_unavailable: "Локальный голос ещё не установлен на устройстве.",
+    voice_failed: "Не удалось обработать речь. Попробуй короткую фразу.",
+    voice_timeout: "Обработка речи заняла слишком долго. Попробуй более короткую фразу.",
+    speech_not_heard: "Не удалось разобрать речь. Поднеси микрофон ближе и попробуй снова.",
+    invalid_audio: "Запиши фразу длительностью от секунды до 30 секунд.",
+    speech_text_limit: "Пока можно озвучить ответ длиной до 2500 символов.",
+    NotFoundError: "Микрофон не найден. Подключи USB-микрофон или гарнитуру и повтори.",
+    NotAllowedError: "Разреши доступ к микрофону в браузере и повтори.",
+    NotReadableError: "Микрофон занят или отключён. Проверь подключение.",
 };
 const explain = (code) =>
     errors[code] || "Не удалось выполнить действие. Попробуй ещё раз.";
@@ -93,10 +105,22 @@ function App() {
     const bottom = useRef(null);
     const sessionRef = useRef(null);
     const input = useRef(null);
+    const [voiceAvailable, setVoiceAvailable] = useState(false);
+    const [voiceState, setVoiceStateValue] = useState("idle");
+    const [autoSpeak, setAutoSpeak] = useState(false);
+    const autoSpeakRef = useRef(false);
+    autoSpeakRef.current = autoSpeak;
+    const microphone = useRef(null);
+    const voiceEpoch = useRef(0);
+    const voiceAbort = useRef(null);
+    const voiceStateRef = useRef("idle");
+    const playback = useRef(null);
     const authenticated = !!session?.authenticated;
 
     function clearPrivate() {
         epoch.current++;
+        cancelVoice();
+        setAutoSpeak(false);
         abort.current?.abort();
         setChats([]);
         setChatId(null);
@@ -137,6 +161,8 @@ function App() {
             sessionRef.current = fresh;
             setSession(fresh);
             setRegistration(fresh.registrations?.[0]?.id || "");
+            const capabilities = await (await api("/api/capabilities")).json();
+            setVoiceAvailable(!!capabilities.voice);
             if (fresh.authenticated) {
                 const mark = epoch.current;
                 if (!fresh.account.sharing) {
@@ -182,9 +208,16 @@ function App() {
                 /* Polling must not turn a transient outage into a new identity. */
             }
         }, 10000);
+        const hideVoice = () => { if (document.hidden) cancelVoice(); };
+        const leave = () => cancelVoice();
+        document.addEventListener("visibilitychange", hideVoice);
+        window.addEventListener("pagehide", leave);
         return () => {
             clearInterval(timer);
             abort.current?.abort();
+            cancelVoice();
+            document.removeEventListener("visibilitychange", hideVoice);
+            window.removeEventListener("pagehide", leave);
         };
     }, []);
     useEffect(() => {
@@ -243,6 +276,7 @@ function App() {
 
     async function openChat(id) {
         const mark = ++epoch.current;
+        cancelVoice();
         setNotice("");
         try {
             const chat = await (await api("/api/chats/" + id)).json();
@@ -258,6 +292,7 @@ function App() {
     function newChat() {
         if (busy) return;
         epoch.current++;
+        cancelVoice();
         setChatId(null);
         setMessages([]);
         setDraft("");
@@ -268,6 +303,7 @@ function App() {
     async function send(event) {
         event?.preventDefault();
         if (!draft.trim() || busy || !model || !authenticated) return;
+        if (voiceStateRef.current !== "idle") return;
         const text = draft.trim();
         const mark = ++epoch.current;
         const controller = new AbortController();
@@ -332,7 +368,12 @@ function App() {
                         const chat = await (
                             await api("/api/chats/" + id)
                         ).json();
-                        if (mark === epoch.current) setMessages(chat.messages);
+                        if (mark === epoch.current) {
+                            setMessages(chat.messages);
+                            const answer = chat.messages.at(-1);
+                            if (autoSpeakRef.current && answer?.role === "assistant" && !answer.incomplete)
+                                playSpeech(answer.content);
+                        }
                     } catch {
                         /* Keep visible error and partial response. */
                     }
@@ -346,6 +387,116 @@ function App() {
             await api("/api/cancel", {});
         } catch {
             abort.current?.abort();
+        }
+    }
+
+    function setVoiceState(value) {
+        voiceStateRef.current = value;
+        setVoiceStateValue(value);
+    }
+
+    function cancelVoice() {
+        voiceEpoch.current++;
+        microphone.current?.cancel();
+        voiceAbort.current?.abort();
+        const audio = playback.current;
+        if (audio) {
+            audio.onended = audio.onerror = null;
+            audio.pause();
+            URL.revokeObjectURL(audio.src);
+            audio.removeAttribute("src");
+            audio.load();
+            playback.current = null;
+        }
+        const active = ["transcribing", "preparing"].includes(voiceStateRef.current);
+        setVoiceState("idle");
+        if (active && sessionRef.current?.authenticated)
+            return api("/api/cancel", {}).catch(() => {});
+        return Promise.resolve();
+    }
+
+    async function voiceFetch(path, payload, type, controller) {
+        const response = await fetch(path, { method: "POST", credentials: "same-origin",
+            signal: controller.signal, headers: { "Content-Type": type,
+                "X-CSRF-Token": sessionRef.current?.csrf || "" }, body: payload });
+        if (!response.ok) {
+            const data = await response.json().catch(() => ({}));
+            if (response.status === 401) {
+                clearPrivate(); sessionRef.current = null; setSession(null);
+            }
+            throw new Error(data.error || "voice_failed");
+        }
+        return response;
+    }
+
+    async function finishRecording() {
+        if (voiceStateRef.current !== "recording") return;
+        const mark = voiceEpoch.current;
+        const audio = microphone.current.finish();
+        const controller = new AbortController();
+        voiceAbort.current = controller;
+        setVoiceState("transcribing");
+        try {
+            const result = await (await voiceFetch("/api/voice/transcribe", audio, "audio/wav", controller)).json();
+            if (mark !== voiceEpoch.current) return;
+            setDraft(result.text);
+            setNotice("Проверь распознанный текст и нажми стрелку, чтобы отправить.");
+        } catch (error) {
+            if (mark === voiceEpoch.current && error.name !== "AbortError") setNotice(explain(error.message));
+        } finally {
+            if (mark === voiceEpoch.current) setVoiceState("idle");
+        }
+    }
+
+    async function record() {
+        if (voiceStateRef.current === "recording") return finishRecording();
+        if (busy || !sessionRef.current?.authenticated) return;
+        const current = epoch.current;
+        await cancelVoice();
+        if (current !== epoch.current) return;
+        const mark = voiceEpoch.current;
+        setNotice("");
+        setVoiceState("permission");
+        try {
+            microphone.current ||= new Microphone();
+            const started = await microphone.current.start(finishRecording, () => {
+                cancelVoice(); setNotice("Микрофон отключился. Подключи его и повтори запись.");
+            });
+            if (started && mark === voiceEpoch.current) {
+                setVoiceState("recording"); setAutoSpeak(true);
+            }
+        } catch (error) {
+            if (mark === voiceEpoch.current) {
+                setVoiceState("idle"); setNotice(explain(error.name));
+            }
+        }
+    }
+
+    async function playSpeech(text) {
+        const current = epoch.current;
+        await cancelVoice();
+        if (current !== epoch.current || !sessionRef.current?.authenticated) return;
+        if (text.length > 2500) { setNotice(explain("speech_text_limit")); return; }
+        const mark = voiceEpoch.current;
+        const controller = new AbortController();
+        voiceAbort.current = controller;
+        setVoiceState("preparing");
+        try {
+            const response = await voiceFetch("/api/voice/speak", JSON.stringify({ text }), "application/json", controller);
+            const blob = await response.blob();
+            if (mark !== voiceEpoch.current) return;
+            const audio = new Audio(URL.createObjectURL(blob));
+            playback.current = audio;
+            audio.volume = 0.65;
+            audio.onended = () => cancelVoice();
+            audio.onerror = () => { cancelVoice(); setNotice("Не удалось воспроизвести звук. Проверь аудиовыход."); };
+            setVoiceState("speaking");
+            await audio.play();
+        } catch (error) {
+            if (mark === voiceEpoch.current) {
+                cancelVoice();
+                if (error.name !== "AbortError") setNotice(explain(error.message));
+            }
         }
     }
 
@@ -689,6 +840,12 @@ function App() {
                                                 Незавершённый ответ
                                             </small>
                                         )}
+                                        {voiceAvailable && m.role === "assistant" && !m.incomplete && !busy && (
+                                            <Button appearance="subtle" size="small" icon={<Speaker224Regular />}
+                                                disabled={voiceState !== "idle"} onClick={() => playSpeech(m.content)}>
+                                                Прослушать
+                                            </Button>
+                                        )}
                                     </div>
                                 </article>
                             ))}
@@ -700,6 +857,24 @@ function App() {
                 {authenticated && (
                     <div className="composer-area">
                         <form className="composer" onSubmit={send}>
+                            {voiceAvailable && (
+                                <div className="voice-controls">
+                                    <Button type="button" appearance={voiceState === "recording" ? "primary" : "secondary"}
+                                        icon={voiceState === "recording" ? <Stop24Filled /> : <Mic24Regular />}
+                                        disabled={busy || !["idle", "recording", "speaking"].includes(voiceState)} onClick={record}>
+                                        {voiceState === "recording" ? "Закончить запись" : "Говорить"}
+                                    </Button>
+                                    {voiceState !== "idle" && (
+                                        <Button type="button" appearance="subtle" onClick={() => cancelVoice()}
+                                            aria-label="Остановить голос" icon={<Dismiss24Regular />} />
+                                    )}
+                                    <span role="status" className={voiceState === "recording" ? "recording-label" : ""}>
+                                        {{ idle: "Русский · до 30 секунд", permission: "Подключаю микрофон…",
+                                            recording: "● Микрофон включён", transcribing: "Распознаю на устройстве…",
+                                            preparing: "Готовлю озвучивание…", speaking: "Читаю ответ…" }[voiceState]}
+                                    </span>
+                                </div>
+                            )}
                             <Textarea
                                 ref={input}
                                 aria-label="Сообщение"
@@ -739,7 +914,7 @@ function App() {
                                         appearance="primary"
                                         icon={<ArrowUp24Regular />}
                                         aria-label="Отправить сообщение"
-                                        disabled={!draft.trim() || !model}
+                                        disabled={!draft.trim() || !model || voiceState !== "idle"}
                                     />
                                 )}
                             </div>
@@ -752,7 +927,8 @@ function App() {
                 )}
                 <footer className="footer">
                     <span>Создано для твоего Raspberry Pi</span>
-                    <span>Текстовый прототип · Микрофон выключен</span>
+                    <span>{voiceState === "recording" ? "● Идёт запись"
+                        : voiceState === "permission" ? "Подключаю микрофон…" : "Микрофон выключен"}</span>
                 </footer>
             </main>
 
@@ -786,6 +962,15 @@ function App() {
                                 >
                                     Управлять использованием в ChatGPT ↗
                                 </a>
+                                <h3>Голос</h3>
+                                <p>{voiceAvailable
+                                    ? "Русская речь распознаётся и озвучивается на устройстве. Запись начинается только по кнопке «Говорить», длится до 30 секунд и не сохраняется. В ChatGPT отправляется текст. Нужны подключённые микрофон и динамик."
+                                    : "Локальный голос ещё не установлен. Текстовый чат доступен."}</p>
+                                <Switch checked={autoSpeak} disabled={!voiceAvailable || !authenticated}
+                                    label="Озвучивать ответы" onChange={(_, data) => {
+                                        setAutoSpeak(data.checked); if (!data.checked) cancelVoice();
+                                    }} />
+                                <p>После голосового ввода озвучивание включается автоматически. Голос синтезирован на устройстве.</p>
                                 <h3>Приватность</h3>
                                 <p>
                                     Разговоры и токены доступны только в текущем
@@ -794,7 +979,7 @@ function App() {
                                 </p>
                                 <p>
                                     Это прототип для личного использования.
-                                    Отдельные защищённые профили и голос ещё не
+                                    Отдельные защищённые профили ещё не
                                     реализованы. Завершение сеанса приложения не
                                     выходит из аккаунта на сайте OpenAI.
                                 </p>

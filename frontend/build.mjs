@@ -1,4 +1,5 @@
 import { build } from "esbuild";
+import { copyFile } from "node:fs/promises";
 await build({
     entryPoints: ["frontend/app.jsx"],
     bundle: true,
@@ -11,3 +12,4 @@ await build({
     jsx: "automatic",
     sourcemap: false,
 });
+await copyFile("frontend/recorder-worklet.js", "src/gpt_pi/web/assets/recorder-worklet.js");
