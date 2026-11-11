@@ -54,3 +54,7 @@ jobs:
       - name: Synthetic remembered sign-in and logout
         timeout-minutes: 5
         run: python tests/browser_remember_login.py
+
+      - name: Synthetic dashboard shell layout
+        timeout-minutes: 5
+        run: python tests/browser_dashboard_foundation.py

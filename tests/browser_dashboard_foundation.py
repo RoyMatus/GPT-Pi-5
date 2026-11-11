@@ -20,6 +20,10 @@ try:
                 def serve(route):
                     from urllib.parse import urlparse
                     path=urlparse(route.request.url).path
+                    if path=='/api/session':
+                        route.fulfill(json={'authenticated':False,'csrf':'synthetic','provider':'offline','registrations':[]});return
+                    if path=='/api/capabilities':
+                        route.fulfill(json={'voice':False});return
                     file=ROOT/'src/gpt_pi/web'/('index.html' if path=='/' else path.lstrip('/'))
                     route.fulfill(path=str(file))
                 page.route('http://127.0.0.1:*/**',serve)
@@ -28,6 +32,7 @@ try:
                 page.goto(f'http://127.0.0.1:{8874}/?dashboard')
                 for light in (True,False):
                     if light is False:
+                        page.get_by_role('button',name='Обзор',exact=True).click()
                         page.get_by_role('button',name='Настройки',exact=True).click()
                         page.get_by_role('switch').uncheck()
                         page.get_by_role('button',name='Настройки',exact=True).click()

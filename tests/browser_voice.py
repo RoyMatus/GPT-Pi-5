@@ -1,4 +1,5 @@
 """Optional browser acceptance with a synthetic account, microphone and speech."""
+import os
 from pathlib import Path
 import socket
 import sys
@@ -17,7 +18,7 @@ def check(origin):
     from playwright.sync_api import sync_playwright, expect
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(args=['--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream'])
+        browser = p.chromium.launch(channel=os.environ.get('GPT_PI_TEST_BROWSER_CHANNEL'),args=['--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream'])
         page = browser.new_page(viewport={'width': 720, 'height': 1280})
         page.add_init_script("""window.testTracks = [];
             if (navigator.mediaDevices) {
@@ -71,12 +72,18 @@ def check(origin):
         captured = []
         def auth(route):
             captured.append(parse_qs(urlparse(route.request.url).query))
-            route.abort()
+            route.fulfill(status=200, content_type="text/html", body="Synthetic OAuth")
         page.route('https://auth.openai.com/**', auth)
         page.get_by_role('button', name='Continue with ChatGPT').click()
         page.wait_for_timeout(300)
         page.goto(origin + '/auth/callback?' + urlencode({
             'code': 'synthetic-voice', 'state': captured[0]['state'][0], 'client_id': 'oaiapp_voice'}))
+        page.get_by_role('button', name='Говорить', exact=True).click()
+        page.get_by_text('● Микрофон включён', exact=True).wait_for()
+        page.get_by_role('button', name='Компьютер', exact=True).click()
+        assert page.evaluate("testTracks.every(track => track.readyState === 'ended')")
+        page.get_by_role('button', name='Ассистент', exact=True).click()
+        page.get_by_text('Русский · до 30 секунд', exact=True).wait_for()
         page.get_by_role('button', name='Говорить', exact=True).click()
         page.get_by_text('● Микрофон включён', exact=True).wait_for()
         page.wait_for_timeout(1200)
@@ -86,6 +93,8 @@ def check(origin):
         page.get_by_role('button', name='Отправить сообщение', exact=True).click()
         page.get_by_text('Synthetic answer', exact=True).wait_for()
         page.get_by_text('Читаю ответ…', exact=True).wait_for()
+        page.get_by_role('button', name='Рынки', exact=True).click()
+        page.get_by_role('button', name='Ассистент', exact=True).click()
         page.get_by_text('Русский · до 30 секунд', exact=True).wait_for()
         voice_requests = []
         page.on('request', lambda request: voice_requests.append(request.url) if request.url.endswith('/api/voice/speak') else None)
@@ -109,7 +118,7 @@ if __name__ == '__main__':
         settings = Settings(port=listener.getsockname()[1], data_dir=Path(directory))
         app = create_app(settings, FakeCloud())
         app.state.runtime.voice = FakeVoice()
-        server = uvicorn.Server(uvicorn.Config(app, access_log=False, log_level='warning'))
+        server = uvicorn.Server(uvicorn.Config(app, access_log=False, log_level='warning', timeout_graceful_shutdown=2, timeout_keep_alive=1))
         thread = threading.Thread(target=lambda: server.run(sockets=[listener]), daemon=True)
         thread.start()
         try:
@@ -120,4 +129,5 @@ if __name__ == '__main__':
             check(settings.origin)
         finally:
             server.should_exit = True
-            thread.join(5)
+            thread.join(15)
+            assert not thread.is_alive(), "Synthetic server did not stop"

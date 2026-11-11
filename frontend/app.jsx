@@ -87,7 +87,10 @@ const errors = {
 const explain = (code) =>
     errors[code] || "Не удалось выполнить действие. Попробуй ещё раз.";
 
-function App() {
+function App({ active = true, themeDark, onThemeChange }) {
+    const activeRef = useRef(active);
+    activeRef.current = active;
+    const busyRef = useRef(false);
     const [dark, setDark] = useState(
         () => localStorage.getItem("gpt-pi-theme") === "dark",
     );
@@ -101,6 +104,7 @@ function App() {
     const [busy, setBusy] = useState(false);
     const [signingIn, setSigningIn] = useState(false);
     const [settingsOpen, setSettingsOpen] = useState(false);
+    const [historyOpen, setHistoryOpen] = useState(false);
     const [audioCheckOpen, setAudioCheckOpen] = useState(false);
     const audioCheckRef = useRef(false);
     audioCheckRef.current = audioCheckOpen;
@@ -122,7 +126,18 @@ function App() {
     const voiceAbort = useRef(null);
     const voiceStateRef = useRef("idle");
     const playback = useRef(null);
+    useEffect(() => { if (themeDark !== undefined) setDark(themeDark); }, [themeDark]);
     const authenticated = !!session?.authenticated;
+    busyRef.current = busy;
+    useEffect(() => {
+        if (active) return;
+        cancelVoice(); setAudioCheckOpen(false);
+        if (busyRef.current) {
+            epoch.current++;
+            abort.current?.abort();
+            api("/api/cancel", {}).catch(() => {}).finally(() => setBusy(false));
+        }
+    }, [active]);
 
     function clearPrivate() {
         epoch.current++;
@@ -256,7 +271,8 @@ function App() {
                     registration: registration || null,
                 })
             ).json();
-            location.assign(result.url);
+            if (activeRef.current) location.assign(result.url);
+            else setSigningIn(false);
         } catch (error) {
             setNotice(explain(error.message));
             setSigningIn(false);
@@ -264,6 +280,7 @@ function App() {
     }
 
     async function signOut() {
+        window.dispatchEvent(new Event("gpt-pi-logout"));
         clearPrivate();
         setSettingsOpen(false);
         setNotice("");
@@ -315,7 +332,7 @@ function App() {
 
     async function send(event) {
         event?.preventDefault();
-        if (!draft.trim() || busy || !model || !authenticated) return;
+        if (!activeRef.current || !draft.trim() || busy || !model || !authenticated) return;
         if (voiceStateRef.current !== "idle") return;
         const text = draft.trim();
         const mark = ++epoch.current;
@@ -488,7 +505,7 @@ function App() {
     async function playSpeech(text) {
         const current = epoch.current;
         await cancelVoice();
-        if (document.hidden || audioCheckRef.current || current !== epoch.current || !sessionRef.current?.authenticated) return;
+        if (!activeRef.current || document.hidden || audioCheckRef.current || current !== epoch.current || !sessionRef.current?.authenticated) return;
         if (text.length > 2500) { setNotice(explain("speech_text_limit")); return; }
         const mark = voiceEpoch.current;
         const controller = new AbortController();
@@ -522,17 +539,17 @@ function App() {
     const prompts = [
         [
             Lightbulb24Regular,
-            "Разобраться в сложном",
-            "Объясни простыми словами, как работают нейросети.",
+            "Объясни показатели ПК",
+            "Объясни, что означают CPU, GPU и использование памяти. Мои данные компьютера не приложены.",
         ],
         [
             Edit24Regular,
-            "Найти нужные слова",
+            "Помоги с текстом",
             "Помоги написать короткое и понятное письмо. Сначала уточни адресата и цель.",
         ],
         [
             BookOpen24Regular,
-            "Спланировать день",
+            "Составь план на день",
             "Помоги составить реалистичный план на день. Сначала спроси о моих задачах.",
         ],
     ];
@@ -542,8 +559,9 @@ function App() {
             theme={dark ? webDarkTheme : webLightTheme}
             className={"app " + (dark ? "dark" : "")}
         >
-            <aside className="sidebar">
-                <Button as="a" href="/?dashboard" appearance="secondary">Панель устройства</Button>
+            <aside className={"sidebar " + (historyOpen ? "history-open" : "")}>
+                <Button onClick={() => setHistoryOpen(false)}>Закрыть историю</Button>
+
                 <div className="brand">
                     <div className="brand-mark">
                         <Sparkle24Regular />
@@ -634,14 +652,18 @@ function App() {
 
             <main className="main">
                 <header className="topbar">
+                    <Button onClick={() => setHistoryOpen(v => !v)}>История</Button>
+                    <Button icon={<Add24Regular />} disabled={!authenticated || busy} onClick={newChat}>Новый чат</Button>
                     <div className="topbar-title">
                         <Chat24Regular />
-                        <span>Помощник</span>
+                        <span>Ассистент</span>
                         <Badge appearance="tint" color="brand" size="small">
                             Прототип
                         </Badge>
                     </div>
                     <div className="topbar-actions">
+                        <Button icon={<Settings24Regular />} aria-label="Настройки" onClick={() => setSettingsOpen(true)} />
+                        {authenticated && <Button onClick={signOut}>Завершить сеанс</Button>}
                         {authenticated && (
                             <Select
                                 aria-label="Модель ChatGPT"
@@ -789,9 +811,9 @@ function App() {
                                 <Sparkle24Regular />
                             </div>
                             <span className="eyebrow">
-                                ЕСТЬ О ЧЁМ ПОГОВОРИТЬ
+                                ТВОЙ АССИСТЕНТ
                             </span>
-                            <h1>С чего начнём?</h1>
+                            <h1>Чем помочь?</h1>
                             <p>Задай вопрос или выбери идею для разговора.</p>
                             <div className="prompt-grid">
                                 {prompts.map(([Icon, title, text]) => (
@@ -972,9 +994,9 @@ function App() {
                                 <Switch
                                     checked={dark}
                                     label="Тёмная тема"
-                                    onChange={(_, data) =>
-                                        setDark(data.checked)
-                                    }
+                                    onChange={(_, data) => {
+                                        setDark(data.checked); onThemeChange?.(!data.checked);
+                                    }}
                                 />
                                 <h3>Подключение</h3>
                                 <p>
@@ -1032,4 +1054,4 @@ function App() {
     );
 }
 
-createRoot(document.getElementById("root")).render(new URLSearchParams(location.search).has("dashboard") ? <DashboardShell /> : <App />);
+createRoot(document.getElementById("root")).render(<DashboardShell Assistant={App} />);

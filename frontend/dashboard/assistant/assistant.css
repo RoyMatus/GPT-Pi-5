@@ -1,0 +1,31 @@
+.dashboard-assistant-slot { flex:1; min-height:0; display:flex; flex-direction:column; }
+.dashboard-assistant-slot[hidden] { display:none; }
+.dashboard-assistant-slot .app { height:100%; min-height:0; flex:1; background:transparent; color:var(--dash-text); }
+.dashboard-assistant-slot .main { min-width:0; background:transparent; color:inherit; }
+.dashboard-assistant-slot .sidebar { display:none; }
+.dashboard-assistant-slot .sidebar.history-open { display:flex; width:230px; max-width:45vw; }
+.dashboard-assistant-slot .sidebar.history-open .chat-list { display:block; }
+.dashboard-assistant-slot .topbar { flex-wrap:wrap; height:auto; min-height:44px; padding:4px; background:transparent; border:0; }
+.dashboard-assistant-slot .topbar-title { display:none; }
+.dashboard-assistant-slot .topbar-actions { flex-wrap:wrap; margin-left:auto; }
+.dashboard-assistant-slot button { min-height:44px; }
+.dashboard-assistant-slot .footer { display:none; }
+.dashboard-assistant-slot .scroll-area { min-height:0; }
+.dashboard-assistant-slot .chat-welcome { padding:clamp(12px,3vh,36px) 8px; }
+.dashboard-assistant-slot .chat-welcome h1 { font-size:clamp(1.5rem,4vw,2.5rem); }
+.dashboard-assistant-slot .prompt-grid { grid-template-columns:1fr; max-width:700px; }
+.dashboard-assistant-slot .prompt-grid button { background:var(--dash-surface); color:var(--dash-text); border:1px solid var(--dash-stroke); }
+.dashboard-assistant-slot .composer-area { padding:8px 0 0; }
+.dashboard-assistant-slot .composer { background:var(--dash-surface); border-color:var(--dash-stroke); }
+.dashboard-assistant-slot .composer textarea { color:var(--dash-text); font-size:1rem; }
+.dashboard-assistant-slot .composer-note { color:var(--dash-secondary); font-size:.75rem; }
+.dashboard-assistant-slot .welcome { padding:16px; }
+.dashboard-assistant-slot .welcome h1 { font-size:clamp(1.75rem,4vw,3rem); }
+.dashboard-assistant-slot .signin-card { color:#242424; }
+@media(max-width:480px) {
+ .dashboard-assistant-slot .topbar-actions { margin-left:0; }
+ .dashboard-assistant-slot .topbar-actions select { max-width:160px; font-size:.875rem; }
+ .dashboard-assistant-slot .sidebar.history-open { position:absolute; z-index:5; inset:70px 0 110px; max-width:85vw; width:280px; }
+}
+
+.dashboard-assistant-slot .sidebar.history-open button { font-size:1rem; }
