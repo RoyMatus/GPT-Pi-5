@@ -126,4 +126,5 @@ The dashboard foundation is available at `/?dashboard`: six destinations and a l
 Assistant is integrated into the dashboard tab. Leaving the tab cancels voice and active generation while retaining login and the RAM-only conversation.
 
 Computer supports a configurable Linux/Windows SSH source, pinned host identity, separate telemetry/SFTP public keys, supported metrics and history. The selected PC needs configured OpenSSH; the display Pi is never selected implicitly. See docs/dashboard/SSH.md.
+Markets supports a session-only watchlist, Kraken crypto charts, delayed MOEX ISS shares/index data and official Bank of Russia FX rates. Oil/metals are explicitly unsupported, without substituted prices.
 Calendar supports Monday-first months, local event CRUD and calendar-day countdown. Events are session-only RAM data, cleared on logout/restart. Event times are floating local wall times without notifications or UTC conversion.

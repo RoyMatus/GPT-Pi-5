@@ -24,6 +24,8 @@ try:
                         route.fulfill(json={'authenticated':False,'csrf':'synthetic','provider':'offline','registrations':[]});return
                     if path=='/api/dashboard/computer':
                         route.fulfill(json={'profile':None,'state':'not_configured','sample':None,'history':[]});return
+                    if path=='/api/dashboard/markets':
+                        route.fulfill(json={'quotes':[],'catalog':[],'watchlist':[],'selected':None});return
                     if path=='/api/dashboard/calendar':
                         route.fulfill(json={'events':[],'storage':'session'});return
                     if path=='/api/capabilities':

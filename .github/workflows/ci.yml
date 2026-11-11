@@ -65,3 +65,7 @@ jobs:
       - name: Synthetic calendar CRUD
         timeout-minutes: 5
         run: python tests/browser_dashboard_calendar.py
+
+      - name: Synthetic market watchlist
+        timeout-minutes: 5
+        run: python tests/browser_dashboard_markets.py
