@@ -52,9 +52,11 @@ Every worktree uses its own node_modules/.venv and generated assets. Synthetic r
 must use absolute build/synthetic-data, a verified free port and a private browser
 profile under that worktree. Do not use saved personal credentials or real PC data.
 
-Outstanding acceptance: full render comparison, actual hardware, backend SSH fixture
-contracts and review/merge gate. This PR is a foundation increment, not completed #10
-or epic acceptance. #8 and the downstream issues are not released by its existence.
+Foundation scope is the shell, clock and typed contracts, not complete feature screens.
+Source identities and independent telemetry/photo key references are exercised by offline
+fixtures. Real SSH implementation and permission tests belong to #4. Actual hardware
+and final full-screen render acceptance remain epic-level evidence. Integration requires
+exact-head CI verification and a recorded merge before #8 starts.
 
 Verified on Windows/Python 3.12/Node 24 with Edge: npm run build; npm test
 (6 passed); Python unittest discovery (76 passed); browser_dashboard_foundation.py
@@ -62,3 +64,9 @@ Verified on Windows/Python 3.12/Node 24 with Edge: npm run build; npm test
 build/dashboard-evidence/. Compared the portrait shell with approved Overview;
 this does not establish completed screen composition fidelity. Package installation
 built a wheel successfully. No Pi, physical touch, or SSH/provider acceptance run.
+
+Coordinator continues as the sole writer under a new lease for this PR until merge.
+Registry: frontend/dashboard/registry.jsx. Settings remain RAM-only except theme;
+private events will not be persisted in the first implementation. No claim of protected
+local profiles. SSH references remain backend-only. Fullscreen photo slot is represented
+by DashboardFrame.fullscreen, with feature-owned Escape/exit controls mandatory in #7.
