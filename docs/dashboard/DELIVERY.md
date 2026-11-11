@@ -2,7 +2,7 @@
 
 All seven implementation PRs #11–#17 have been integrated into
 codex/dashboard-integration after exact-head successful Windows/Linux/browser CI.
-This release is v0.3.0. Existing root-worktree documentation edits are preserved.
+The initial release was v0.3.0; the fullscreen follow-up is v0.3.1. Existing root-worktree documentation edits are preserved.
 Coordinator root is the sole final integration/lease owner for metadata/docs/deployment
 and cross-feature safety fixes. No other writer is active.
 
@@ -41,3 +41,27 @@ acceptance gates; this delivery does not close Epic #2.
 The first device screenshot also exposed a dark hardcoded gradient behind the
 light-theme header/clock. A screenshot-pixel test failed before a light-theme
 background/color-scheme override; the full geometry matrix then passed.
+
+
+## Fullscreen and PC setup follow-up
+
+The owner explicitly requested fullscreen and Windows SSH installation. The active
+browser session on Pi is now authenticated. Its Computer profile was configured
+through its normal CSRF-protected API for the actual Windows computer; a fresh
+server host key was generated locally and pinned before any connection. Private
+telemetry keys remain on Pi. Host addresses/keys/passwords are not in Git.
+
+v0.3.1 uses Chromium kiosk and a user-scoped GTK module for squeekboard. The module
+raises only namespace osk, publishes bounded physical-pixel geometry in private
+runtime storage and observes no key/input text. The backend accepts only fresh
+owner-only regular files. The shell converts physical pixels using DPR, reserves
+space, keeps the focused field visible and defers layout changes during a click.
+Actual-device checks first found the composer hidden by the keyboard, despite a
+visible keyboard. Synthetic geometry/click/DPR coverage exercises this regression.
+A separate GObject harness checks that unrelated applications/surfaces are unchanged.
+
+Windows setup is a separate explicit administrator script, preview by default:
+standard account, public-key-only authentication, forced bounded collector, no
+interactive shell/SFTP/forwarding, and device-only firewall scope. At preparation
+it was waiting for native UAC; this is not a claim that Windows SSH or actual PC
+metrics have passed. The dashboard itself never requests elevation or installs it.

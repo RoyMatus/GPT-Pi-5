@@ -24,6 +24,8 @@ def check():
    page.get_by_label('Адрес SSH',exact=True).fill('synthetic.invalid');page.get_by_label('Пользователь телеметрии',exact=True).fill('metrics');page.get_by_label('Проверенный SHA256-отпечаток SSH-сервера',exact=True).fill('SHA256:'+'a'*43)
    page.wait_for_function("() => document.querySelector('.dashboard').getBoundingClientRect().height===860")
    assert page.evaluate("document.activeElement.getBoundingClientRect().bottom<=document.querySelector('.dashboard-nav').getBoundingClientRect().top"), 'Keyboard covers focused field'
+   keyboard['height']=840;page.evaluate("Object.defineProperty(window,'devicePixelRatio',{value:2,configurable:true})");page.wait_for_timeout(500)
+   assert page.locator('.dashboard').evaluate("el=>el.getBoundingClientRect().height===860"), 'Native physical pixels were not converted for DPR 2'
    save=page.get_by_role('button',name='Сохранить подключение');assert not save.is_enabled();page.get_by_label('Я сверил отпечаток по доверенному каналу').check();save.click();page.get_by_label('Публичный ключ телеметрии',exact=True).wait_for();assert state['profile']['host']=='synthetic.invalid'
    keyboard.update(visible=False,height=0)
    page.wait_for_function("() => document.querySelector('.dashboard').getBoundingClientRect().height===1280")

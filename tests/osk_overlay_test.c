@@ -25,6 +25,7 @@ static void phosh_layer_surface_init(PhoshLayerSurface *s) {s->layer=2;s->space=
 GType gtk_widget_get_type(void) {return G_TYPE_OBJECT;}
 gboolean gtk_widget_get_mapped(gpointer object) {(void)object;return TRUE;}
 gint gtk_widget_get_allocated_height(gpointer object) {(void)object;return 420;}
+gint gtk_widget_get_scale_factor(gpointer object) {(void)object;return 1;}
 #include "../deploy/osk-overlay.c"
 int main(int argc,char **argv) {
     gboolean target=argc==1;

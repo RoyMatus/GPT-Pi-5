@@ -23,7 +23,8 @@ exec /usr/bin/squeekboard "$@"
 EOF
 chmod 700 "$HOME/.local/bin/gpt-pi-keyboard"
 target="$HOME/.config/autostart/squeekboard.desktop"
-if test -f "$target" && ! test -f "$root/squeekboard.desktop.before"; then
+if test -f "$target" && ! test -f "$root/squeekboard.desktop.before" &&
+   ! grep -Fqx "Exec=$HOME/.local/bin/gpt-pi-keyboard" "$target"; then
     cp "$target" "$root/squeekboard.desktop.before"
 fi
 sed "s|^Exec=.*|Exec=$HOME/.local/bin/gpt-pi-keyboard|" "$desktop_source" > "$target"

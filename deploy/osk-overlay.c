@@ -10,6 +10,7 @@
 extern GType gtk_widget_get_type(void);
 extern gboolean gtk_widget_get_mapped(gpointer widget);
 extern gint gtk_widget_get_allocated_height(gpointer widget);
+extern gint gtk_widget_get_scale_factor(gpointer widget);
 static GWeakRef keyboard;
 static gchar *geometry_path;
 
@@ -19,7 +20,7 @@ static gboolean report_geometry(gpointer unused)
     if (!geometry_path) return G_SOURCE_CONTINUE;
     GObject *object = g_weak_ref_get(&keyboard);
     gboolean visible = object && gtk_widget_get_mapped(object);
-    gint height = visible ? gtk_widget_get_allocated_height(object) : 0;
+    gint height = visible ? gtk_widget_get_allocated_height(object) * gtk_widget_get_scale_factor(object) : 0;
     gchar timestamp[G_ASCII_DTOSTR_BUF_SIZE];
     g_ascii_dtostr(timestamp, sizeof timestamp, g_get_monotonic_time()/1000000.0);
     gchar *json = g_strdup_printf("{\"visible\":%s,\"height\":%d,\"updated\":%s}",

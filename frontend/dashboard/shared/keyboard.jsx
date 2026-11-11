@@ -19,7 +19,7 @@ export function useKeyboardInset() {
     const response=await fetch('/api/keyboard',{signal:controller.signal});
     if(response.ok){const data=await response.json();
      if(running&&mark===generation){
-      const value=data.visible===true&&Number.isInteger(data.height)&&data.height>=0?Math.min(data.height,innerHeight):0;
+      const value=data.visible===true&&Number.isInteger(data.height)&&data.height>=0?Math.min(Math.round(data.height/(devicePixelRatio||1)),innerHeight):0;
       update(value);
       if(!editing()&&value===0)stop();
      }

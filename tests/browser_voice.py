@@ -77,7 +77,7 @@ def check(origin):
             route.fulfill(status=200, content_type="text/html", body="Synthetic OAuth")
         page.route('https://auth.openai.com/**', auth)
         page.get_by_role('button', name='Continue with ChatGPT').click()
-        page.wait_for_timeout(300)
+        page.wait_for_url('https://auth.openai.com/**')
         page.goto(origin + '/auth/callback?' + urlencode({
             'code': 'synthetic-voice', 'state': captured[0]['state'][0], 'client_id': 'oaiapp_voice'}))
         page.get_by_role('button', name='Говорить', exact=True).click()

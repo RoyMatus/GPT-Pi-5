@@ -66,7 +66,10 @@ try {
         $randomPassword = ConvertTo-SecureString (([Guid]::NewGuid().ToString('N')) + ([Guid]::NewGuid().ToString('N')) + 'aA!9') -AsPlainText -Force
         New-LocalUser -Name $account -Password $randomPassword -PasswordNeverExpires -UserMayNotChangePassword -Description 'GPT-Pi fixed read-only telemetry over SSH' | Out-Null
         $randomPassword.Dispose()
-        Add-LocalGroupMember -SID 'S-1-5-32-545' -Member $account
+        $accountSid = (Get-LocalUser -Name $account).SID
+        if (!((Get-LocalGroupMember -SID 'S-1-5-32-545').SID -contains $accountSid)) {
+            Add-LocalGroupMember -SID 'S-1-5-32-545' -Member $account
+        }
     }
     Set-ProtectedAcl $root $true $true
     $keyFile = Join-Path $root 'authorized_keys'
