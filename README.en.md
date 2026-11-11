@@ -129,4 +129,5 @@ Computer supports a configurable Linux/Windows SSH source, pinned host identity,
 Markets supports a session-only watchlist, Kraken crypto charts, delayed MOEX ISS shares/index data and official Bank of Russia FX rates. Oil/metals are explicitly unsupported, without substituted prices.
 Calendar supports Monday-first months, local event CRUD and calendar-day countdown. Events are session-only RAM data, cleared on logout/restart. Event times are floating local wall times without notifications or UTC conversion.
 
+Photos supports read-only SFTP from an explicitly granted folder, fullscreen slideshow, pause/order/interval and Escape exit. EXIF orientation is applied, metadata stripped and caching is RAM-only. A separate SFTP key and verified server-side folder confinement are required; the app does not configure chroot/ACLs automatically.
 Overview combines the local clock, Open-Meteo forecast and the same Computer/Markets snapshots as their detail tabs. Moscow is the explicit default locality; search selects another city. No geolocation is requested; locality settings are session-only.

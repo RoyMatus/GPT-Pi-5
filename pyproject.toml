@@ -13,6 +13,7 @@ dependencies = [
     "uvicorn>=0.35,<1",
     "httpx>=0.28,<1",
     "paramiko>=3.5,<6",
+    "Pillow>=11,<14",
     "Authlib>=1.6,<2",
     "PyJWT[crypto]>=2.10,<3",
 ]
