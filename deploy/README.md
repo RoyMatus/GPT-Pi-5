@@ -253,3 +253,13 @@ byte counters. CPU frequency/температуры/GPU не выдумываю�
 нагрузка CPU не поддерживается из-за processor-group семантики GetSystemTimes.
 [Microsoft CPU times](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getsystemtimes),
 [Microsoft memory](https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-globalmemorystatusex).
+
+
+2026-11-11, итог v0.3.2: реальный Windows SSH установлен, служба running/automatic.
+С Pi проверены закреплённый ключ, фиксированная команда и запреты PTY/SFTP/forwarding.
+В действующем авторизованном приложении проверены CPU/RAM/диск, сетевые счётчики и
+скорости после нескольких замеров, история и обе вкладки Компьютер/Обзор. Полный
+экран и вход сохранены. Firewall ограничен Pi и локальным интерфейсом; широкое
+правило отключено. Учётка не входит в Administrators/Performance Monitor Users.
+Временная приватная host-key копия удалена, системная защищённая копия сохранена.
+Фото/SFTP не разрешены; Windows-ПК ради теста не перезагружался.
