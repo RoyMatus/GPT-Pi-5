@@ -28,6 +28,8 @@ try:
                         route.fulfill(json={'quotes':[],'catalog':[],'watchlist':[],'selected':None});return
                     if path=='/api/dashboard/calendar':
                         route.fulfill(json={'events':[],'storage':'session'});return
+                    if path=='/api/dashboard/photos':
+                        route.fulfill(json={'files':[],'state':'not_configured'});return
                     if path=='/api/capabilities':
                         route.fulfill(json={'voice':False});return
                     file=ROOT/'src/gpt_pi/web'/('index.html' if path=='/' else path.lstrip('/'))

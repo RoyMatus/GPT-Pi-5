@@ -31,17 +31,17 @@ export function DashboardNavigation({ activeTab, onNavigate }) {
 
 export function DashboardFrame({ title, activeTab, onNavigate, onSettings, connected = false,
   connectionLabel = "ПК не подключён", footer, fullscreen = false, children }) {
-  if (fullscreen) return <div className="dashboard-shell dashboard-fullscreen">{children}</div>;
-  return <div className="dashboard-shell">
-    <header className="dashboard-header"><h1>{title}</h1>
+
+  return <div className={`dashboard-shell ${fullscreen ? "dashboard-fullscreen" : ""}`}>
+    {!fullscreen && <header className="dashboard-header"><h1>{title}</h1>
       <div className="dashboard-header-status"><span className="dashboard-status-dot" data-connected={connected} aria-hidden="true" />
         <span>{connectionLabel}</span>
         {onSettings && <Button className="dashboard-icon-button" appearance="transparent" icon={<Icon.settings />} aria-label="Настройки" onClick={onSettings} />}
       </div>
-    </header>
+    </header>}
     <main className="dashboard-content" aria-label={title}>{children}</main>
-    {onNavigate && <DashboardNavigation activeTab={activeTab} onNavigate={onNavigate} />}
-    {footer && <div className="dashboard-footer">{footer}</div>}
+    {!fullscreen && onNavigate && <DashboardNavigation activeTab={activeTab} onNavigate={onNavigate} />}
+    {!fullscreen && footer && <div className="dashboard-footer">{footer}</div>}
   </div>;
 }
 

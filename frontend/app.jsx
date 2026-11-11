@@ -140,6 +140,7 @@ function App({ active = true, themeDark, onThemeChange }) {
     }, [active]);
 
     function clearPrivate() {
+        window.dispatchEvent(new Event("gpt-pi-logout"));
         epoch.current++;
         setAudioCheckOpen(false);
         cancelVoice();
@@ -280,7 +281,6 @@ function App({ active = true, themeDark, onThemeChange }) {
     }
 
     async function signOut() {
-        window.dispatchEvent(new Event("gpt-pi-logout"));
         clearPrivate();
         setSettingsOpen(false);
         setNotice("");

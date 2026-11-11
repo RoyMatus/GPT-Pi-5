@@ -69,3 +69,7 @@ jobs:
       - name: Synthetic market watchlist
         timeout-minutes: 5
         run: python tests/browser_dashboard_markets.py
+
+      - name: Synthetic photo slideshow
+        timeout-minutes: 5
+        run: python tests/browser_dashboard_photos.py

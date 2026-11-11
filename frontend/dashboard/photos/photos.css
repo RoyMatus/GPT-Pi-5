@@ -1,0 +1,5 @@
+.dashboard-fullscreen .dashboard-content { padding:0;overflow:hidden; }
+.dashboard-fullscreen .dashboard-photo { flex:1;min-height:0; }
+.dashboard-photo-controls { padding-bottom:max(1rem,env(safe-area-inset-bottom)); }
+.dashboard-photo-controls button { min-height:44px; }
+.dashboard-photo-controls .dashboard-row { padding:1rem;background:#111922e6;border-radius:12px; }
