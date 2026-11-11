@@ -110,7 +110,7 @@ class ComputerState:
  @contextmanager
  def sftp(self,session,grant):
   # Grant identity is held by the live session, never a supplied owner/root ID.
-  if not session.alive or session.dashboard.get('photoGrant') is not grant or grant.get('generation')!=self.generation:raise SourceError('permission_denied')
+  if not isinstance(grant,dict) or not session.alive or session.dashboard.get('photoGrant') is not grant or grant.get('generation')!=self.generation:raise SourceError('permission_denied')
   with self.connect(session,photo=True) as client:
    sftp=client.open_sftp();sftp.get_channel().settimeout(8)
    try:yield sftp

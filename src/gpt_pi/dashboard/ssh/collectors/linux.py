@@ -1,5 +1,6 @@
 """Fixed Linux collector. Runs once under SSH; no installation/background daemon."""
-import glob,json,os,shutil,subprocess,time
+import glob,json,os,shutil,subprocess,time,signal
+signal.alarm(10)
 from pathlib import Path
 
 def cpu():

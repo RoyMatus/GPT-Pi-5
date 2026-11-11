@@ -68,3 +68,7 @@ Synthetic browser checks cover setup, explicit trust, changed key and disable.
 Both fixed collectors were run separately on actual Windows and authorized Linux ARM64;
 this validates schema/capability extraction, not a configured end-user PC or server ACLs.
 No PC profile is auto-filled with the display device's credentials.
+
+Collector lifetime: Linux also sets a 10-second process alarm. Windows uses an
+ephemeral PowerShell job with an 8-second wait deadline and forced job cleanup,
+plus 3-second CIM operation timeouts. Neither creates autostart/background monitoring.
