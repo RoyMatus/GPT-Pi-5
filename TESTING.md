@@ -152,3 +152,9 @@ No real providers or paid API are used. The Windows originals remain immutable;
 owner-approved Linux font changes are documented in docs/theme-integration-19.md.
 
 GPT_PI_RESPONSIVE_CONFIGS optionally selects named existing configurations (JSON array, e.g. `["720x1280@1/text100"]`). Default remains the full 29-configuration audit. Report any target subset as a subset; all 15 themes and eight states still run.
+
+`node tests/browser-theme-wayland.mjs` is an optional real-device test. It requires
+GPT_PI_CDP_URL for a separate visible kiosk test profile and
+GPT_PI_KEYBOARD_PROXY_URL for a trusted SSH-forwarded /api/keyboard endpoint.
+It intercepts all other APIs with synthetic fixtures. Never use the owner's
+browser/profile; the test changes local theme settings and window content.

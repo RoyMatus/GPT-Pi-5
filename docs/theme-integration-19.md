@@ -72,3 +72,15 @@ CI previously failed before tests due to DNS resolution of azure.archive.ubuntu.
 The browser job now uses Chrome included in the official Ubuntu 24.04 runner,
 prints its version and executes the same synthetic scenarios with unchanged job
 names and pass requirements. No failed/skipped check is accepted for merge.
+
+Final results: Windows full audit 3480/3480; real Pi subset 960/960,
+zero errors/external requests; Pi layout 270/270 and 165 actual screenshots.
+Strict Pi comparison reports differences in all 165 images, as expected with
+explicitly approved different font glyphs and a different platform/browser.
+Counts are retained in build/pi-theme-diff-final/comparison.json; no comparator
+mask or threshold was added. Windows still matches all 165 immutable originals.
+Real Wayland kiosk: all 15 themes passed native OSK appearance, focused composer
+and submit reachability, height restoration after blur, and photo fullscreen
+bounds [0,0,720,1280] with Escape restoring navigation. The test uses a separate
+profile and synthetic messages/images, never the owner's account or chats.
+It uses automated input; physical finger/audio/power-cycle checks remain separate.

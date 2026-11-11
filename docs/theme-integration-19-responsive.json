@@ -2,7 +2,7 @@
   "schema": 1,
   "synthetic": true,
   "kind": "finite-responsive-audit",
-  "capturedAt": "2026-11-11T14:08:37.466Z",
+  "capturedAt": "2026-11-11T14:42:38.420Z",
   "configurations": [
     {
       "width": 320,
@@ -196,7 +196,7 @@
     "synthwave_84",
     "green_phosphor"
   ],
-  "appJsSha256": "4d359fc408162794b5381d8e37f2e995346467394389b4c03ae4653e780a7d7f",
+  "appJsSha256": "3f0d6d3f4d0dfc3f0d31d2586971b0b0920f88bc72765abff8297f2fb925c1d0",
   "scope": "Six populated tabs, appearance dialog, guest sign-in; root text scaling is not browser zoom. No screenshots or design changes.",
   "limitations": "Finite browser geometry/reachability audit; not all possible screens, pixel fidelity, full accessibility, hardware or Pi performance certification.",
   "browserErrors": [],

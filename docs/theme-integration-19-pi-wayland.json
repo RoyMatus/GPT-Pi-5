@@ -1,0 +1,299 @@
+{
+  "synthetic": true,
+  "wayland": true,
+  "osk": [
+    {
+      "id": "fluent_light",
+      "keyboard": {
+        "visible": true,
+        "height": 420
+      },
+      "inputBottom": 638,
+      "navTop": 762,
+      "shellHeight": 860
+    },
+    {
+      "id": "fluent_dark",
+      "keyboard": {
+        "visible": true,
+        "height": 420
+      },
+      "inputBottom": 638,
+      "navTop": 762,
+      "shellHeight": 860
+    },
+    {
+      "id": "classic",
+      "keyboard": {
+        "visible": true,
+        "height": 420
+      },
+      "inputBottom": 638,
+      "navTop": 762,
+      "shellHeight": 860
+    },
+    {
+      "id": "monokai",
+      "keyboard": {
+        "visible": true,
+        "height": 420
+      },
+      "inputBottom": 638,
+      "navTop": 762,
+      "shellHeight": 860
+    },
+    {
+      "id": "gruvbox",
+      "keyboard": {
+        "visible": true,
+        "height": 420
+      },
+      "inputBottom": 638,
+      "navTop": 762,
+      "shellHeight": 860
+    },
+    {
+      "id": "vscode",
+      "keyboard": {
+        "visible": true,
+        "height": 420
+      },
+      "inputBottom": 638,
+      "navTop": 762,
+      "shellHeight": 860
+    },
+    {
+      "id": "dracula",
+      "keyboard": {
+        "visible": true,
+        "height": 420
+      },
+      "inputBottom": 638,
+      "navTop": 762,
+      "shellHeight": 860
+    },
+    {
+      "id": "nord",
+      "keyboard": {
+        "visible": true,
+        "height": 420
+      },
+      "inputBottom": 638,
+      "navTop": 762,
+      "shellHeight": 860
+    },
+    {
+      "id": "solarized_light",
+      "keyboard": {
+        "visible": true,
+        "height": 420
+      },
+      "inputBottom": 638,
+      "navTop": 762,
+      "shellHeight": 860
+    },
+    {
+      "id": "solarized_dark",
+      "keyboard": {
+        "visible": true,
+        "height": 420
+      },
+      "inputBottom": 638,
+      "navTop": 762,
+      "shellHeight": 860
+    },
+    {
+      "id": "github_light",
+      "keyboard": {
+        "visible": true,
+        "height": 420
+      },
+      "inputBottom": 638,
+      "navTop": 762,
+      "shellHeight": 860
+    },
+    {
+      "id": "tokyo_night",
+      "keyboard": {
+        "visible": true,
+        "height": 420
+      },
+      "inputBottom": 638,
+      "navTop": 762,
+      "shellHeight": 860
+    },
+    {
+      "id": "catppuccin",
+      "keyboard": {
+        "visible": true,
+        "height": 420
+      },
+      "inputBottom": 638,
+      "navTop": 762,
+      "shellHeight": 860
+    },
+    {
+      "id": "synthwave_84",
+      "keyboard": {
+        "visible": true,
+        "height": 420
+      },
+      "inputBottom": 638,
+      "navTop": 762,
+      "shellHeight": 860
+    },
+    {
+      "id": "green_phosphor",
+      "keyboard": {
+        "visible": true,
+        "height": 420
+      },
+      "inputBottom": 638,
+      "navTop": 762,
+      "shellHeight": 860
+    }
+  ],
+  "fullscreen": [
+    {
+      "id": "fluent_light",
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 1280,
+      "viewportWidth": 720,
+      "viewportHeight": 1280
+    },
+    {
+      "id": "fluent_dark",
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 1280,
+      "viewportWidth": 720,
+      "viewportHeight": 1280
+    },
+    {
+      "id": "classic",
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 1280,
+      "viewportWidth": 720,
+      "viewportHeight": 1280
+    },
+    {
+      "id": "monokai",
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 1280,
+      "viewportWidth": 720,
+      "viewportHeight": 1280
+    },
+    {
+      "id": "gruvbox",
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 1280,
+      "viewportWidth": 720,
+      "viewportHeight": 1280
+    },
+    {
+      "id": "vscode",
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 1280,
+      "viewportWidth": 720,
+      "viewportHeight": 1280
+    },
+    {
+      "id": "dracula",
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 1280,
+      "viewportWidth": 720,
+      "viewportHeight": 1280
+    },
+    {
+      "id": "nord",
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 1280,
+      "viewportWidth": 720,
+      "viewportHeight": 1280
+    },
+    {
+      "id": "solarized_light",
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 1280,
+      "viewportWidth": 720,
+      "viewportHeight": 1280
+    },
+    {
+      "id": "solarized_dark",
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 1280,
+      "viewportWidth": 720,
+      "viewportHeight": 1280
+    },
+    {
+      "id": "github_light",
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 1280,
+      "viewportWidth": 720,
+      "viewportHeight": 1280
+    },
+    {
+      "id": "tokyo_night",
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 1280,
+      "viewportWidth": 720,
+      "viewportHeight": 1280
+    },
+    {
+      "id": "catppuccin",
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 1280,
+      "viewportWidth": 720,
+      "viewportHeight": 1280
+    },
+    {
+      "id": "synthwave_84",
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 1280,
+      "viewportWidth": 720,
+      "viewportHeight": 1280
+    },
+    {
+      "id": "green_phosphor",
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 1280,
+      "viewportWidth": 720,
+      "viewportHeight": 1280
+    }
+  ],
+  "viewport": {
+    "width": 720,
+    "height": 1280,
+    "dpr": 1
+  },
+  "passed": true
+}

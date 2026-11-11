@@ -1,0 +1,29 @@
+{
+  "family": "Consolas, \"Cascadia Mono\", \"GPT Pi Mono\", monospace",
+  "digitWidth": 109.87472534179688,
+  "overflow": false,
+  "fonts": [
+    {
+      "selector": ".dashboard-header h1",
+      "fonts": [
+        {
+          "familyName": "Cantarell",
+          "postScriptName": "Cantarell-Regular",
+          "isCustomFont": false,
+          "glyphCount": 5
+        }
+      ]
+    },
+    {
+      "selector": ".dashboard-clock",
+      "fonts": [
+        {
+          "familyName": "Noto Sans Mono",
+          "postScriptName": "NotoSansMono-Regular",
+          "isCustomFont": false,
+          "glyphCount": 5
+        }
+      ]
+    }
+  ]
+}
