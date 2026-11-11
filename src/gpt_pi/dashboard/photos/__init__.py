@@ -11,6 +11,7 @@ def routes(runtime,body):
   try:
    if request.method=='POST':
     data=await body(request)
+    if not session.alive:raise HTTPException(401,'session_expired')
     if data=={'action':'revoke'}:clear_photos(session);return JSONResponse({'state':'not_configured','files':[]})
     await service.configure(session,data)
    return JSONResponse(await service.listing(session))

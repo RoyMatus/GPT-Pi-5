@@ -10,3 +10,6 @@ class CalendarTests(unittest.TestCase):
   self.assertEqual(validate_event({'title':'  Event  ','date':'2026-11-10','time':''})['date'],'2026-11-10')
   for data in [{'title':'','date':'2026-11-10'}, {'title':'x','date':'2026-02-30'}, {'title':'x','date':'2026-11-10','time':'25:00'}, {'title':'x','date':'2026-11-10','owner':'another'}]:
    with self.assertRaises(ValueError):validate_event(data)
+
+ def test_nonstring_empty_time_is_rejected(self):
+  with self.assertRaises(ValueError):validate_event({'title':'Synthetic','date':'2026-11-11','time':False})

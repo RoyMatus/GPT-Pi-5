@@ -9,7 +9,9 @@ def routes(runtime,body):
  async def weather(request):
   _,session=runtime.mutation(request) if request.method=='POST' else runtime.session(request)
   if request.method=='POST':
-   try:session.dashboard['weather']=validate_location(await body(request))
+   data=await body(request)
+   if not session.alive:raise HTTPException(401,'session_expired')
+   try:session.dashboard['weather']=validate_location(data)
    except (ValueError,TypeError):raise HTTPException(400,'invalid_location') from None
   result=await service.get(session.dashboard.get('weather',DEFAULT_LOCATION))
   if not session.alive:raise HTTPException(401,'session_expired')

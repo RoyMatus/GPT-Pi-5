@@ -110,3 +110,8 @@ GitHub Actions разрешены.
 Dashboard contracts: `node --test tests/dashboard-foundation.test.mjs`. This verifies cancellation, single-producer subscriptions and timezone midnight behavior, not visual or hardware acceptance.
 
 Shell matrix: `python tests/browser_dashboard_foundation.py` (optional `--browser-channel msedge`). Voice/login runners accept optional `GPT_PI_TEST_BROWSER_CHANNEL=msedge` for local Windows checks; CI uses Chromium. Tab transitions during recording/playback are included in browser_voice.py.
+
+Dashboard: Python `test_dashboard*.py`, Node `dashboard-calendar.test.mjs` и
+`dashboard-foundation.test.mjs`. Браузерные сценарии browser_dashboard_{overview,
+computer,markets,calendar,photos}.py используют только синтетические источники;
+общая подмена исключает live providers при переходах между вкладками.

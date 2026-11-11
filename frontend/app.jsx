@@ -1037,7 +1037,7 @@ function App({ active = true, themeDark, onThemeChange }) {
                                     реализованы. Завершение сеанса приложения не
                                     выходит из аккаунта на сайте OpenAI.
                                 </p>
-                                <small>Fluent 2 · GPT-Pi 5 v0.2</small>
+                                <small>Fluent 2 · GPT-Pi 5 v0.3</small>
                             </div>
                         </DialogContent>
                         <DialogActions>

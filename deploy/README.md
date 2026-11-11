@@ -18,7 +18,7 @@ python -m pip wheel . --no-deps -w dist
 Выполнить на Pi от графического пользователя:
 
 ```sh
-sh install-user.sh /absolute/path/gpt_pi_5-0.2.0-py3-none-any.whl
+sh install-user.sh /absolute/path/gpt_pi_5-0.3.0-py3-none-any.whl
 systemctl --user is-active gpt-pi
 curl --fail http://127.0.0.1:8765/health
 ```
@@ -125,3 +125,12 @@ Vosk/model-small-ru-0.22: Apache-2.0; Piper: GPL-3.0; голос Denis испо�
 Старый gpt-pi.service — пример отдельной системной установки в /opt.
 gpt-pi-kiosk.desktop запускает установленный пользовательский launcher.
 Текущий установщик создаёт собственные unit и desktop-файл.
+
+## Панель v0.3
+
+Launcher открывает `/?dashboard` с обзором; ассистент доступен на шестой вкладке.
+Ключи/настройки ПК принадлежат проверенному облачному subject и остаются на backend.
+События, город и избранное — RAM сеанса; фото — отдельное разрешение SFTP.
+Нужен настроенный SSH-сервер источника и проверенные отдельные права для фото;
+Windows без sshd не становится источником автоматически. Настройки сети/sshd ПК
+и серверные ACL/chroot установщик устройства не меняет.

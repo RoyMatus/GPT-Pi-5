@@ -10,7 +10,8 @@ def validate_event(data):
  if not isinstance(day,str) or not re.fullmatch(r'\d{4}-\d{2}-\d{2}',day):raise ValueError('invalid_event')
  parsed=date.fromisoformat(day)
  if not 1900<=parsed.year<=2200:raise ValueError('invalid_event')
- clock=data.get('time') or ''
+ clock=data.get('time','')
+ if clock is None:clock=''
  if not isinstance(clock,str) or (clock and not re.fullmatch(r'([01]\d|2[0-3]):[0-5]\d',clock)):raise ValueError('invalid_event')
  return {'title':title.strip(),'date':day,'time':clock}
 

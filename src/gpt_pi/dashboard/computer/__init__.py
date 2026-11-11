@@ -11,7 +11,9 @@ def routes(runtime,body):
   try:
    state=service.state(session)
    if request.method=='POST':
-    data=await body(request);action=data.pop('action',None)
+    data=await body(request)
+    if not session.alive:raise HTTPException(401,'session_expired')
+    action=data.pop('action',None)
     if action=='configure':state.configure(data)
     elif action=='disable' and not data:state.disable()
     elif action=='remove' and not data:state.disable(remove=True)

@@ -11,6 +11,7 @@ def routes(runtime,body):
   store=session.dashboard.setdefault('calendar',{})
   if request.method=='POST':
    data=await body(request)
+   if not session.alive:raise HTTPException(401,'session_expired')
    if 'id' in data and not isinstance(data['id'],str):raise HTTPException(400,'invalid_event')
    if data.get('action')=='delete' and set(data)=={'action','id'}:
     if data['id'] not in store:raise HTTPException(404,'not_found')

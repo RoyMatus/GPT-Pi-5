@@ -53,7 +53,7 @@ launcher включает настройку автоматического по
 
 Готовность этапа означает выполненные критерии docs/PRODUCT.md, а не наличие заглушек.
 
-## M6 — адаптивная панель Fluent 2 (согласованный backlog, не реализовано)
+## M6 — адаптивная панель Fluent 2 (код реализован; приёмка источника/устройства отдельно)
 
 [Общий дизайн и рендеры — #2](https://github.com/RoyMatus/GPT-Pi-5/issues/2) ·
 [Проект разработки](https://github.com/users/RoyMatus/projects/8).
@@ -76,3 +76,7 @@ launcher включает настройку автоматического по
 Foundation increment in #10: shell, shared clock and initial contracts added. No downstream gate released; epic #2 remains incomplete.
 
 Calendar implementation (#6): month navigation, RAM event CRUD, date countdown, supplied seasonal artwork; real physical touch remains separate.
+
+Все дочерние реализации #10/#8/#6/#5/#4/#3/#7 объединены через проверенные PR #11–#17.
+Реальные SSH/SFTP права выбранного ПК, физический тач/аудио и финальная визуальная
+приёмка не закрываются наличием кода или CI. Итоги установки — deploy/README.md.

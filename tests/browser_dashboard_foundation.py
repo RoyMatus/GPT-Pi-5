@@ -54,6 +54,8 @@ try:
                             assert page.locator('.dashboard-nav-item[aria-current="page"]').count()==1
                             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1')
                             assert page.locator('.dashboard-nav-item').evaluate_all('items=>items.every(b=>b.getBoundingClientRect().height>=44)')
+                            if text==100 and dpr==1:
+                                page.screenshot(path=str(evidence/f'{width}-{height}-{tab}-{"light" if light else "dark"}.png'))
                             count+=1
                         if text==100 and dpr==1:
                             page.get_by_role('button',name='Обзор',exact=True).click()

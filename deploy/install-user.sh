@@ -82,7 +82,7 @@ fi
 # The desktop owns squeekboard startup; do not race it with a second instance.
 # Fullscreen windows cover squeekboard's top layer on labwc; use a maximized app.
 # A dedicated persistent profile keeps the local HttpOnly session cookie across boots.
-exec chromium --start-maximized --app=http://127.0.0.1:8765 --no-first-run --no-default-browser-check --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --user-data-dir="$HOME/.local/share/gpt-pi-browser"
+exec chromium --start-maximized --app=http://127.0.0.1:8765/?dashboard --no-first-run --no-default-browser-check --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --user-data-dir="$HOME/.local/share/gpt-pi-browser"
 EOF
 chmod 700 "$HOME/.local/bin/gpt-pi-kiosk"
 cat > "$HOME/.config/autostart/gpt-pi.desktop" <<EOF

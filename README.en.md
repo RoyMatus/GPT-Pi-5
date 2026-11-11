@@ -6,7 +6,7 @@ A desktop Raspberry Pi 5 assistant with a touchscreen and local speech input.
 An independent project by Roy Matus ([RoyMatus](https://github.com/RoyMatus)),
 developed with ChatGPT; not an official OpenAI or Raspberry Pi device.
 
-**Status: personal prototype v0.2. Physical microphone/speaker acceptance is not complete.**
+**Status: personal prototype v0.3. Physical microphone/speaker acceptance is not complete.**
 
 ## Included in the prototype
 
@@ -107,7 +107,7 @@ This does not replace physical Pi screen, audio or startup acceptance.
 ## Deployment and documentation
 
 Upcoming device dashboard: [design and tasks](https://github.com/RoyMatus/GPT-Pi-5/issues/2) ·
-[development board](https://github.com/users/RoyMatus/projects/8). Dashboard features are not implemented yet.
+[development board](https://github.com/users/RoyMatus/projects/8). Six tabs are implemented; a configured SSH/SFTP source is required for actual PC metrics and photos.
 
 Supporting documents are currently in Russian:
 [Install and rollback](deploy/README.md) · [Testing](TESTING.md) ·
@@ -121,7 +121,6 @@ Public repository: https://github.com/RoyMatus/GPT-Pi-5.
 A source license has not been selected. Public visibility does not by itself mean OSS.
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
-The dashboard foundation is available at `/?dashboard`: six destinations and a local system clock. Data sources are not connected yet; the existing Assistant remains at `/`. Epic #2 is not complete.
 
 Assistant is integrated into the dashboard tab. Leaving the tab cancels voice and active generation while retaining login and the RAM-only conversation.
 
