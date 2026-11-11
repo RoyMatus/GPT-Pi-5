@@ -108,3 +108,5 @@ GitHub Actions разрешены.
 Один владелец координирует проверки на устройстве и интеграцию работы агентов.
 
 Dashboard contracts: `node --test tests/dashboard-foundation.test.mjs`. This verifies cancellation, single-producer subscriptions and timezone midnight behavior, not visual or hardware acceptance.
+
+Shell matrix: `python tests/browser_dashboard_foundation.py` (optional `--browser-channel msedge`). Voice/login runners accept optional `GPT_PI_TEST_BROWSER_CHANNEL=msedge` for local Windows checks; CI uses Chromium. Tab transitions during recording/playback are included in browser_voice.py.

@@ -70,3 +70,14 @@ Registry: frontend/dashboard/registry.jsx. Settings remain RAM-only except theme
 private events will not be persisted in the first implementation. No claim of protected
 local profiles. SSH references remain backend-only. Fullscreen photo slot is represented
 by DashboardFrame.fullscreen, with feature-owned Escape/exit controls mandatory in #7.
+
+#8 lease: coordinator root owns app.jsx, shell, registry and shared/client.jsx,
+assistant CSS, browser_voice.py/browser_remember_login.py until PR handoff.
+Leaving Assistant cancels voice/audio and active generation; conversation stays in RAM.
+Bootstrap is independent of tab cancellation. Sources are registered with a single
+ordered hook per feature; Overview consumes those hooks, without another poller.
+
+#8 verification: Windows Python 3.12 / Node 24 / Edge. Build, 78 Python tests,
+6 Node tests, 192 shell geometry cases, synthetic voice/tab-switch and remembered-login
+browser scenarios passed. Windows synthetic-server shutdown is bounded explicitly;
+this does not change production Uvicorn. The assistant has no SSH/model tools.

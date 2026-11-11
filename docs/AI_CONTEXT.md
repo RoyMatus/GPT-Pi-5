@@ -127,3 +127,5 @@ Python-теста аудио/HTTP, три Node-теста и браузерны�
 wheel прошли. CI коммита df40542 (Windows/Linux, Python 3.11/3.13, Node) успешен.
 
 Dashboard foundation increment: /?dashboard exposes the supplied shell and system clock; / retains Assistant. Feature integrations and #10 acceptance remain outstanding. See docs/dashboard/FOUNDATION.md.
+
+Assistant integration (#8): one mounted auth/chat controller inside the shell; inactive-tab voice and generation cancel, late results are discarded. Synthetic voice/tab transitions and remembered-login browser scenarios passed. No physical audio acceptance.
