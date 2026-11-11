@@ -14,9 +14,13 @@ export async function dashboardRequest(path, data, signal) {
 export function useResource(path,enabled,interval=60000) {
  const [value,setValue]=useState(null),[error,setError]=useState(''),[revision,setRevision]=useState(0);
  const generation=useRef(0);
+ const previousPath=useRef(path);
+ const [visible,setVisible]=useState(()=>!document.hidden);
+ useEffect(()=>{const visibility=()=>setVisible(!document.hidden);document.addEventListener("visibilitychange",visibility);return()=>document.removeEventListener("visibilitychange",visibility);},[]);
  const refresh=useCallback(()=>setRevision(v=>v+1),[]);
  useEffect(()=>{
-  if(!enabled)return;
+  if(previousPath.current!==path){previousPath.current=path;setValue(null);setError('');}
+  if(!enabled||!visible)return;
   const controller=new AbortController();const mark=++generation.current;let timer;
   async function update(){
    try { const next=await dashboardRequest(path,undefined,controller.signal);if(!controller.signal.aborted && mark===generation.current){setValue(next);setError('');} }
@@ -24,7 +28,7 @@ export function useResource(path,enabled,interval=60000) {
    if(!controller.signal.aborted && mark===generation.current)timer=setTimeout(update,interval);
   }
   update();return()=>{controller.abort();clearTimeout(timer);};
- },[path,enabled,interval,revision]);
+ },[path,enabled,visible,interval,revision]);
  useEffect(()=>{const clear=()=>{generation.current++;setValue(null);setError('');};window.addEventListener('gpt-pi-logout',clear);return()=>window.removeEventListener('gpt-pi-logout',clear);},[]);
  return {value,error,refresh};
 }

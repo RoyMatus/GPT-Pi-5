@@ -1,3 +1,4 @@
+import { MarketsScreen, useMarkets } from './markets/screen.jsx';
 /** Integration-owned registry: screen and source hooks have one stable order. */
 export const screenIds=Object.freeze(['overview','computer','markets','calendar','photos','assistant']);
 export function createRegistry(entries) {
@@ -8,7 +9,7 @@ export function createRegistry(entries) {
  }
  return id=>registry.get(id);
 }
-export const features=Object.freeze({});
+export const features=Object.freeze({markets:{screen:MarketsScreen,useSource:useMarkets}});
 export function useSources(tab) {
  return Object.fromEntries(Object.entries(features).map(([id,entry])=>[id,entry.useSource(tab)]));
 }
