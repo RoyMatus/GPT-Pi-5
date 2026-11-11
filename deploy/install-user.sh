@@ -80,13 +80,13 @@ if command -v gsettings >/dev/null && gsettings list-schemas | grep -qx org.gnom
     gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
 fi
 # The desktop owns squeekboard startup; do not race it with a second instance.
-# Fullscreen windows cover squeekboard's top layer on labwc; use a maximized app.
+# On labwc install-osk-overlay.sh keeps the keyboard above the fullscreen app.
 # The dedicated profile uses a file store: auto-login cannot unlock a desktop keyring.
 # This does not encrypt cookies at rest; restrict the directory to its owner.
 mkdir -p "$HOME/.local/share/gpt-pi-browser"
 chmod 700 "$HOME/.local/share/gpt-pi-browser"
 # A dedicated persistent profile keeps the local HttpOnly session cookie across boots.
-exec chromium --password-store=basic --start-maximized --app=http://127.0.0.1:8765/?dashboard --no-first-run --no-default-browser-check --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --user-data-dir="$HOME/.local/share/gpt-pi-browser"
+exec chromium --password-store=basic --kiosk --app=http://127.0.0.1:8765/?dashboard --no-first-run --no-default-browser-check --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --user-data-dir="$HOME/.local/share/gpt-pi-browser"
 EOF
 chmod 700 "$HOME/.local/bin/gpt-pi-kiosk"
 cat > "$HOME/.config/autostart/gpt-pi.desktop" <<EOF

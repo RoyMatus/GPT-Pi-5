@@ -22,6 +22,7 @@ from .cloud import ChatGPT, CloudError
 from .config import Settings
 from .voice import LocalVoice, VoiceError, MAX_AUDIO, MAX_SPEECH_TEXT, validate_audio
 from .audio_devices import AudioDevices
+from .keyboard import read_geometry
 from .credentials import CredentialStore
 from .dashboard.photos import routes as photo_routes
 from .dashboard.overview import routes as overview_routes
@@ -513,6 +514,7 @@ def create_app(settings=None, cloud=None):
     app = Starlette(lifespan=lifespan, routes=[
         Route('/', home), Route('/assets/{name}', asset), Route('/health', health),
         Route('/api/audio/devices', audio_devices),
+        Route('/api/keyboard', lambda request: JSONResponse(read_geometry())),
         Route('/api/capabilities', capabilities), Route('/api/session', session_info),
         Route('/api/auth/start', auth_start, methods=['POST']), Route('/auth/callback', callback),
         Route('/api/logout', logout, methods=['POST']), Route('/api/models', models),

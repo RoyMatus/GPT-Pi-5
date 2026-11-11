@@ -20,6 +20,8 @@ try:
                 def serve(route):
                     from urllib.parse import urlparse
                     path=urlparse(route.request.url).path
+                    if path=='/api/keyboard':
+                        route.fulfill(json={'visible':False,'height':0});return
                     if path=='/api/session':
                         route.fulfill(json={'authenticated':False,'csrf':'synthetic','provider':'offline','registrations':[]});return
                     if path=='/api/dashboard/computer':

@@ -13,6 +13,7 @@ def check():
   try:
    page=browser.new_page(viewport={'width':720,'height':1280});state={'profile':None,'state':'not_configured','sample':None,'history':[]};errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
    isolate_dashboard(page)
+   keyboard={'visible':True,'height':420};page.route('**/api/keyboard',lambda route:route.fulfill(json=keyboard))
    def computer(route):
     if route.request.method=='POST':
      data=route.request.post_data_json
@@ -21,7 +22,11 @@ def check():
     route.fulfill(json=state)
    page.route('**/api/dashboard/computer',computer);page.goto(settings.origin+'/?dashboard');page.get_by_role('button',name='Компьютер',exact=True).click();page.get_by_role('button',name='Настроить компьютер').click()
    page.get_by_label('Адрес SSH',exact=True).fill('synthetic.invalid');page.get_by_label('Пользователь телеметрии',exact=True).fill('metrics');page.get_by_label('Проверенный SHA256-отпечаток SSH-сервера',exact=True).fill('SHA256:'+'a'*43)
+   page.wait_for_function("() => document.querySelector('.dashboard').getBoundingClientRect().height===860")
+   assert page.evaluate("document.activeElement.getBoundingClientRect().bottom<=document.querySelector('.dashboard-nav').getBoundingClientRect().top"), 'Keyboard covers focused field'
    save=page.get_by_role('button',name='Сохранить подключение');assert not save.is_enabled();page.get_by_label('Я сверил отпечаток по доверенному каналу').check();save.click();page.get_by_label('Публичный ключ телеметрии',exact=True).wait_for();assert state['profile']['host']=='synthetic.invalid'
+   keyboard.update(visible=False,height=0)
+   page.wait_for_function("() => document.querySelector('.dashboard').getBoundingClientRect().height===1280")
    state['state']='host_key_changed';page.get_by_role('button',name='Обновить',exact=True).click();page.get_by_text('Ключ сервера изменился — подключение заблокировано',exact=False).first.wait_for()
    page.get_by_role('button',name='Отключить',exact=True).click();page.get_by_text('Подключение отключено',exact=False).first.wait_for();assert 'PRIVATE KEY' not in page.content();assert not errors,errors
    print('PASS: synthetic SSH setup, explicit trust confirmation, key-change and disable states')

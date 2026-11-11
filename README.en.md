@@ -23,7 +23,7 @@ developed with ChatGPT; not an official OpenAI or Raspberry Pi device.
   Registrations and tokens stay in the backend user's data directory; Linux token
   files have 0600 permissions. Disk encryption is not implemented.
 - A user-service and Wayland app-window installer for Pi, without sudo.
-  The maximized window supports the desktop's squeekboard on-screen keyboard.
+  Fullscreen kiosk supports squeekboard; labwc needs deploy/install-osk-overlay.sh.
 - Optional local Russian speech: button-controlled recording up to 30 seconds,
   Vosk transcription, editable text before sending, and Piper speech output.
   Audio is never stored or uploaded to the cloud. Cancel, sign-out and leaving
