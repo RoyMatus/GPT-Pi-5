@@ -43,6 +43,7 @@ import {
 import { Microphone } from "./voice.js";
 import { AudioCheck } from "./audio-check.jsx";
 import "./style.css";
+import { readSession } from "./dashboard/shared/client.jsx";
 import { DashboardShell } from "./dashboard/shell/shell.jsx";
 
 const errors = {
@@ -165,7 +166,7 @@ function App({ active = true, themeDark, onThemeChange }) {
                 },
                 body: JSON.stringify(data),
             });
-        const response = await fetch(path, options);
+        const response = path === "/api/session" && data === undefined ? await readSession() : await fetch(path, options);
         if (!response.ok) {
             const result = await response.json().catch(() => ({}));
             if (response.status === 401 && result.error === "session_expired") {
@@ -220,7 +221,7 @@ function App({ active = true, themeDark, onThemeChange }) {
         const timer = setInterval(async () => {
             if (!sessionRef.current?.authenticated) return;
             try {
-                const fresh = await (await fetch("/api/session")).json();
+                const fresh = await (await readSession()).json();
                 if (!fresh.authenticated) {
                     clearPrivate();
                     sessionRef.current = fresh;
