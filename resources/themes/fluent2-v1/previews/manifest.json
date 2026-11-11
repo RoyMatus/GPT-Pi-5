@@ -1,0 +1,1849 @@
+{
+  "schema": 1,
+  "kind": "actual-ui-screenshot-gallery",
+  "syntheticData": true,
+  "sourceViewport": {
+    "width": 720,
+    "height": 1280
+  },
+  "sheet": {
+    "width": 1504,
+    "height": 1500,
+    "columns": 4,
+    "rows": 2,
+    "tileWidth": 360,
+    "tileHeight": 640
+  },
+  "themes": [
+    {
+      "id": "fluent_light",
+      "name": "Fluent 2 Light",
+      "description": "Чистая Fluent 2: светлые нейтральные поверхности, синий акцент и мягкая глубина.",
+      "palette": [
+        "#F5F5F5",
+        "#FFFFFF",
+        "#242424",
+        "#0F6CBD",
+        "#0F6CBD"
+      ],
+      "contactSheet": {
+        "name": "fluent_light-contact-sheet.png",
+        "width": 1504,
+        "height": 1500,
+        "bytes": 356940,
+        "sha256": "ba0f7b0e0b4ec024599682ae0f236fef78b79d5655582a5aa5b768d78e5cacab"
+      },
+      "screens": [
+        {
+          "id": "overview",
+          "label": "Обзор",
+          "name": "fluent_light-overview.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 68784,
+          "sha256": "7c7e1057ab8104ab46a87d9555d774fc95bb6d3f5a554c561f99407e4da9265f"
+        },
+        {
+          "id": "computer",
+          "label": "Компьютер",
+          "name": "fluent_light-computer.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 57373,
+          "sha256": "63b92e2a217fd9f1af67698eaa00d5c3c7ae19a0f69b0cd357be5874f492ab3c"
+        },
+        {
+          "id": "markets",
+          "label": "Рынки",
+          "name": "fluent_light-markets.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 63943,
+          "sha256": "d76e1cd1748f5a886d0e75e1144d186b8634079f3ff202c58eb12d9aff55ea6f"
+        },
+        {
+          "id": "calendar",
+          "label": "Календарь",
+          "name": "fluent_light-calendar.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 66304,
+          "sha256": "4d30abf8bf16bdd90317b0032d5554f35ab3112630f2f0687c4166ae36ea5cd5"
+        },
+        {
+          "id": "photos",
+          "label": "Фото",
+          "name": "fluent_light-photos.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 32690,
+          "sha256": "04eabf7dbc5cf71707c1fe7bc476369cc76f03948d3027ea08228de0eea564dc"
+        },
+        {
+          "id": "assistant",
+          "label": "Ассистент",
+          "name": "fluent_light-assistant.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 44491,
+          "sha256": "e3ba64e89c6b5d596a45e253c5f927a89b78719a425e66a52e811d685991a599"
+        },
+        {
+          "id": "settings",
+          "label": "Оформление",
+          "name": "fluent_light-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 63168,
+          "sha256": "1db2c42169d5239c3a3fd4841244f70574ddcc3edb0963c80f15a09630bf8fe9"
+        },
+        {
+          "id": "signin",
+          "label": "Вход",
+          "name": "fluent_light-signin.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 48468,
+          "sha256": "04d384c227676e14e1c2a068f85af3c54d3bf650b145e84d716bd22bc3582a98"
+        }
+      ],
+      "dialogs": [
+        {
+          "id": "event-dialog",
+          "label": "Событие календаря",
+          "name": "fluent_light-event-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 61275,
+          "sha256": "75145fbbaa27dc210ef5baf4c38366b9e7a4388405f4f6e3d71e338ddb350686"
+        },
+        {
+          "id": "assistant-settings",
+          "label": "Настройки ассистента",
+          "name": "fluent_light-assistant-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 72396,
+          "sha256": "85656a6d18e52155bb6f4ede114a0801ae1bfb727d8df5f9bd40007a6b36f18a"
+        },
+        {
+          "id": "audio-dialog",
+          "label": "Проверка звука",
+          "name": "fluent_light-audio-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 50612,
+          "sha256": "49822c83dc8200c7458f92f9982637142ef767a1d1e9edcc21d2d228e09cb1f6"
+        }
+      ]
+    },
+    {
+      "id": "fluent_dark",
+      "name": "Fluent 2 Dark",
+      "description": "Чистая Fluent 2: нейтральный графит, светлая типографика и синие действия.",
+      "palette": [
+        "#141414",
+        "#292929",
+        "#FFFFFF",
+        "#479EF5",
+        "#479EF5"
+      ],
+      "contactSheet": {
+        "name": "fluent_dark-contact-sheet.png",
+        "width": 1504,
+        "height": 1500,
+        "bytes": 393796,
+        "sha256": "d34a88b9ef59546ce95558201c07207bb42bd583cfe463a69428571979114961"
+      },
+      "screens": [
+        {
+          "id": "overview",
+          "label": "Обзор",
+          "name": "fluent_dark-overview.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 69752,
+          "sha256": "940d1e78f7e63ed386659eff4b2ec5b8af56e4c74d05302e5a683b4df38d44af"
+        },
+        {
+          "id": "computer",
+          "label": "Компьютер",
+          "name": "fluent_dark-computer.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 57552,
+          "sha256": "8f2fc4e92af839d70f33a5b81769387d93f51039d1d9b6db4a5ccb3825554dcd"
+        },
+        {
+          "id": "markets",
+          "label": "Рынки",
+          "name": "fluent_dark-markets.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 64001,
+          "sha256": "11146edadb6d8afa0a3abddaf1d6b15f656dc515169813deae6e5bad5abe6341"
+        },
+        {
+          "id": "calendar",
+          "label": "Календарь",
+          "name": "fluent_dark-calendar.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 65613,
+          "sha256": "2ada7bd259531589a0f7376cf703a0060daba8eb24cec133963d2fab42570566"
+        },
+        {
+          "id": "photos",
+          "label": "Фото",
+          "name": "fluent_dark-photos.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 32769,
+          "sha256": "f4e2bc416445a0d3276356513a23ab2e7d5195dfa7a6a5bbcd0992a6885851bd"
+        },
+        {
+          "id": "assistant",
+          "label": "Ассистент",
+          "name": "fluent_dark-assistant.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 44739,
+          "sha256": "a36be1339ef2f630ccf59acacac8b3c7d0d98962afb93845bea34cc649245cd5"
+        },
+        {
+          "id": "settings",
+          "label": "Оформление",
+          "name": "fluent_dark-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 61162,
+          "sha256": "e5ec3a0f085c58000c50f7c7953d2b3945bdb180f27e152d2fb769ab56ceb234"
+        },
+        {
+          "id": "signin",
+          "label": "Вход",
+          "name": "fluent_dark-signin.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 48810,
+          "sha256": "7aaf624713fe0174fb442954674a6d2b7941cd38ef8bdab030cc00292df96d77"
+        }
+      ],
+      "dialogs": [
+        {
+          "id": "event-dialog",
+          "label": "Событие календаря",
+          "name": "fluent_dark-event-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 58574,
+          "sha256": "69b44376c5a961f23f9b0a6165f4312feb4be0bef2e8ebda690af7456978fdca"
+        },
+        {
+          "id": "assistant-settings",
+          "label": "Настройки ассистента",
+          "name": "fluent_dark-assistant-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 70809,
+          "sha256": "3540b7f91765b198528283c732900336ce28f54185aa7998a71e7f7ee1f3ea95"
+        },
+        {
+          "id": "audio-dialog",
+          "label": "Проверка звука",
+          "name": "fluent_dark-audio-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 49247,
+          "sha256": "06fddf3ddda0d8d8a41d4c0c0663eb84e8224c29f182d1ed80e7607048366c83"
+        }
+      ]
+    },
+    {
+      "id": "classic",
+      "name": "Classic",
+      "description": "Насыщенный синий и кремовый текст в спокойных слоях Fluent 2.",
+      "palette": [
+        "#0C1935",
+        "#132342",
+        "#FFF4CA",
+        "#7CDDFA",
+        "#7CDDFA"
+      ],
+      "contactSheet": {
+        "name": "classic-contact-sheet.png",
+        "width": 1504,
+        "height": 1500,
+        "bytes": 767773,
+        "sha256": "f51665e67a9beda68c5cabc1281c4c90e46cb2546d0d018ec703535d576a640b"
+      },
+      "screens": [
+        {
+          "id": "overview",
+          "label": "Обзор",
+          "name": "classic-overview.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 207432,
+          "sha256": "d8a5155e5f8339fd1a33e877a4b43e69342933a5cf5fdcff2af907162da25a49"
+        },
+        {
+          "id": "computer",
+          "label": "Компьютер",
+          "name": "classic-computer.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 181539,
+          "sha256": "5378fb9c191a7cb41c351386c7761b22df9119a74515c1baf30fb61b6ec150ec"
+        },
+        {
+          "id": "markets",
+          "label": "Рынки",
+          "name": "classic-markets.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 179646,
+          "sha256": "a4f9cb64687713406accec3044cf5f90ca8f7f7798628c4f22b64bf61bdd17f4"
+        },
+        {
+          "id": "calendar",
+          "label": "Календарь",
+          "name": "classic-calendar.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 203491,
+          "sha256": "990fbdd545cf37e9aa75ebdfe49ef94daa8f2f2dd3250949d1cfdafabf8de8b6"
+        },
+        {
+          "id": "photos",
+          "label": "Фото",
+          "name": "classic-photos.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 293311,
+          "sha256": "45749d84bd8f1e87ae02e67d6dc99a5a29d24da70c000d87669654d8732a0753"
+        },
+        {
+          "id": "assistant",
+          "label": "Ассистент",
+          "name": "classic-assistant.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 358597,
+          "sha256": "f41fa1b04b7052916feb48a4efa53f031c0115384a69b56d4148186ddb17dffd"
+        },
+        {
+          "id": "settings",
+          "label": "Оформление",
+          "name": "classic-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 153788,
+          "sha256": "10e247b844138dae903f31d1c1216f6a7f1552b4a8a5e5564c5517e71b0c610a"
+        },
+        {
+          "id": "signin",
+          "label": "Вход",
+          "name": "classic-signin.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 373166,
+          "sha256": "906206b2a96dbd0f488ec51d8b353fe6c76ca69be1b80a0067d1e7472ad2cd2a"
+        }
+      ],
+      "dialogs": [
+        {
+          "id": "event-dialog",
+          "label": "Событие календаря",
+          "name": "classic-event-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 150389,
+          "sha256": "91aa28f9ab7bb851364ad68bd911066a2a8f95fa5f5b6afd12d2da07c4efd116"
+        },
+        {
+          "id": "assistant-settings",
+          "label": "Настройки ассистента",
+          "name": "classic-assistant-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 142842,
+          "sha256": "6de2df9a96fd9c8d7994d1bcd952adb0794dd65e5f58efe57e4be7086653d366"
+        },
+        {
+          "id": "audio-dialog",
+          "label": "Проверка звука",
+          "name": "classic-audio-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 182293,
+          "sha256": "177b87db0dd2208aa599d7e945c7fba3abd0b12d6be86730f22f0a18a32c54db"
+        }
+      ]
+    },
+    {
+      "id": "monokai",
+      "name": "Monokai",
+      "description": "Цветной синтаксис: угольный фон, лайм и небольшие яркие акценты.",
+      "palette": [
+        "#171914",
+        "#272822",
+        "#F8F8F2",
+        "#A6E22E",
+        "#66D9EF"
+      ],
+      "contactSheet": {
+        "name": "monokai-contact-sheet.png",
+        "width": 1504,
+        "height": 1500,
+        "bytes": 739245,
+        "sha256": "738d16396da5cc9c1558c68311e5d51277e679dbabd6379e3bc3efbf1f66241f"
+      },
+      "screens": [
+        {
+          "id": "overview",
+          "label": "Обзор",
+          "name": "monokai-overview.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 195284,
+          "sha256": "c2756a62e371cc3654605d1ad0fac1204a48e78fabe63ab1c1e767dddb503a7a"
+        },
+        {
+          "id": "computer",
+          "label": "Компьютер",
+          "name": "monokai-computer.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 170486,
+          "sha256": "57b8829b7ec50ef16e31c72942606bb2612cd1abd445b27e84d4a05a7236e71c"
+        },
+        {
+          "id": "markets",
+          "label": "Рынки",
+          "name": "monokai-markets.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 169422,
+          "sha256": "51300b4cc83fd56864f2cb9e62da371af4a7310bb26148b137f07572b94981a3"
+        },
+        {
+          "id": "calendar",
+          "label": "Календарь",
+          "name": "monokai-calendar.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 192448,
+          "sha256": "a80df3a1db550fe8baad90c09284d54ea2e1c498ef09b39ee9eaad3763e30404"
+        },
+        {
+          "id": "photos",
+          "label": "Фото",
+          "name": "monokai-photos.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 268545,
+          "sha256": "38fa703aa335f5071a0adb92cd715b27d3abeac6b04393ef11518b99f31c5380"
+        },
+        {
+          "id": "assistant",
+          "label": "Ассистент",
+          "name": "monokai-assistant.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 330540,
+          "sha256": "0fce3a2b18fdd50d40514bbec0c1d57709bec6b3b3b762d85668d9ddea69049c"
+        },
+        {
+          "id": "settings",
+          "label": "Оформление",
+          "name": "monokai-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 142231,
+          "sha256": "b3a0d47fca5ea1bc2df8d34ace162ba1ec1e7b851bd838f3eb059f1336a30ce8"
+        },
+        {
+          "id": "signin",
+          "label": "Вход",
+          "name": "monokai-signin.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 341918,
+          "sha256": "17cef6ab91ace0caae9c7d05ad2c1537c01f8eca6763325716eee2ad5206b635"
+        }
+      ],
+      "dialogs": [
+        {
+          "id": "event-dialog",
+          "label": "Событие календаря",
+          "name": "monokai-event-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 139156,
+          "sha256": "6679f44a890505a85e890983c15058b4c8c55cf0c19b0464631427b0574d0b2c"
+        },
+        {
+          "id": "assistant-settings",
+          "label": "Настройки ассистента",
+          "name": "monokai-assistant-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 138382,
+          "sha256": "02abd002d082e432f1c18f262ae0cb929cd1a0bc954a2840dd667b388f644202"
+        },
+        {
+          "id": "audio-dialog",
+          "label": "Проверка звука",
+          "name": "monokai-audio-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 168891,
+          "sha256": "e5d9248fc2c56e36ccbaefd36aff56a97d93c672046da48517c14ad5534e53b3"
+        }
+      ]
+    },
+    {
+      "id": "gruvbox",
+      "name": "Gruvbox",
+      "description": "Тёплый графит, кремовый текст и оливковые акценты на мягких поверхностях.",
+      "palette": [
+        "#1D2021",
+        "#282828",
+        "#FBF1C7",
+        "#A9B665",
+        "#83A598"
+      ],
+      "contactSheet": {
+        "name": "gruvbox-contact-sheet.png",
+        "width": 1504,
+        "height": 1500,
+        "bytes": 742278,
+        "sha256": "9c349c4df3c7c51a6618feb4d74ce0ec9b8bc83884b4d25154850ccf4fcffb2a"
+      },
+      "screens": [
+        {
+          "id": "overview",
+          "label": "Обзор",
+          "name": "gruvbox-overview.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 203865,
+          "sha256": "f1997e1c7177fdf746c4da9539f621d72e3f1a748b6b0c929023801fa9fd8491"
+        },
+        {
+          "id": "computer",
+          "label": "Компьютер",
+          "name": "gruvbox-computer.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 178932,
+          "sha256": "a58d697d69f768cbf8431d113356aed0522158b6c362f54e86e062707f0d7cb9"
+        },
+        {
+          "id": "markets",
+          "label": "Рынки",
+          "name": "gruvbox-markets.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 175263,
+          "sha256": "99367d96c5c4d5b881e10a49196ede6cbfbfc9946764c25754a555c811743799"
+        },
+        {
+          "id": "calendar",
+          "label": "Календарь",
+          "name": "gruvbox-calendar.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 200900,
+          "sha256": "63748b37282ab154a572aa996c65b2595e403e6f279fe905ce5a52b6a2ccc0b6"
+        },
+        {
+          "id": "photos",
+          "label": "Фото",
+          "name": "gruvbox-photos.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 288704,
+          "sha256": "505f172db0b5fc15a4774844fc6d10d4ac1879a31c8c4c93442c2f324ea5a06d"
+        },
+        {
+          "id": "assistant",
+          "label": "Ассистент",
+          "name": "gruvbox-assistant.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 352218,
+          "sha256": "88683dadcf1afa4659db42dc216a4dc72c0353fbe567f4dc76637a242460cf6f"
+        },
+        {
+          "id": "settings",
+          "label": "Оформление",
+          "name": "gruvbox-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 147298,
+          "sha256": "21f944b0085be643a0899fa3dffedad1a7040ee4819f485319d58824cebd579a"
+        },
+        {
+          "id": "signin",
+          "label": "Вход",
+          "name": "gruvbox-signin.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 365399,
+          "sha256": "5cc700b58651d78597c62d0bdd36557f2ee65d9ad401fa0ce50f65a5d572528d"
+        }
+      ],
+      "dialogs": [
+        {
+          "id": "event-dialog",
+          "label": "Событие календаря",
+          "name": "gruvbox-event-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 144525,
+          "sha256": "290fd555b2e52234d2f7f276a1ae0de2772e0c0acd7d3b5b32f3a12d844a8f77"
+        },
+        {
+          "id": "assistant-settings",
+          "label": "Настройки ассистента",
+          "name": "gruvbox-assistant-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 139277,
+          "sha256": "076ea7b6e57d5edc2676c930da69d1b924ae25eef71f53868632d0e2e68d196a"
+        },
+        {
+          "id": "audio-dialog",
+          "label": "Проверка звука",
+          "name": "gruvbox-audio-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 178060,
+          "sha256": "f9b2c1ab6f5b02791e2795db2bddb0900831ba99a85d6d942dfd1f1af72207f2"
+        }
+      ]
+    },
+    {
+      "id": "vscode",
+      "name": "VSCode",
+      "description": "Рабочий редактор: нейтральный графит, мятный акцент и спокойные поверхности.",
+      "palette": [
+        "#1E1E1E",
+        "#252526",
+        "#F4F4F4",
+        "#4EC9B0",
+        "#569CD6"
+      ],
+      "contactSheet": {
+        "name": "vscode-contact-sheet.png",
+        "width": 1504,
+        "height": 1500,
+        "bytes": 684594,
+        "sha256": "fe0b37cf29b428e68e2c432f9314d160bd160251718adb15822fa96a176d50ec"
+      },
+      "screens": [
+        {
+          "id": "overview",
+          "label": "Обзор",
+          "name": "vscode-overview.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 190784,
+          "sha256": "dc654f2e24cdf3c49634da32987b62f80d49065f4ca60635428c95e1c9674f70"
+        },
+        {
+          "id": "computer",
+          "label": "Компьютер",
+          "name": "vscode-computer.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 162931,
+          "sha256": "b6662ead77176704d8e919ae664eefa5ac824902cd26a9631785ae04d0652d82"
+        },
+        {
+          "id": "markets",
+          "label": "Рынки",
+          "name": "vscode-markets.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 165554,
+          "sha256": "eefdbcedb4c09dd9452ce20e4a52e9784badce1d60656d3997a0e65d92be2dd8"
+        },
+        {
+          "id": "calendar",
+          "label": "Календарь",
+          "name": "vscode-calendar.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 188815,
+          "sha256": "7e204215b309781b9387584141678c8be8050e1589856bb0e73f033706561fb8"
+        },
+        {
+          "id": "photos",
+          "label": "Фото",
+          "name": "vscode-photos.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 259922,
+          "sha256": "21380e8b5abc403067671c273bad0b94ca27f50aef794725cbc693554ca73077"
+        },
+        {
+          "id": "assistant",
+          "label": "Ассистент",
+          "name": "vscode-assistant.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 322789,
+          "sha256": "a7695653f2c65bd61a7afcc7ba1963510ea48cd54106c4be573770f3426e6fa0"
+        },
+        {
+          "id": "settings",
+          "label": "Оформление",
+          "name": "vscode-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 139323,
+          "sha256": "e882f9da899982b7ce303e8759f490ffd9d7a7838db960a08a31aa8f0d3fce99"
+        },
+        {
+          "id": "signin",
+          "label": "Вход",
+          "name": "vscode-signin.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 332635,
+          "sha256": "d179978596fcc8db3932fda2d462d4fd28da07d0c2b0bf9130fd4edd85c01b8e"
+        }
+      ],
+      "dialogs": [
+        {
+          "id": "event-dialog",
+          "label": "Событие календаря",
+          "name": "vscode-event-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 136586,
+          "sha256": "717e393ad3a358637bcb3b372ec460b88955cab661e438b6d38b12b3574c51b0"
+        },
+        {
+          "id": "assistant-settings",
+          "label": "Настройки ассистента",
+          "name": "vscode-assistant-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 132125,
+          "sha256": "8ae364a620a9cd9d3889d77cd3fdd4418564325c8a41da7954b9a3a5f9bd676e"
+        },
+        {
+          "id": "audio-dialog",
+          "label": "Проверка звука",
+          "name": "vscode-audio-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 163594,
+          "sha256": "7182de5066e038dcedcbcc72d115e726a8f19ac8231ea3120fcd87cbc776fde9"
+        }
+      ]
+    },
+    {
+      "id": "dracula",
+      "name": "Dracula",
+      "description": "Чернильный фон, лиловая глубина и холодный голубой акцент.",
+      "palette": [
+        "#191B2C",
+        "#282A36",
+        "#F8F8F2",
+        "#8BE9FD",
+        "#BD93F9"
+      ],
+      "contactSheet": {
+        "name": "dracula-contact-sheet.png",
+        "width": 1504,
+        "height": 1500,
+        "bytes": 762872,
+        "sha256": "29f8bb7559414a6ae7009601e221c187c78c3cef0b7c826cbaf99ed1414b5d93"
+      },
+      "screens": [
+        {
+          "id": "overview",
+          "label": "Обзор",
+          "name": "dracula-overview.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 206938,
+          "sha256": "5efea86e10952d0edc3bfe5ef7694759d8f47eea5235eb38adb6d35a6420dab5"
+        },
+        {
+          "id": "computer",
+          "label": "Компьютер",
+          "name": "dracula-computer.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 174237,
+          "sha256": "edb579fb4fb11153badecf7786b8f3c4f89e21d6fff54d2b69808c4c065df08c"
+        },
+        {
+          "id": "markets",
+          "label": "Рынки",
+          "name": "dracula-markets.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 175787,
+          "sha256": "238c2f2b660a5f56f7608aff94434244169b4c856c32482fa4cb18566f6181ff"
+        },
+        {
+          "id": "calendar",
+          "label": "Календарь",
+          "name": "dracula-calendar.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 201919,
+          "sha256": "ab7bed9b12dcc18c6002e79e63318ad80b0324d3ed785592624cb944eee7d222"
+        },
+        {
+          "id": "photos",
+          "label": "Фото",
+          "name": "dracula-photos.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 283955,
+          "sha256": "7bd71e720619173b04dab4741d21d858ee3d0ccf7dfba55ef4e9c73ad2a316f1"
+        },
+        {
+          "id": "assistant",
+          "label": "Ассистент",
+          "name": "dracula-assistant.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 353143,
+          "sha256": "bbd82e597fc0984868e02f99767de18db9399ca5402c7b6901c2e05ccffa31ba"
+        },
+        {
+          "id": "settings",
+          "label": "Оформление",
+          "name": "dracula-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 154335,
+          "sha256": "c169ad889057aa851e10f271d512ba85ee96bde84c40f8b1dc36982fbd82b041"
+        },
+        {
+          "id": "signin",
+          "label": "Вход",
+          "name": "dracula-signin.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 364430,
+          "sha256": "e1d09ae5228d69eae91d59a9f4fa30d6e94ce647c18806c12918997e0c76537a"
+        }
+      ],
+      "dialogs": [
+        {
+          "id": "event-dialog",
+          "label": "Событие календаря",
+          "name": "dracula-event-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 149845,
+          "sha256": "c13c2d21552751df49e043d43577ff2798ff9e81082100514de32dfdb8de70a7"
+        },
+        {
+          "id": "assistant-settings",
+          "label": "Настройки ассистента",
+          "name": "dracula-assistant-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 142947,
+          "sha256": "7712c6d990b20daef98979980a7bc4657ae43f56ef850989d93ce19afd5526a9"
+        },
+        {
+          "id": "audio-dialog",
+          "label": "Проверка звука",
+          "name": "dracula-audio-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 185039,
+          "sha256": "a8b6a90c5c95759e1247e7f77603fb42b8d0360c9a691a0080e563e06b06292e"
+        }
+      ]
+    },
+    {
+      "id": "nord",
+      "name": "Nord",
+      "description": "Северный иней: сине-серые поверхности, ледяной акцент и мягкие блики.",
+      "palette": [
+        "#242C3A",
+        "#344359",
+        "#ECEFF4",
+        "#88C0D0",
+        "#B48EAD"
+      ],
+      "contactSheet": {
+        "name": "nord-contact-sheet.png",
+        "width": 1504,
+        "height": 1500,
+        "bytes": 768003,
+        "sha256": "3feb9bb787b8b593e0b0d8bbb98499d3d923fe4c365b28b4e972959c4b75814c"
+      },
+      "screens": [
+        {
+          "id": "overview",
+          "label": "Обзор",
+          "name": "nord-overview.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 222229,
+          "sha256": "96c212f3ce99582b6cdcc3dbd00a75da668267594e591a002ac9e5b60ae2c32e"
+        },
+        {
+          "id": "computer",
+          "label": "Компьютер",
+          "name": "nord-computer.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 197944,
+          "sha256": "3cef701d18dc9bc426b7fa3195da53c675fa222c6e5b6c3fe292b41ea9316253"
+        },
+        {
+          "id": "markets",
+          "label": "Рынки",
+          "name": "nord-markets.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 190793,
+          "sha256": "36c85676814356583cee3077ca0d6e0c4311d7187167b9c7627b203a6f01b173"
+        },
+        {
+          "id": "calendar",
+          "label": "Календарь",
+          "name": "nord-calendar.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 217695,
+          "sha256": "32dbcc6ec6a0136a0029d468498bf5f1dde1d46da9f8a506e04399d06464fba5"
+        },
+        {
+          "id": "photos",
+          "label": "Фото",
+          "name": "nord-photos.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 328268,
+          "sha256": "5a6bd754133c9739cea92f4401343c36163fef63b428ac9db2dbea1be6814b91"
+        },
+        {
+          "id": "assistant",
+          "label": "Ассистент",
+          "name": "nord-assistant.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 393757,
+          "sha256": "7b0a327532adb5ca78f0a5cbf0ae58a0b74199ce11b983c3a43198337a93b295"
+        },
+        {
+          "id": "settings",
+          "label": "Оформление",
+          "name": "nord-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 161854,
+          "sha256": "de9b060ea5c2469d2b64e803157111e1f08171ef0ca80c8a348c269d86a2d29a"
+        },
+        {
+          "id": "signin",
+          "label": "Вход",
+          "name": "nord-signin.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 411523,
+          "sha256": "86fdd34ed83fe4eb43482347f998210f9b4f14648fd6056ad399c6d5c8933d82"
+        }
+      ],
+      "dialogs": [
+        {
+          "id": "event-dialog",
+          "label": "Событие календаря",
+          "name": "nord-event-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 160866,
+          "sha256": "1f7bfb58cf4a3d2c989fa343af0c6fc0023acd0cb5fea67ff51d12cc85f7f9eb"
+        },
+        {
+          "id": "assistant-settings",
+          "label": "Настройки ассистента",
+          "name": "nord-assistant-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 150813,
+          "sha256": "eadfa38b8d1ce552548ec72ce5bb0e7e603d4e147714c7f7bd8eaaf5b45c5940"
+        },
+        {
+          "id": "audio-dialog",
+          "label": "Проверка звука",
+          "name": "nord-audio-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 200842,
+          "sha256": "6c915f8e3611d65e851c8520cfc3bf970621058b3091c49f28661f5fedbde66d"
+        }
+      ]
+    },
+    {
+      "id": "solarized_light",
+      "name": "Solarized Light",
+      "description": "Светлая бумага: тёплый фон, глубокий текст и сдержанная бирюза.",
+      "palette": [
+        "#FDF6E3",
+        "#EEE8D5",
+        "#073642",
+        "#006E68",
+        "#6C71C4"
+      ],
+      "contactSheet": {
+        "name": "solarized_light-contact-sheet.png",
+        "width": 1504,
+        "height": 1500,
+        "bytes": 797744,
+        "sha256": "d3534deda4ef638befc0ca89d6f7cc1454c9359dd2922ef8687df5261e64ca49"
+      },
+      "screens": [
+        {
+          "id": "overview",
+          "label": "Обзор",
+          "name": "solarized_light-overview.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 256535,
+          "sha256": "1d24e67ad0eaa35698f24ba6ded5a7d47d96471ca42ac27fa146af4564249c7c"
+        },
+        {
+          "id": "computer",
+          "label": "Компьютер",
+          "name": "solarized_light-computer.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 235784,
+          "sha256": "6c4f03bc16a552ff46643104430278674b815b90af248d19b4ab642c99d40014"
+        },
+        {
+          "id": "markets",
+          "label": "Рынки",
+          "name": "solarized_light-markets.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 220308,
+          "sha256": "c966edf33b934093fd5b3627ac076cb3c69d60f197202a1e188ebe1c22b88c42"
+        },
+        {
+          "id": "calendar",
+          "label": "Календарь",
+          "name": "solarized_light-calendar.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 254671,
+          "sha256": "7596f0c4dbca4e49599496d67dfd8b5bb9888ded08baab88a860b316e21e20e5"
+        },
+        {
+          "id": "photos",
+          "label": "Фото",
+          "name": "solarized_light-photos.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 413943,
+          "sha256": "6d3a235b254b0aa9b7b32d14ac3d87aca79d1223c4823c88b7e6d77f7ba334c2"
+        },
+        {
+          "id": "assistant",
+          "label": "Ассистент",
+          "name": "solarized_light-assistant.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 483292,
+          "sha256": "050ffe1f5abea72421cca62a3ac87625fc6398ee1f5961a8040f67b63c75b915"
+        },
+        {
+          "id": "settings",
+          "label": "Оформление",
+          "name": "solarized_light-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 225849,
+          "sha256": "9c156c4a321cf100cd70eb0db6dc610c867dbbdfcb74b7f466b00e855b6f162a"
+        },
+        {
+          "id": "signin",
+          "label": "Вход",
+          "name": "solarized_light-signin.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 508702,
+          "sha256": "94bd09eb95864df327f3432312ba6bf94a366e3a0c2c83eb7c062ac2ce10fc4e"
+        }
+      ],
+      "dialogs": [
+        {
+          "id": "event-dialog",
+          "label": "Событие календаря",
+          "name": "solarized_light-event-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 227334,
+          "sha256": "76de4f4ea35e0513113e346cbd8aabcb63be1bd3de9e3a4d4943c6a827fc7317"
+        },
+        {
+          "id": "assistant-settings",
+          "label": "Настройки ассистента",
+          "name": "solarized_light-assistant-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 210637,
+          "sha256": "2f316dc0d85ae619993b81ecb9bc50dcd9a0649e30387523357d424e03f402aa"
+        },
+        {
+          "id": "audio-dialog",
+          "label": "Проверка звука",
+          "name": "solarized_light-audio-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 327634,
+          "sha256": "d2def3c7bd0df999bb7b128682d3504dff38747e3140534a5414671ee444cee8"
+        }
+      ]
+    },
+    {
+      "id": "solarized_dark",
+      "name": "Solarized Dark",
+      "description": "Глубокий петроль: сине-зелёный фон, светлый текст и ясная бирюза.",
+      "palette": [
+        "#002B36",
+        "#073642",
+        "#FDF6E3",
+        "#59CFC3",
+        "#6C9CB1"
+      ],
+      "contactSheet": {
+        "name": "solarized_dark-contact-sheet.png",
+        "width": 1504,
+        "height": 1500,
+        "bytes": 730364,
+        "sha256": "da2feb1a25a2001317d15f18b0156a2541618302e8a8abee72b3f0c14bc1301d"
+      },
+      "screens": [
+        {
+          "id": "overview",
+          "label": "Обзор",
+          "name": "solarized_dark-overview.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 205649,
+          "sha256": "d2838ff9a35a5c38060cb33ada6e931d69a713c124f37a0993d14d8772894ec1"
+        },
+        {
+          "id": "computer",
+          "label": "Компьютер",
+          "name": "solarized_dark-computer.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 181832,
+          "sha256": "1f1b4369f16c9ca94ed5a675f4293b22228abd5e7f6a3c3c7ccfbe9068363294"
+        },
+        {
+          "id": "markets",
+          "label": "Рынки",
+          "name": "solarized_dark-markets.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 178174,
+          "sha256": "3c03b6a200304d0d59a6aececcaf7caf11e650a83730cf22b159a18b261d5cee"
+        },
+        {
+          "id": "calendar",
+          "label": "Календарь",
+          "name": "solarized_dark-calendar.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 202167,
+          "sha256": "3c3621404c43892b4d9cb6d5171d2800bbf25510af2409c89e12ee98e3f81f35"
+        },
+        {
+          "id": "photos",
+          "label": "Фото",
+          "name": "solarized_dark-photos.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 296081,
+          "sha256": "ed294d7ed0267778e8ff2aa0d9848a71d3d4a75da44a5bf82580542640af0a72"
+        },
+        {
+          "id": "assistant",
+          "label": "Ассистент",
+          "name": "solarized_dark-assistant.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 359108,
+          "sha256": "88eb5f275984fa29247162426597454603c3c8c53187c7c74895dab7ea60a19c"
+        },
+        {
+          "id": "settings",
+          "label": "Оформление",
+          "name": "solarized_dark-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 154036,
+          "sha256": "da99e59db99991a5d58e714ec0a122767ea513d21fac7659c3f9621abc34954e"
+        },
+        {
+          "id": "signin",
+          "label": "Вход",
+          "name": "solarized_dark-signin.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 374813,
+          "sha256": "7bb27049226cc31a6d313085f10f6715d464ddba26f8e28bc79dd2462ca60e3e"
+        }
+      ],
+      "dialogs": [
+        {
+          "id": "event-dialog",
+          "label": "Событие календаря",
+          "name": "solarized_dark-event-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 148525,
+          "sha256": "94b9332891f990597b736b39db9486a6bcf380326d6d4079fd145012b273a83d"
+        },
+        {
+          "id": "assistant-settings",
+          "label": "Настройки ассистента",
+          "name": "solarized_dark-assistant-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 142205,
+          "sha256": "9362abf6cfe197d060b8757c096651863fcb7d23839292bec9c921f5e1c211a2"
+        },
+        {
+          "id": "audio-dialog",
+          "label": "Проверка звука",
+          "name": "solarized_dark-audio-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 180658,
+          "sha256": "59847bbf45c2145c60826de977e7fae81de909cc2daa963e6b8ce1d8e85f67a5"
+        }
+      ]
+    },
+    {
+      "id": "github_light",
+      "name": "GitHub Light",
+      "description": "Чистый лист: белое поле, лёгкие серые карточки и синий акцент.",
+      "palette": [
+        "#FFFFFF",
+        "#F6F8FA",
+        "#1F2328",
+        "#0969DA",
+        "#0969DA"
+      ],
+      "contactSheet": {
+        "name": "github_light-contact-sheet.png",
+        "width": 1504,
+        "height": 1500,
+        "bytes": 725054,
+        "sha256": "2290d9b259bfd1defaea3c3f42d94dd395bf7c6409a081f8c0aee7ffc0250315"
+      },
+      "screens": [
+        {
+          "id": "overview",
+          "label": "Обзор",
+          "name": "github_light-overview.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 247343,
+          "sha256": "e219f0384e1ea47f34a5a2562c05bc0a46f329591e1e46a4ae19d8f85b35bd0d"
+        },
+        {
+          "id": "computer",
+          "label": "Компьютер",
+          "name": "github_light-computer.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 220592,
+          "sha256": "0cddb8dd505f34e702eb97192b18712b742d882ddd36fdc615d9ca089353b2a2"
+        },
+        {
+          "id": "markets",
+          "label": "Рынки",
+          "name": "github_light-markets.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 212777,
+          "sha256": "09cbf01a5423c6402510400ee38d241c18dbcbb3199222c33cd2d6c415a9ab51"
+        },
+        {
+          "id": "calendar",
+          "label": "Календарь",
+          "name": "github_light-calendar.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 247503,
+          "sha256": "944d96165b298b26a0dfd3c3d8ada968c5020d0efdff3e41168dcbb6ca5cc21a"
+        },
+        {
+          "id": "photos",
+          "label": "Фото",
+          "name": "github_light-photos.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 380869,
+          "sha256": "829fadd76299abf37aabf26ac68e166f1138c13d17d850d5dd5961a8d1961045"
+        },
+        {
+          "id": "assistant",
+          "label": "Ассистент",
+          "name": "github_light-assistant.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 453115,
+          "sha256": "fcefb38483a967f65a7a431574affef533482af374e82782aa41b08e87edc129"
+        },
+        {
+          "id": "settings",
+          "label": "Оформление",
+          "name": "github_light-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 213153,
+          "sha256": "666d308ba2127fa0e26d868c6b5b475c1381a821ed50b8c206419a7efe52c626"
+        },
+        {
+          "id": "signin",
+          "label": "Вход",
+          "name": "github_light-signin.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 473400,
+          "sha256": "9fc72438d0dc841fe61720235bcdb5e0d69ad5faaf9d277f75b7052a7e917cae"
+        }
+      ],
+      "dialogs": [
+        {
+          "id": "event-dialog",
+          "label": "Событие календаря",
+          "name": "github_light-event-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 213117,
+          "sha256": "58f950f3e2dd219fbcc47fe45a7487bd30c467c0aec37777370ab89700ba76b6"
+        },
+        {
+          "id": "assistant-settings",
+          "label": "Настройки ассистента",
+          "name": "github_light-assistant-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 196012,
+          "sha256": "4c4de065b1516eeb92029b22f1c7e6b90750bfea3d6446b7f339cb4816710dfd"
+        },
+        {
+          "id": "audio-dialog",
+          "label": "Проверка звука",
+          "name": "github_light-audio-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 299078,
+          "sha256": "5d9224fc72aaa1d97c2d54e72499ff8ebd19028186aafeb6677b42f89687a8bd"
+        }
+      ]
+    },
+    {
+      "id": "tokyo_night",
+      "name": "Tokyo Night",
+      "description": "Дождливый город: ночной индиго, голубые линии и лиловые отражения.",
+      "palette": [
+        "#141628",
+        "#24283B",
+        "#D9E1FF",
+        "#7DCFFF",
+        "#BB9AF7"
+      ],
+      "contactSheet": {
+        "name": "tokyo_night-contact-sheet.png",
+        "width": 1504,
+        "height": 1500,
+        "bytes": 745087,
+        "sha256": "1933906f33f34ba9aa6df384610593174bbe7e334734c4c794977926046a422a"
+      },
+      "screens": [
+        {
+          "id": "overview",
+          "label": "Обзор",
+          "name": "tokyo_night-overview.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 195650,
+          "sha256": "287fc8f236f953f5c5a3817501c3b210a51dcce673cc0450491599fbeca6644f"
+        },
+        {
+          "id": "computer",
+          "label": "Компьютер",
+          "name": "tokyo_night-computer.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 164414,
+          "sha256": "82aab93e645156f94cb55e53ffd2da75664f1fe1f3aa8ed790eca1a05675573d"
+        },
+        {
+          "id": "markets",
+          "label": "Рынки",
+          "name": "tokyo_night-markets.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 169071,
+          "sha256": "4812558698c316bdba537e21262cc5b05c9321e5ad0f9f14002cbafa90a15c89"
+        },
+        {
+          "id": "calendar",
+          "label": "Календарь",
+          "name": "tokyo_night-calendar.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 192856,
+          "sha256": "43bced5d72a97e406e07b06ed27479bbeded5cc48edd78f35a80f399b69ea973"
+        },
+        {
+          "id": "photos",
+          "label": "Фото",
+          "name": "tokyo_night-photos.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 266368,
+          "sha256": "8012fea072d2aa65d4d36ab028e749d2f27921441d4c1453a6609187491fcce8"
+        },
+        {
+          "id": "assistant",
+          "label": "Ассистент",
+          "name": "tokyo_night-assistant.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 332486,
+          "sha256": "ec75c93a15f487e53da4c078c989c23fa51a88a798fccc073f63b9c99983ae83"
+        },
+        {
+          "id": "settings",
+          "label": "Оформление",
+          "name": "tokyo_night-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 148115,
+          "sha256": "1e9f87e89d7d7b09cb5bfa19b36a545218f3f78016fd036c2a42df2f9ccc2c7b"
+        },
+        {
+          "id": "signin",
+          "label": "Вход",
+          "name": "tokyo_night-signin.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 341256,
+          "sha256": "f058fb9343febcd47c82c470fa6e4629b70c03d8a93f948eb3eb5ea6bcfe7ca3"
+        }
+      ],
+      "dialogs": [
+        {
+          "id": "event-dialog",
+          "label": "Событие календаря",
+          "name": "tokyo_night-event-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 144507,
+          "sha256": "68c15fb2e24469509b98a0eeaa0176d0bd6ce919c225d070fb33a012bbb5f551"
+        },
+        {
+          "id": "assistant-settings",
+          "label": "Настройки ассистента",
+          "name": "tokyo_night-assistant-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 141688,
+          "sha256": "0c7baad043c0c33929d2e4ea81373324ceeff11d98f73eb5bb780db5ef5ebce3"
+        },
+        {
+          "id": "audio-dialog",
+          "label": "Проверка звука",
+          "name": "tokyo_night-audio-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 177233,
+          "sha256": "cdb14bef0c15e089f8ba98f7bc97605f0d2111a3813110abc92f32f7a1ed4737"
+        }
+      ]
+    },
+    {
+      "id": "catppuccin",
+      "name": "Catppuccin",
+      "description": "Мягкий сатин: тёмная основа и спокойные пастельные оттенки.",
+      "palette": [
+        "#1E1E2E",
+        "#313244",
+        "#CDD6F4",
+        "#89DCEB",
+        "#CBA6F7"
+      ],
+      "contactSheet": {
+        "name": "catppuccin-contact-sheet.png",
+        "width": 1504,
+        "height": 1500,
+        "bytes": 745752,
+        "sha256": "c8cada8e2e7276f94ff050f69f9ce97eab419547ef3337d372644fc51bbcaac6"
+      },
+      "screens": [
+        {
+          "id": "overview",
+          "label": "Обзор",
+          "name": "catppuccin-overview.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 208398,
+          "sha256": "0471365f17b9527032d940aae33745a0b56419506106d0224e0c1ed58d07c89e"
+        },
+        {
+          "id": "computer",
+          "label": "Компьютер",
+          "name": "catppuccin-computer.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 183375,
+          "sha256": "b062507b81940bda7411ff4574ee37df2f9d7a3614f886dd22a464f7cdf56ce7"
+        },
+        {
+          "id": "markets",
+          "label": "Рынки",
+          "name": "catppuccin-markets.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 180664,
+          "sha256": "aac84487c46bc81963bd26da5c4310af77582ca7afa08e19736fc8875df6a34a"
+        },
+        {
+          "id": "calendar",
+          "label": "Календарь",
+          "name": "catppuccin-calendar.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 204509,
+          "sha256": "45e8a4ede43302e22219490367d90863f3270f7674cb8899fd61519a4d778ca2"
+        },
+        {
+          "id": "photos",
+          "label": "Фото",
+          "name": "catppuccin-photos.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 298602,
+          "sha256": "db4034034f9d2a249518b8a4b7d777cbb909362451ef2e01eb934b5f3a9d5410"
+        },
+        {
+          "id": "assistant",
+          "label": "Ассистент",
+          "name": "catppuccin-assistant.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 363100,
+          "sha256": "97766277c269d31143235b94d373b53355d727fd536d2f004779a195d8867bf5"
+        },
+        {
+          "id": "settings",
+          "label": "Оформление",
+          "name": "catppuccin-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 153725,
+          "sha256": "d99c714ead1bdb5217eba82d5a24522d009cc01f5ebaf96d0c1b2092ee36e3a6"
+        },
+        {
+          "id": "signin",
+          "label": "Вход",
+          "name": "catppuccin-signin.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 378856,
+          "sha256": "8dfd605fa5827180bb38d4a47b7fc3c8860b0832f7165d9b3d5d93fd7f05ab50"
+        }
+      ],
+      "dialogs": [
+        {
+          "id": "event-dialog",
+          "label": "Событие календаря",
+          "name": "catppuccin-event-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 150853,
+          "sha256": "5e1fedbb9d01f67b86c14c8cbb50138bcfc495cd1e4414497106e62988f9b3a7"
+        },
+        {
+          "id": "assistant-settings",
+          "label": "Настройки ассистента",
+          "name": "catppuccin-assistant-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 142481,
+          "sha256": "7da210337ccc716725df1b9369aa594f0a86c7754644e2676daf5ffac181b966"
+        },
+        {
+          "id": "audio-dialog",
+          "label": "Проверка звука",
+          "name": "catppuccin-audio-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 184940,
+          "sha256": "f01593796eb8a6284dfd0c8d972adcc7bb1ed5519d74bb2ae71dc2cf9bb306db"
+        }
+      ]
+    },
+    {
+      "id": "synthwave_84",
+      "name": "Synthwave '84",
+      "description": "Фиолетовая глубина и электрический циан с мягким стеклом Fluent 2.",
+      "palette": [
+        "#19132B",
+        "#261747",
+        "#FFFFFF",
+        "#03EDF9",
+        "#03EDF9"
+      ],
+      "contactSheet": {
+        "name": "synthwave_84-contact-sheet.png",
+        "width": 1504,
+        "height": 1500,
+        "bytes": 774720,
+        "sha256": "2ec036c8ff101ef4ea065604c824f37c05b1d861f8f6643e07ba192d1f8726de"
+      },
+      "screens": [
+        {
+          "id": "overview",
+          "label": "Обзор",
+          "name": "synthwave_84-overview.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 202272,
+          "sha256": "54ffdcef35fcf07977cd2f3532f1d6bf23f00d2f187a97fc0c4b615a52f6f766"
+        },
+        {
+          "id": "computer",
+          "label": "Компьютер",
+          "name": "synthwave_84-computer.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 178093,
+          "sha256": "a01c550f83535389962f1b3caa7ff526002f5544d7a1a58399e34548d873f32e"
+        },
+        {
+          "id": "markets",
+          "label": "Рынки",
+          "name": "synthwave_84-markets.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 176784,
+          "sha256": "fca91d2514fe7fdb7c08b41cf5883966a044aa91e1ba8452849c152f7398f43e"
+        },
+        {
+          "id": "calendar",
+          "label": "Календарь",
+          "name": "synthwave_84-calendar.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 199667,
+          "sha256": "6c2c02db9304a2a6763e36359ea09932e9bf80706f003d50ecc685f4e45d6258"
+        },
+        {
+          "id": "photos",
+          "label": "Фото",
+          "name": "synthwave_84-photos.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 287016,
+          "sha256": "22d731ee7ca76d1c3d7e0cc8bdfda80c9e4157c06bcfdb4bf6fc82d9ecae9070"
+        },
+        {
+          "id": "assistant",
+          "label": "Ассистент",
+          "name": "synthwave_84-assistant.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 352119,
+          "sha256": "399de1319114469e31142843c552e3deada3ab59be3bdf6f87f1b74ddc14a3f2"
+        },
+        {
+          "id": "settings",
+          "label": "Оформление",
+          "name": "synthwave_84-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 154630,
+          "sha256": "cfc456e180d0b67d4816934303a57db674e181c0ff81ab49f981f48f69d61a85"
+        },
+        {
+          "id": "signin",
+          "label": "Вход",
+          "name": "synthwave_84-signin.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 364635,
+          "sha256": "f03f17fdf6b3934accd9b8baaf4605d6ae003fc5c6231f9a809f02dcd5a10e49"
+        }
+      ],
+      "dialogs": [
+        {
+          "id": "event-dialog",
+          "label": "Событие календаря",
+          "name": "synthwave_84-event-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 149894,
+          "sha256": "2763136f020c183a6ee51791a9afaa1151b53861bc0a39258ec78faa13e2e7fd"
+        },
+        {
+          "id": "assistant-settings",
+          "label": "Настройки ассистента",
+          "name": "synthwave_84-assistant-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 143921,
+          "sha256": "986b81c92657b331dddab49dc4820adc9ec75f81710ee90c7439ff6d14b15315"
+        },
+        {
+          "id": "audio-dialog",
+          "label": "Проверка звука",
+          "name": "synthwave_84-audio-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 174535,
+          "sha256": "b6753c985f542971afef866c62b2a5c692348765fd0bc5bf8c953559094fbc08"
+        }
+      ]
+    },
+    {
+      "id": "green_phosphor",
+      "name": "Green Phosphor",
+      "description": "Зелёный люминофор: почти чёрный экран, монохромные знаки и спокойное свечение.",
+      "palette": [
+        "#040D06",
+        "#0A190D",
+        "#B6F5C0",
+        "#65E881",
+        "#65E881"
+      ],
+      "contactSheet": {
+        "name": "green_phosphor-contact-sheet.png",
+        "width": 1504,
+        "height": 1500,
+        "bytes": 657846,
+        "sha256": "66d06e0c198ac43bd01dab480e3d9372cb4e7226a56c15d54aeba46444ece440"
+      },
+      "screens": [
+        {
+          "id": "overview",
+          "label": "Обзор",
+          "name": "green_phosphor-overview.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 175485,
+          "sha256": "63c62302d7071ef3e7550ae08108f6ee3e3b08ff724bbcd7365dd08b39a8c877"
+        },
+        {
+          "id": "computer",
+          "label": "Компьютер",
+          "name": "green_phosphor-computer.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 138858,
+          "sha256": "6a70738bf0667ed6d6935087bb3e7d7c5427b07a7324b2c3fa349be2e4f8a3f4"
+        },
+        {
+          "id": "markets",
+          "label": "Рынки",
+          "name": "green_phosphor-markets.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 150032,
+          "sha256": "6f9e70c4e51738d2d06044b882ac3a8d07dd722f6285e91a46456acc4aa84d02"
+        },
+        {
+          "id": "calendar",
+          "label": "Календарь",
+          "name": "green_phosphor-calendar.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 172920,
+          "sha256": "9c0128d64099b8b2f5d79aa28ceb5ba7498ae701ff4a29c3c0a7978d0266dd14"
+        },
+        {
+          "id": "photos",
+          "label": "Фото",
+          "name": "green_phosphor-photos.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 208349,
+          "sha256": "631841c8e75b625577c8f329ba75f8fd3e6a8b817cb0fd317eb960ce234787e1"
+        },
+        {
+          "id": "assistant",
+          "label": "Ассистент",
+          "name": "green_phosphor-assistant.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 267203,
+          "sha256": "edf2c8ef2a6139dd872c306b1de26af655f5808bd256b009f4f1668ecb915c01"
+        },
+        {
+          "id": "settings",
+          "label": "Оформление",
+          "name": "green_phosphor-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 132907,
+          "sha256": "f1856662f0b363ec2c441282433f52763cbf95bdef9493ccf1c03857be1b201d"
+        },
+        {
+          "id": "signin",
+          "label": "Вход",
+          "name": "green_phosphor-signin.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 276456,
+          "sha256": "17501e4048317083514600ec22f3d8efc9933f6ab3509630d38f5f74c54d69af"
+        }
+      ],
+      "dialogs": [
+        {
+          "id": "event-dialog",
+          "label": "Событие календаря",
+          "name": "green_phosphor-event-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 127060,
+          "sha256": "1a1bcfb64617a2dc96388ba9d04cfcb5f13c27ede4bf08b12386dc87b83cbcd6"
+        },
+        {
+          "id": "assistant-settings",
+          "label": "Настройки ассистента",
+          "name": "green_phosphor-assistant-settings.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 121570,
+          "sha256": "1de2ac26ad9a85ab984fd93b8e6bd54192435684bdcf51ddb55d44efd9653099"
+        },
+        {
+          "id": "audio-dialog",
+          "label": "Проверка звука",
+          "name": "green_phosphor-audio-dialog.png",
+          "width": 720,
+          "height": 1280,
+          "bytes": 135848,
+          "sha256": "a472d130759d128d1bef2290a9c59d76d4522f647a73f6ea5f601e6fd90d9738"
+        }
+      ]
+    }
+  ]
+}

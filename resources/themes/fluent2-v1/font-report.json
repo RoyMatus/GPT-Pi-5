@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "method": "Chromium CDP CSS.getPlatformFontsForNode",
+  "capturedAt": "2026-11-11T13:47:37.251Z",
+  "browserVersion": "157.0.4341.46",
+  "viewport": {
+    "width": 720,
+    "height": 1280
+  },
+  "results": [
+    {
+      "id": "fluent_light",
+      "platform": "Win32",
+      "fonts": [
+        {
+          "selector": ".dashboard-header h1",
+          "fonts": [
+            {
+              "familyName": "Segoe UI Semibold",
+              "postScriptName": "SegoeUI-Semibold",
+              "isCustomFont": false,
+              "glyphCount": 5
+            }
+          ]
+        },
+        {
+          "selector": ".dashboard-clock",
+          "fonts": [
+            {
+              "familyName": "Segoe UI Semibold",
+              "postScriptName": "SegoeUI-Semibold",
+              "isCustomFont": false,
+              "glyphCount": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "green_phosphor",
+      "platform": "Win32",
+      "fonts": [
+        {
+          "selector": ".dashboard-header h1",
+          "fonts": [
+            {
+              "familyName": "Segoe UI Semibold",
+              "postScriptName": "SegoeUI-Semibold",
+              "isCustomFont": false,
+              "glyphCount": 5
+            }
+          ]
+        },
+        {
+          "selector": ".dashboard-clock",
+          "fonts": [
+            {
+              "familyName": "Consolas",
+              "postScriptName": "Consolas",
+              "isCustomFont": false,
+              "glyphCount": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "limitation": "System font samples on Windows only. Fonts are not bundled. Exact Pi/Linux glyphs and metrics are not verified."
+}

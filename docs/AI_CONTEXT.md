@@ -179,3 +179,5 @@ temperature, GPU load/temperature/VRAM used/total/power. Повторные пу
 Пакет v0.3.3 установлен на Pi; в авторизованном Chromium проверены все семь новых
 значений и их отображение в Компьютере/Обзоре, fullscreen 720×1280. После проверки
 kiosk перезапущен с прежним профилем без порта отладки. Windows-ПК не перезагружался.
+
+#19: integrated frozen 15-theme frontend; see docs/theme-integration-19.md. Pixel comparison currently differs in all 165 captures; Pi fonts and visual acceptance remain pending.

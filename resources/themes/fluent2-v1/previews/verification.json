@@ -1,0 +1,798 @@
+{
+  "synthetic": true,
+  "schemes": [
+    "fluent_light",
+    "fluent_dark",
+    "classic",
+    "monokai",
+    "gruvbox",
+    "vscode",
+    "dracula",
+    "nord",
+    "solarized_light",
+    "solarized_dark",
+    "github_light",
+    "tokyo_night",
+    "catppuccin",
+    "synthwave_84",
+    "green_phosphor"
+  ],
+  "screenshots": [
+    "fluent_light-settings.png",
+    "fluent_light-overview.png",
+    "fluent_light-computer.png",
+    "fluent_light-markets.png",
+    "fluent_light-calendar.png",
+    "fluent_light-event-dialog.png",
+    "fluent_light-photos.png",
+    "fluent_light-assistant.png",
+    "fluent_light-assistant-settings.png",
+    "fluent_light-signin.png",
+    "fluent_light-audio-dialog.png",
+    "fluent_dark-settings.png",
+    "fluent_dark-overview.png",
+    "fluent_dark-computer.png",
+    "fluent_dark-markets.png",
+    "fluent_dark-calendar.png",
+    "fluent_dark-event-dialog.png",
+    "fluent_dark-photos.png",
+    "fluent_dark-assistant.png",
+    "fluent_dark-assistant-settings.png",
+    "fluent_dark-signin.png",
+    "fluent_dark-audio-dialog.png",
+    "classic-settings.png",
+    "classic-overview.png",
+    "classic-computer.png",
+    "classic-markets.png",
+    "classic-calendar.png",
+    "classic-event-dialog.png",
+    "classic-photos.png",
+    "classic-assistant.png",
+    "classic-assistant-settings.png",
+    "classic-signin.png",
+    "classic-audio-dialog.png",
+    "monokai-settings.png",
+    "monokai-overview.png",
+    "monokai-computer.png",
+    "monokai-markets.png",
+    "monokai-calendar.png",
+    "monokai-event-dialog.png",
+    "monokai-photos.png",
+    "monokai-assistant.png",
+    "monokai-assistant-settings.png",
+    "monokai-signin.png",
+    "monokai-audio-dialog.png",
+    "gruvbox-settings.png",
+    "gruvbox-overview.png",
+    "gruvbox-computer.png",
+    "gruvbox-markets.png",
+    "gruvbox-calendar.png",
+    "gruvbox-event-dialog.png",
+    "gruvbox-photos.png",
+    "gruvbox-assistant.png",
+    "gruvbox-assistant-settings.png",
+    "gruvbox-signin.png",
+    "gruvbox-audio-dialog.png",
+    "vscode-settings.png",
+    "vscode-overview.png",
+    "vscode-computer.png",
+    "vscode-markets.png",
+    "vscode-calendar.png",
+    "vscode-event-dialog.png",
+    "vscode-photos.png",
+    "vscode-assistant.png",
+    "vscode-assistant-settings.png",
+    "vscode-signin.png",
+    "vscode-audio-dialog.png",
+    "dracula-settings.png",
+    "dracula-overview.png",
+    "dracula-computer.png",
+    "dracula-markets.png",
+    "dracula-calendar.png",
+    "dracula-event-dialog.png",
+    "dracula-photos.png",
+    "dracula-assistant.png",
+    "dracula-assistant-settings.png",
+    "dracula-signin.png",
+    "dracula-audio-dialog.png",
+    "nord-settings.png",
+    "nord-overview.png",
+    "nord-computer.png",
+    "nord-markets.png",
+    "nord-calendar.png",
+    "nord-event-dialog.png",
+    "nord-photos.png",
+    "nord-assistant.png",
+    "nord-assistant-settings.png",
+    "nord-signin.png",
+    "nord-audio-dialog.png",
+    "solarized_light-settings.png",
+    "solarized_light-overview.png",
+    "solarized_light-computer.png",
+    "solarized_light-markets.png",
+    "solarized_light-calendar.png",
+    "solarized_light-event-dialog.png",
+    "solarized_light-photos.png",
+    "solarized_light-assistant.png",
+    "solarized_light-assistant-settings.png",
+    "solarized_light-signin.png",
+    "solarized_light-audio-dialog.png",
+    "solarized_dark-settings.png",
+    "solarized_dark-overview.png",
+    "solarized_dark-computer.png",
+    "solarized_dark-markets.png",
+    "solarized_dark-calendar.png",
+    "solarized_dark-event-dialog.png",
+    "solarized_dark-photos.png",
+    "solarized_dark-assistant.png",
+    "solarized_dark-assistant-settings.png",
+    "solarized_dark-signin.png",
+    "solarized_dark-audio-dialog.png",
+    "github_light-settings.png",
+    "github_light-overview.png",
+    "github_light-computer.png",
+    "github_light-markets.png",
+    "github_light-calendar.png",
+    "github_light-event-dialog.png",
+    "github_light-photos.png",
+    "github_light-assistant.png",
+    "github_light-assistant-settings.png",
+    "github_light-signin.png",
+    "github_light-audio-dialog.png",
+    "tokyo_night-settings.png",
+    "tokyo_night-overview.png",
+    "tokyo_night-computer.png",
+    "tokyo_night-markets.png",
+    "tokyo_night-calendar.png",
+    "tokyo_night-event-dialog.png",
+    "tokyo_night-photos.png",
+    "tokyo_night-assistant.png",
+    "tokyo_night-assistant-settings.png",
+    "tokyo_night-signin.png",
+    "tokyo_night-audio-dialog.png",
+    "catppuccin-settings.png",
+    "catppuccin-overview.png",
+    "catppuccin-computer.png",
+    "catppuccin-markets.png",
+    "catppuccin-calendar.png",
+    "catppuccin-event-dialog.png",
+    "catppuccin-photos.png",
+    "catppuccin-assistant.png",
+    "catppuccin-assistant-settings.png",
+    "catppuccin-signin.png",
+    "catppuccin-audio-dialog.png",
+    "synthwave_84-settings.png",
+    "synthwave_84-overview.png",
+    "synthwave_84-computer.png",
+    "synthwave_84-markets.png",
+    "synthwave_84-calendar.png",
+    "synthwave_84-event-dialog.png",
+    "synthwave_84-photos.png",
+    "synthwave_84-assistant.png",
+    "synthwave_84-assistant-settings.png",
+    "synthwave_84-signin.png",
+    "synthwave_84-audio-dialog.png",
+    "green_phosphor-settings.png",
+    "green_phosphor-overview.png",
+    "green_phosphor-computer.png",
+    "green_phosphor-markets.png",
+    "green_phosphor-calendar.png",
+    "green_phosphor-event-dialog.png",
+    "green_phosphor-photos.png",
+    "green_phosphor-assistant.png",
+    "green_phosphor-assistant-settings.png",
+    "green_phosphor-signin.png",
+    "green_phosphor-audio-dialog.png"
+  ],
+  "layoutCases": 270,
+  "contrast": [
+    {
+      "id": "fluent_light",
+      "selector": ".fui-DialogTitle",
+      "minimum": 14.213183336851284
+    },
+    {
+      "id": "fluent_light",
+      "selector": ".message-text",
+      "minimum": 12.334829142361693
+    },
+    {
+      "id": "fluent_light",
+      "selector": ".message.assistant .fui-Avatar__initials",
+      "minimum": 5.384393013373572
+    },
+    {
+      "id": "fluent_light",
+      "selector": ".fui-DialogTitle",
+      "minimum": 14.213183336851284
+    },
+    {
+      "id": "fluent_light",
+      "selector": ".signin-heading strong",
+      "minimum": 15.522910417680388
+    },
+    {
+      "id": "fluent_light",
+      "selector": ".signin-card > button",
+      "minimum": 5.384393013373572
+    },
+    {
+      "id": "fluent_light",
+      "selector": ".fui-DialogTitle",
+      "minimum": 14.213183336851284
+    },
+    {
+      "id": "fluent_light",
+      "selector": ".theme-recording-probe",
+      "minimum": 5.553771698448689
+    },
+    {
+      "id": "fluent_dark",
+      "selector": ".fui-DialogTitle",
+      "minimum": 12.90362501053227
+    },
+    {
+      "id": "fluent_dark",
+      "selector": ".message-text",
+      "minimum": 11.281864966577333
+    },
+    {
+      "id": "fluent_dark",
+      "selector": ".message.assistant .fui-Avatar__initials",
+      "minimum": 6.55945536454363
+    },
+    {
+      "id": "fluent_dark",
+      "selector": ".fui-DialogTitle",
+      "minimum": 12.90362501053227
+    },
+    {
+      "id": "fluent_dark",
+      "selector": ".signin-heading strong",
+      "minimum": 14.548198465495398
+    },
+    {
+      "id": "fluent_dark",
+      "selector": ".signin-card > button",
+      "minimum": 6.658667132086954
+    },
+    {
+      "id": "fluent_dark",
+      "selector": ".fui-DialogTitle",
+      "minimum": 12.90362501053227
+    },
+    {
+      "id": "fluent_dark",
+      "selector": ".theme-recording-probe",
+      "minimum": 6.387888839869638
+    },
+    {
+      "id": "classic",
+      "selector": ".fui-DialogTitle",
+      "minimum": 12.64931487061032
+    },
+    {
+      "id": "classic",
+      "selector": ".message-text",
+      "minimum": 9.53984511728627
+    },
+    {
+      "id": "classic",
+      "selector": ".message.assistant .fui-Avatar__initials",
+      "minimum": 12.243048193653772
+    },
+    {
+      "id": "classic",
+      "selector": ".fui-DialogTitle",
+      "minimum": 12.64931487061032
+    },
+    {
+      "id": "classic",
+      "selector": ".signin-heading strong",
+      "minimum": 14.141318834035262
+    },
+    {
+      "id": "classic",
+      "selector": ".signin-card > button",
+      "minimum": 12.243048193653772
+    },
+    {
+      "id": "classic",
+      "selector": ".fui-DialogTitle",
+      "minimum": 12.64931487061032
+    },
+    {
+      "id": "classic",
+      "selector": ".theme-recording-probe",
+      "minimum": 6.002628048687146
+    },
+    {
+      "id": "monokai",
+      "selector": ".fui-DialogTitle",
+      "minimum": 12.380508489759782
+    },
+    {
+      "id": "monokai",
+      "selector": ".message-text",
+      "minimum": 9.43732427854513
+    },
+    {
+      "id": "monokai",
+      "selector": ".message.assistant .fui-Avatar__initials",
+      "minimum": 12.206417205622891
+    },
+    {
+      "id": "monokai",
+      "selector": ".fui-DialogTitle",
+      "minimum": 12.380508489759782
+    },
+    {
+      "id": "monokai",
+      "selector": ".signin-heading strong",
+      "minimum": 13.943421027852569
+    },
+    {
+      "id": "monokai",
+      "selector": ".signin-card > button",
+      "minimum": 12.206417205622891
+    },
+    {
+      "id": "monokai",
+      "selector": ".fui-DialogTitle",
+      "minimum": 12.380508489759782
+    },
+    {
+      "id": "monokai",
+      "selector": ".theme-recording-probe",
+      "minimum": 5.953053860644222
+    },
+    {
+      "id": "gruvbox",
+      "selector": ".fui-DialogTitle",
+      "minimum": 11.532212680395888
+    },
+    {
+      "id": "gruvbox",
+      "selector": ".message-text",
+      "minimum": 9.465023342648035
+    },
+    {
+      "id": "gruvbox",
+      "selector": ".message.assistant .fui-Avatar__initials",
+      "minimum": 8.62430186343326
+    },
+    {
+      "id": "gruvbox",
+      "selector": ".fui-DialogTitle",
+      "minimum": 11.532212680395888
+    },
+    {
+      "id": "gruvbox",
+      "selector": ".signin-heading strong",
+      "minimum": 12.99419133119152
+    },
+    {
+      "id": "gruvbox",
+      "selector": ".signin-card > button",
+      "minimum": 8.62430186343326
+    },
+    {
+      "id": "gruvbox",
+      "selector": ".fui-DialogTitle",
+      "minimum": 11.532212680395888
+    },
+    {
+      "id": "gruvbox",
+      "selector": ".theme-recording-probe",
+      "minimum": 5.543244786324054
+    },
+    {
+      "id": "vscode",
+      "selector": ".fui-DialogTitle",
+      "minimum": 12.383386511257335
+    },
+    {
+      "id": "vscode",
+      "selector": ".message-text",
+      "minimum": 10.13792590919335
+    },
+    {
+      "id": "vscode",
+      "selector": ".message.assistant .fui-Avatar__initials",
+      "minimum": 9.290921216072107
+    },
+    {
+      "id": "vscode",
+      "selector": ".fui-DialogTitle",
+      "minimum": 12.383386511257335
+    },
+    {
+      "id": "vscode",
+      "selector": ".signin-heading strong",
+      "minimum": 13.92366865742446
+    },
+    {
+      "id": "vscode",
+      "selector": ".signin-card > button",
+      "minimum": 9.290921216072107
+    },
+    {
+      "id": "vscode",
+      "selector": ".fui-DialogTitle",
+      "minimum": 12.383386511257335
+    },
+    {
+      "id": "vscode",
+      "selector": ".theme-recording-probe",
+      "minimum": 5.500118986384161
+    },
+    {
+      "id": "dracula",
+      "selector": ".fui-DialogTitle",
+      "minimum": 11.84313466283598
+    },
+    {
+      "id": "dracula",
+      "selector": ".message-text",
+      "minimum": 8.73421366114889
+    },
+    {
+      "id": "dracula",
+      "selector": ".message.assistant .fui-Avatar__initials",
+      "minimum": 13.678047622021628
+    },
+    {
+      "id": "dracula",
+      "selector": ".fui-DialogTitle",
+      "minimum": 11.84313466283598
+    },
+    {
+      "id": "dracula",
+      "selector": ".signin-heading strong",
+      "minimum": 13.359134716531573
+    },
+    {
+      "id": "dracula",
+      "selector": ".signin-card > button",
+      "minimum": 13.678047622021628
+    },
+    {
+      "id": "dracula",
+      "selector": ".fui-DialogTitle",
+      "minimum": 11.84313466283598
+    },
+    {
+      "id": "dracula",
+      "selector": ".theme-recording-probe",
+      "minimum": 6.119763681814743
+    },
+    {
+      "id": "nord",
+      "selector": ".fui-DialogTitle",
+      "minimum": 7.740073259297829
+    },
+    {
+      "id": "nord",
+      "selector": ".message-text",
+      "minimum": 6.4963319856910555
+    },
+    {
+      "id": "nord",
+      "selector": ".message.assistant .fui-Avatar__initials",
+      "minimum": 9.464018798204272
+    },
+    {
+      "id": "nord",
+      "selector": ".fui-DialogTitle",
+      "minimum": 7.740073259297829
+    },
+    {
+      "id": "nord",
+      "selector": ".signin-heading strong",
+      "minimum": 8.704436700211549
+    },
+    {
+      "id": "nord",
+      "selector": ".signin-card > button",
+      "minimum": 9.464018798204272
+    },
+    {
+      "id": "nord",
+      "selector": ".fui-DialogTitle",
+      "minimum": 7.740073259297829
+    },
+    {
+      "id": "nord",
+      "selector": ".theme-recording-probe",
+      "minimum": 5.390893065269247
+    },
+    {
+      "id": "solarized_light",
+      "selector": ".fui-DialogTitle",
+      "minimum": 9.729180757703869
+    },
+    {
+      "id": "solarized_light",
+      "selector": ".message-text",
+      "minimum": 8.462684426039836
+    },
+    {
+      "id": "solarized_light",
+      "selector": ".message.assistant .fui-Avatar__initials",
+      "minimum": 6.121971735335253
+    },
+    {
+      "id": "solarized_light",
+      "selector": ".fui-DialogTitle",
+      "minimum": 9.729180757703869
+    },
+    {
+      "id": "solarized_light",
+      "selector": ".signin-heading strong",
+      "minimum": 10.609884257328725
+    },
+    {
+      "id": "solarized_light",
+      "selector": ".signin-card > button",
+      "minimum": 6.121971735335253
+    },
+    {
+      "id": "solarized_light",
+      "selector": ".fui-DialogTitle",
+      "minimum": 9.729180757703869
+    },
+    {
+      "id": "solarized_light",
+      "selector": ".theme-recording-probe",
+      "minimum": 5.2295650169784285
+    },
+    {
+      "id": "solarized_dark",
+      "selector": ".fui-DialogTitle",
+      "minimum": 10.748062926345984
+    },
+    {
+      "id": "solarized_dark",
+      "selector": ".message-text",
+      "minimum": 8.625155315364614
+    },
+    {
+      "id": "solarized_dark",
+      "selector": ".message.assistant .fui-Avatar__initials",
+      "minimum": 10.04137837204881
+    },
+    {
+      "id": "solarized_dark",
+      "selector": ".fui-DialogTitle",
+      "minimum": 10.748062926345984
+    },
+    {
+      "id": "solarized_dark",
+      "selector": ".signin-heading strong",
+      "minimum": 12.0517539078316
+    },
+    {
+      "id": "solarized_dark",
+      "selector": ".signin-card > button",
+      "minimum": 10.04137837204881
+    },
+    {
+      "id": "solarized_dark",
+      "selector": ".fui-DialogTitle",
+      "minimum": 10.748062926345984
+    },
+    {
+      "id": "solarized_dark",
+      "selector": ".theme-recording-probe",
+      "minimum": 5.636383050619232
+    },
+    {
+      "id": "github_light",
+      "selector": ".fui-DialogTitle",
+      "minimum": 13.593054899740007
+    },
+    {
+      "id": "github_light",
+      "selector": ".message-text",
+      "minimum": 11.863695683645112
+    },
+    {
+      "id": "github_light",
+      "selector": ".message.assistant .fui-Avatar__initials",
+      "minimum": 5.192060987927794
+    },
+    {
+      "id": "github_light",
+      "selector": ".fui-DialogTitle",
+      "minimum": 13.593054899740007
+    },
+    {
+      "id": "github_light",
+      "selector": ".signin-heading strong",
+      "minimum": 14.839194581350755
+    },
+    {
+      "id": "github_light",
+      "selector": ".signin-card > button",
+      "minimum": 5.192060987927794
+    },
+    {
+      "id": "github_light",
+      "selector": ".fui-DialogTitle",
+      "minimum": 13.593054899740007
+    },
+    {
+      "id": "github_light",
+      "selector": ".theme-recording-probe",
+      "minimum": 5.189420761701805
+    },
+    {
+      "id": "tokyo_night",
+      "selector": ".fui-DialogTitle",
+      "minimum": 9.954563649787925
+    },
+    {
+      "id": "tokyo_night",
+      "selector": ".message-text",
+      "minimum": 7.748557654074863
+    },
+    {
+      "id": "tokyo_night",
+      "selector": ".message.assistant .fui-Avatar__initials",
+      "minimum": 11.035965905770228
+    },
+    {
+      "id": "tokyo_night",
+      "selector": ".fui-DialogTitle",
+      "minimum": 9.954563649787925
+    },
+    {
+      "id": "tokyo_night",
+      "selector": ".signin-heading strong",
+      "minimum": 11.21218768703074
+    },
+    {
+      "id": "tokyo_night",
+      "selector": ".signin-card > button",
+      "minimum": 11.035965905770228
+    },
+    {
+      "id": "tokyo_night",
+      "selector": ".fui-DialogTitle",
+      "minimum": 9.954563649787925
+    },
+    {
+      "id": "tokyo_night",
+      "selector": ".theme-recording-probe",
+      "minimum": 5.817795588415919
+    },
+    {
+      "id": "catppuccin",
+      "selector": ".fui-DialogTitle",
+      "minimum": 7.692849908748982
+    },
+    {
+      "id": "catppuccin",
+      "selector": ".message-text",
+      "minimum": 5.955662056543512
+    },
+    {
+      "id": "catppuccin",
+      "selector": ".message.assistant .fui-Avatar__initials",
+      "minimum": 12.171430345506229
+    },
+    {
+      "id": "catppuccin",
+      "selector": ".fui-DialogTitle",
+      "minimum": 7.692849908748982
+    },
+    {
+      "id": "catppuccin",
+      "selector": ".signin-heading strong",
+      "minimum": 8.69349059728767
+    },
+    {
+      "id": "catppuccin",
+      "selector": ".signin-card > button",
+      "minimum": 12.171430345506229
+    },
+    {
+      "id": "catppuccin",
+      "selector": ".fui-DialogTitle",
+      "minimum": 7.692849908748982
+    },
+    {
+      "id": "catppuccin",
+      "selector": ".theme-recording-probe",
+      "minimum": 5.816035925453218
+    },
+    {
+      "id": "synthwave_84",
+      "selector": ".fui-DialogTitle",
+      "minimum": 14.582993507175049
+    },
+    {
+      "id": "synthwave_84",
+      "selector": ".message-text",
+      "minimum": 11.495280313259899
+    },
+    {
+      "id": "synthwave_84",
+      "selector": ".message.assistant .fui-Avatar__initials",
+      "minimum": 13.059340633062279
+    },
+    {
+      "id": "synthwave_84",
+      "selector": ".fui-DialogTitle",
+      "minimum": 14.582993507175049
+    },
+    {
+      "id": "synthwave_84",
+      "selector": ".signin-heading strong",
+      "minimum": 16.204219674053814
+    },
+    {
+      "id": "synthwave_84",
+      "selector": ".signin-card > button",
+      "minimum": 13.059340633062279
+    },
+    {
+      "id": "synthwave_84",
+      "selector": ".fui-DialogTitle",
+      "minimum": 14.582993507175049
+    },
+    {
+      "id": "synthwave_84",
+      "selector": ".theme-recording-probe",
+      "minimum": 5.768126794466131
+    },
+    {
+      "id": "green_phosphor",
+      "selector": ".fui-DialogTitle",
+      "minimum": 13.21060430012035
+    },
+    {
+      "id": "green_phosphor",
+      "selector": ".message-text",
+      "minimum": 10.082159934653628
+    },
+    {
+      "id": "green_phosphor",
+      "selector": ".message.assistant .fui-Avatar__initials",
+      "minimum": 12.590072708023806
+    },
+    {
+      "id": "green_phosphor",
+      "selector": ".fui-DialogTitle",
+      "minimum": 13.21060430012035
+    },
+    {
+      "id": "green_phosphor",
+      "selector": ".signin-heading strong",
+      "minimum": 14.520271526730482
+    },
+    {
+      "id": "green_phosphor",
+      "selector": ".signin-card > button",
+      "minimum": 12.590072708023806
+    },
+    {
+      "id": "green_phosphor",
+      "selector": ".fui-DialogTitle",
+      "minimum": 13.21060430012035
+    },
+    {
+      "id": "green_phosphor",
+      "selector": ".theme-recording-probe",
+      "minimum": 10.540251885371005
+    },
+    {
+      "id": "green_phosphor",
+      "selector": ".fui-MessageBarBody",
+      "minimum": 14.520271526730482
+    }
+  ],
+  "materialFallbacks": true,
+  "monochromeWarnings": true,
+  "passed": true
+}
