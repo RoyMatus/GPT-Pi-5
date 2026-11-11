@@ -1,6 +1,5 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Field, Select, Switch, webLightTheme, webDarkTheme } from '@fluentui/react-components';
-import { dashboardTheme } from './dashboard/assets/shared/components.jsx';
 import { schemes, resolveAppearance, readAppearance, saveAppearance, appearanceVariables, mixColors } from './themes.mjs';
 
 export function useAppearance() {
@@ -23,7 +22,7 @@ export function useAppearance() {
 }
 
 export function fluentAppearance(theme) {
-  if(theme.id==='fluent') return theme.light?webLightTheme:dashboardTheme;
+  if(theme.isFluent) return theme.light?webLightTheme:webDarkTheme;
   const base=theme.light?webLightTheme:webDarkTheme;
   const hover=mixColors(theme.panel,theme.control,.12), pressed=mixColors(theme.panel,theme.control,.2);
   const colors={...base};
@@ -36,11 +35,17 @@ export function fluentAppearance(theme) {
     if(/^colorBrandForeground|^colorCompoundBrandForeground|^colorNeutralForeground[23]Brand/.test(key)) colors[key]=theme.control;
     if(/^colorBrandForegroundLink|^colorNeutralForeground2Link/.test(key)) colors[key]=theme.roles.link;
     if(/^colorBrandStroke|^colorCompoundBrandStroke/.test(key)) colors[key]=theme.control;
-    if(/^colorNeutralStroke[12](Hover|Pressed|Selected)?$/.test(key)) colors[key]=mixColors(theme.panel,theme.border,.65);
+    if(/^colorNeutralStroke[12](Hover|Pressed|Selected)?$/.test(key)) colors[key]=mixColors(theme.panel,theme.text,.20);
     if(/^colorNeutralStrokeAccessible/.test(key)) colors[key]=theme.muted;
     if(/^colorBrandBackground2/.test(key)) colors[key]=hover;
     if(/^colorBrandBackground(Inverted)?(Hover|Pressed|Selected)?$/.test(key)) colors[key]=theme.control;
     if(/^colorCompoundBrandBackground/.test(key)) colors[key]=theme.control;
+  }
+  if(theme.id==='green_phosphor') {
+    // Preserve warning/error icons and words while keeping the phosphor display monochrome.
+    for(const key of Object.keys(colors)) if(/^color(Status|Palette)/.test(key)) {
+      colors[key]=key.includes('Background')?theme.panel:theme.control;
+    }
   }
   return {...colors,
     colorNeutralForegroundOnBrand:theme.onControl,
@@ -51,9 +56,7 @@ export function fluentAppearance(theme) {
     colorStrokeFocus1:theme.background,colorStrokeFocus2:theme.focus,
     colorNeutralForegroundDisabled:mixColors(theme.panel,theme.muted,.55),
     colorNeutralBackgroundDisabled:mixColors(theme.panel,theme.background,.5),
-    borderRadiusSmall:Math.min(theme.radiusDp,4)+'px',
-    borderRadiusMedium:Math.min(theme.radiusDp,8)+'px',
-    borderRadiusLarge:theme.radiusDp+'px',borderRadiusXLarge:theme.radiusDp+'px',
+    borderRadiusSmall:'2px',borderRadiusMedium:'4px',borderRadiusLarge:'6px',borderRadiusXLarge:'8px',
   };
 }
 
@@ -72,9 +75,9 @@ export function ThemePicker({appearance,onChange,saved=true,darkLabel=false}) {
       <strong>{appearance.name}</strong>
       <p>{appearance.description}</p>
     </div>
-    {appearance.id==='fluent'&&<Switch label={darkLabel?'Тёмная тема':'Светлая тема'}
+    {appearance.isFluent&&<Switch label={darkLabel?'Тёмная тема':'Светлая тема'}
       checked={darkLabel?!appearance.light:appearance.light}
       onChange={(_,data)=>onChange(resolveAppearance('fluent',(darkLabel?data.checked:!data.checked)?'dark':'light'))} />}
-    {!saved&&<p role="status" className="theme-save-note">Выбор действует до закрытия страницы: браузер не разрешает сохранение.</p>}
+    {!saved&&<p role="status" className="theme-save-note">Выбор действует только на открытой странице: браузер не разрешает сохранение.</p>}
   </div>;
 }

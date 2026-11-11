@@ -46,7 +46,7 @@ export function DashboardFrame({ title, activeTab, onNavigate, onSettings, conne
 }
 
 export function Panel({ title, icon: PanelIcon, actions, className = "", children }) {
-  return <section className={`dashboard-panel ${className}`}>
+  return <section className={`dashboard-panel dashboard-section-card ${className}`}>
     {title && <h2 className="dashboard-panel-title">{PanelIcon && <PanelIcon aria-hidden="true" />}<span>{title}</span>
       {actions && <span className="dashboard-panel-actions">{actions}</span>}</h2>}
     {children}
@@ -54,7 +54,7 @@ export function Panel({ title, icon: PanelIcon, actions, className = "", childre
 }
 
 export function MetricCard({ label, value, detail, icon: MetricIcon, children, className = "" }) {
-  return <section className={`dashboard-panel ${className}`} aria-label={label}>
+  return <section className={`dashboard-panel dashboard-metric-card ${className}`} aria-label={label}>
     <div className="dashboard-metric-heading">{MetricIcon && <MetricIcon aria-hidden="true" />}<span>{label}</span></div>
     <div className="dashboard-row dashboard-between"><strong className="dashboard-metric-value">{value ?? "—"}</strong>
       {detail && <span className="dashboard-metric-detail">{detail}</span>}</div>

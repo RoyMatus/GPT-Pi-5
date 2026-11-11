@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Compose actual browser captures; never render replacement UI or fetch remote assets.
-// Usage: node tools/render-theme-gallery.mjs [--dir build/theme-renders]
+// Usage: node tools/render-theme-gallery.mjs [--dir build/fluent-theme-renders]
 // Optional GPT_PI_SHARP_PATH points to an existing sharp installation (not a new app dependency).
 import { createHash } from 'node:crypto';
 import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
@@ -11,10 +11,10 @@ import { schemes } from '../frontend/themes.mjs';
 
 const args = process.argv.slice(2);
 if (args.length && (args.length !== 2 || args[0] !== '--dir')) {
-  throw new Error('Usage: node tools/render-theme-gallery.mjs [--dir build/theme-renders]');
+  throw new Error('Usage: node tools/render-theme-gallery.mjs [--dir build/fluent-theme-renders]');
 }
 const root = fileURLToPath(new URL('../', import.meta.url));
-const directory = path.resolve(root, args[1] ?? 'build/theme-renders');
+const directory = path.resolve(root, args[1] ?? 'build/fluent-theme-renders');
 const require = createRequire(import.meta.url);
 let sharp;
 try { sharp = require(process.env.GPT_PI_SHARP_PATH || 'sharp'); }
@@ -22,7 +22,7 @@ catch (error) {
   throw new Error('The gallery composer needs sharp. Set GPT_PI_SHARP_PATH to an existing installation.', { cause:error });
 }
 
-const themes = schemes.filter(theme => theme.id !== 'fluent');
+const themes = schemes;
 const screens = [
   ['overview','Обзор'], ['computer','Компьютер'], ['markets','Рынки'], ['calendar','Календарь'],
   ['photos','Фото'], ['assistant','Ассистент'], ['settings','Оформление'], ['signin','Вход'],
@@ -74,7 +74,7 @@ function sheetFrame(theme,index) {
   return Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
     <style>text{font-family:'Segoe UI','Arial',sans-serif}</style>
     <rect width="${width}" height="${height}" fill="#eef1f6"/>
-    <text x="20" y="23" font-size="10" font-weight="600" letter-spacing="1.5" fill="#637084">GPT-Pi 5 / SWYPETRIS COLLECTION</text>
+    <text x="20" y="23" font-size="10" font-weight="600" letter-spacing="1.5" fill="#637084">GPT-Pi 5 / FLUENT 2 COLLECTION</text>
     <text x="20" y="62" font-size="31" font-weight="650" fill="#172334">${escape(theme.name)}</text>
     <text x="20" y="87" font-size="15" fill="#536175">${escape(theme.description)}</text>
     ${chips}${labels}
@@ -98,10 +98,10 @@ function galleryHtml() {
     </details>
     <p class="back"><a href="#top">К списку тем ↑</a></p>
   </section>`).join('');
-  return `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GPT-Pi 5 — 12 тем Swypetris</title>
+  return `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GPT-Pi 5 — 15 схем Fluent 2</title>
   <style>
   :root{color-scheme:light;font-family:'Segoe UI',Arial,sans-serif;color:#1b293a;background:#eef1f6;font-synthesis:none}*{box-sizing:border-box}body{margin:0}main{max-width:1544px;margin:auto;padding:40px 20px 24px}a{color:#235f9a;text-decoration:none}a:hover{text-decoration:underline}a:focus-visible,summary:focus-visible{outline:3px solid #0078d4;outline-offset:4px}h1{font-size:clamp(30px,4vw,52px);font-weight:650;letter-spacing:-1.5px;margin:12px 0 16px}h2{font-size:28px;margin:6px 0 10px}p{line-height:1.5}.intro{max-width:850px;font-size:18px;color:#526174}.eyebrow{font-size:11px;letter-spacing:1.5px;font-weight:650;color:#637084;margin:0}.note{font-size:14px;color:#637084;margin-top:20px}nav{display:flex;flex-wrap:wrap;gap:8px;margin:30px 0 48px}nav a{display:flex;align-items:center;gap:9px;padding:11px 15px;border:1px solid #d4dbe5;background:#fff;border-radius:22px;color:#32445b;font-size:14px}nav i{display:block;width:13px;height:13px;border-radius:50%;border:2px solid}section{margin:0 0 60px;scroll-margin-top:20px}.theme-header{display:flex;gap:24px;align-items:center;justify-content:space-between;padding:0 4px 18px}.theme-header p:not(.eyebrow){color:#536175;margin:0}.swatches{display:flex;gap:8px}.swatches span{width:30px;height:30px;border-radius:8px;border:1px solid #c8cfd8}.sheet{display:block;border:1px solid #d5dce6;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 12px 30px #22354a0a}.sheet img{display:block;width:100%;height:auto}details{margin-top:16px;background:#fff;border:1px solid #d5dce6;border-radius:12px;padding:0 20px 20px}details:not([open]){padding-bottom:0}summary{padding:18px 0;cursor:pointer;font-weight:600;min-height:54px}summary span{font-size:13px;font-weight:400;color:#657387;margin-left:12px}h3{font-size:14px;margin:15px 0 12px}.links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.links a{display:flex;justify-content:space-between;gap:8px;align-items:center;background:#f6f8fb;border:1px solid #e2e7ee;border-radius:7px;padding:12px;min-height:44px;font-size:14px}.links span{font-size:10px;color:#637084;white-space:nowrap}.back{text-align:right;font-size:12px}footer{font-size:13px;color:#637084;border-top:1px solid #d1d9e3;padding-top:20px}@media(max-width:800px){main{padding:24px 12px}.theme-header{align-items:flex-start}.links{grid-template-columns:repeat(2,minmax(0,1fr))}.swatches{gap:4px}.swatches span{width:20px;height:20px}.intro{font-size:16px}}@media(max-width:480px){.links{grid-template-columns:1fr}.theme-header{display:block}.swatches{margin-top:15px}summary span{display:block;margin:8px 0 0}nav{gap:6px}nav a{padding:9px 12px;font-size:12px}}
-  </style></head><body><main id="top"><p class="eyebrow">ВИЗУАЛЬНАЯ КОЛЛЕКЦИЯ / GPT-Pi 5</p><h1>12 характеров одного интерфейса</h1><p class="intro">Темы Swypetris перенесены в GPT-Pi 5: палитры, материалы и настроение меняются, привычное расположение экранов сохраняется.</p><p class="note">Снимки настоящего интерфейса с демонстрационными данными. Каждый экран доступен в исходном размере 720 × 1280. Галерея полностью локальная и работает без подключения к интернету.</p><nav aria-label="Темы оформления">${navigation}</nav>${sections}<footer>12 тем · 96 основных экранов · 36 диалогов · <a href="manifest.json">Состав и контрольные суммы</a> · <a href="verification.json">Результаты проверки интерфейса</a></footer></main></body></html>`;
+  </style></head><body><main id="top"><p class="eyebrow">ВИЗУАЛЬНАЯ КОЛЛЕКЦИЯ / GPT-Pi 5</p><h1>15 характеров Fluent 2</h1><p class="intro">Две чистые Fluent 2, двенадцать сочетаний со Swypetris и зелёный монохром. Спокойные поверхности, мягкие слои и все прежние функции.</p><p class="note">Снимки настоящего интерфейса с демонстрационными данными. Каждый экран доступен в исходном размере 720 × 1280. Галерея полностью локальная и работает без подключения к интернету.</p><nav aria-label="Темы оформления">${navigation}</nav>${sections}<footer>15 тем · 120 основных экранов · 45 диалогов · <a href="manifest.json">Состав и контрольные суммы</a> · <a href="verification.json">Результаты проверки интерфейса</a></footer></main></body></html>`;
 }
 
 await mkdir(directory,{recursive:true});

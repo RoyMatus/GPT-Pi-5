@@ -7,19 +7,28 @@ function contrast(a,b) {
 }
 test('legacy light/dark preferences survive migration and invalid scheme IDs',()=>{
   const data=new Map([['gpt-pi-theme','dark']]);const storage={getItem:k=>data.get(k),setItem:(k,v)=>data.set(k,v)};
-  assert.equal(readAppearance(storage).id,'fluent');assert.equal(readAppearance(storage).light,false);
+  assert.equal(readAppearance(storage).id,'fluent_dark');assert.equal(readAppearance(storage).light,false);
   data.set('gpt-pi-scheme','unknown');assert.equal(readAppearance(storage).light,false);
   saveAppearance(storage,resolveAppearance('solarized_light'));assert.equal(readAppearance(storage).id,'solarized_light');
   assert.equal(data.get('gpt-pi-theme'),'dark','A new scheme must preserve the previous Fluent brightness');
 });
 test('denied storage does not prevent applying a theme',()=>{
   const storage={getItem(){throw Error('denied');},setItem(){throw Error('denied');}};
-  assert.equal(readAppearance(storage).id,'fluent');assert.equal(saveAppearance(storage,resolveAppearance('nord')),false);
+  assert.equal(readAppearance(storage).id,'fluent_light');assert.equal(saveAppearance(storage,resolveAppearance('nord')),false);
 });
 test('small recording/error status is legible on each themed reading surface',()=>{
-  for(const scheme of schemes.filter(s=>s.id!=='fluent')) {
+  for(const scheme of schemes) {
     const theme=resolveAppearance(scheme.id),variables=appearanceVariables(theme);
     for(const surface of [theme.background,theme.panel,variables['--scheme-selected']])
       assert(contrast(variables['--scheme-negative'],surface)>=4.5,`${scheme.id}: recording status contrast below 4.5`);
   }
+});
+test('fifteen schemes include independent Fluent modes and monochrome green',()=>{
+  assert.equal(schemes.length,15);
+  for(const id of ['fluent_light','fluent_dark','green_phosphor']) assert.equal(resolveAppearance(id).id,id);
+  assert.equal(resolveAppearance('fluent','dark').id,'fluent_dark');
+  assert.equal(resolveAppearance('fluent','light').id,'fluent_light');
+  const green=resolveAppearance('green_phosphor');
+  assert.equal(green.light,false);assert.equal(green.positive,green.control);
+  assert.equal(green.roles.destructive,green.control);
 });

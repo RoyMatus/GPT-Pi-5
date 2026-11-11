@@ -649,7 +649,7 @@ function App({ active = true, appearance, onAppearanceChange, appearanceSaved })
 
             <main className="main">
                 <header className="topbar">
-                    <Button onClick={() => setHistoryOpen(v => !v)}>История</Button>
+                    <Button appearance="subtle" onClick={() => setHistoryOpen(v => !v)}>История</Button>
                     <Button icon={<Add24Regular />} disabled={!authenticated || busy} onClick={newChat}>Новый чат</Button>
                     <div className="topbar-title">
                         <Chat24Regular />
@@ -659,8 +659,8 @@ function App({ active = true, appearance, onAppearanceChange, appearanceSaved })
                         </Badge>
                     </div>
                     <div className="topbar-actions">
-                        <Button icon={<Settings24Regular />} aria-label="Настройки" onClick={() => setSettingsOpen(true)} />
-                        {authenticated && <Button onClick={signOut}>Завершить сеанс</Button>}
+                        <Button appearance="subtle" icon={<Settings24Regular />} aria-label="Настройки" onClick={() => setSettingsOpen(true)} />
+                        {authenticated && <Button appearance="subtle" onClick={signOut}>Завершить сеанс</Button>}
                         {authenticated && (
                             <Select
                                 aria-label="Модель ChatGPT"
@@ -681,7 +681,7 @@ function App({ active = true, appearance, onAppearanceChange, appearanceSaved })
                             </Select>
                         )}
                         <Tooltip
-                            content={appearance.id === "fluent" ? (dark ? "Светлая тема" : "Тёмная тема") : "Графическая схема"}
+                            content={appearance.isFluent ? (dark ? "Светлая тема" : "Тёмная тема") : "Графическая схема"}
                             relationship="label"
                         >
                             <Button
@@ -693,7 +693,7 @@ function App({ active = true, appearance, onAppearanceChange, appearanceSaved })
                                         <WeatherMoon24Regular />
                                     )
                                 }
-                                onClick={() => appearance.id === "fluent" ? setDark(!dark) : setSettingsOpen(true)}
+                                onClick={() => appearance.isFluent ? setDark(!dark) : setSettingsOpen(true)}
                             />
                         </Tooltip>
                     </div>

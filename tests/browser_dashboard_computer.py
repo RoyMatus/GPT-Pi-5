@@ -27,6 +27,8 @@ def check():
    keyboard['height']=840;page.evaluate("Object.defineProperty(window,'devicePixelRatio',{value:2,configurable:true})");page.wait_for_timeout(500)
    assert page.locator('.dashboard').evaluate("el=>el.getBoundingClientRect().height===860"), 'Native physical pixels were not converted for DPR 2'
    save=page.get_by_role('button',name='Сохранить подключение');assert not save.is_enabled();page.get_by_label('Я сверил отпечаток по доверенному каналу').check();save.click();page.get_by_label('Публичный ключ телеметрии',exact=True).wait_for();assert state['profile']['host']=='synthetic.invalid'
+   page.get_by_text('Ключи доступа',exact=True).click();assert not page.get_by_label('Публичный ключ телеметрии',exact=True).is_visible()
+   page.get_by_text('Ключи доступа',exact=True).click();page.get_by_label('Публичный ключ фото',exact=True).wait_for()
    keyboard.update(visible=False,height=0)
    page.wait_for_function("() => document.querySelector('.dashboard').getBoundingClientRect().height===1280")
    state['state']='host_key_changed';page.get_by_role('button',name='Обновить',exact=True).click();page.get_by_text('Ключ сервера изменился — подключение заблокировано',exact=False).first.wait_for()

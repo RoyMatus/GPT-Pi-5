@@ -1,32 +1,34 @@
-// Menu colors and finishes from Swypetris menu_ui_tokens.json; layout remains GPT-Pi 5.
+// Swypetris identities with Fluent 2 surfaces; original menu tokens stay unchanged.
 import sourceThemes from './themes-data.json' with { type: 'json' };
 
 const descriptions = {
-  classic: 'Ранние цветные ПК: тёмно-синее поле, кремовые рамки и чёткие углы.',
+  classic: 'Насыщенный синий и кремовый текст в спокойных слоях Fluent 2.',
   monokai: 'Цветной синтаксис: угольный фон, лайм и небольшие яркие акценты.',
-  gruvbox: 'Тёплая мастерская: кремовый текст, оливковый акцент и двойная рамка.',
+  gruvbox: 'Тёплый графит, кремовый текст и оливковые акценты на мягких поверхностях.',
   vscode: 'Рабочий редактор: нейтральный графит, мятный акцент и спокойные поверхности.',
-  dracula: 'Ночная готика: чернильный фон, лиловые детали и холодный голубой свет.',
+  dracula: 'Чернильный фон, лиловая глубина и холодный голубой акцент.',
   nord: 'Северный иней: сине-серые поверхности, ледяной акцент и мягкие блики.',
   solarized_light: 'Светлая бумага: тёплый фон, глубокий текст и сдержанная бирюза.',
   solarized_dark: 'Глубокий петроль: сине-зелёный фон, светлый текст и ясная бирюза.',
   github_light: 'Чистый лист: белое поле, лёгкие серые карточки и синий акцент.',
   tokyo_night: 'Дождливый город: ночной индиго, голубые линии и лиловые отражения.',
   catppuccin: 'Мягкий сатин: тёмная основа и спокойные пастельные оттенки.',
-  synthwave_84: 'Аркада 1984: фиолетовый фон, электрический циан и тонкие линии экрана.',
+  synthwave_84: 'Фиолетовая глубина и электрический циан с мягким стеклом Fluent 2.',
 };
 const names = { classic: 'Classic', vscode: 'VSCode', catppuccin: 'Catppuccin', synthwave_84: "Synthwave '84" };
 const positive = { classic:'#36CB89', monokai:'#A6E22E', gruvbox:'#B8BB26', vscode:'#8FCB82', dracula:'#50FA7B', nord:'#A3BE8C', solarized_light:'#397024', solarized_dark:'#9CB943', github_light:'#1A7F37', tokyo_night:'#9ECE6A', catppuccin:'#A6E3A1', synthwave_84:'#72F1B8' };
+// Neutral/brand values verified against installed Fluent UI React v9 web themes.
+const lightFluent = { id:'fluent_light', name:'Fluent 2 Light', description:'Чистая Fluent 2: светлые нейтральные поверхности, синий акцент и мягкая глубина.',isFluent:true,finish:'fluent',light:true,background:'#F5F5F5',panel:'#FFFFFF',text:'#242424',muted:'#424242',border:'#E0E0E0',control:'#0F6CBD',onControl:'#FFFFFF',focus:'#242424',positive:'#107C10',roles:{settings:'#0F6CBD',destructive:'#C50F1F',link:'#0F6CBD'},radiusDp:8,strokeDp:1 };
+const darkFluent = { id:'fluent_dark', name:'Fluent 2 Dark', description:'Чистая Fluent 2: нейтральный графит, светлая типографика и синие действия.',isFluent:true,finish:'fluent',light:false,background:'#141414',panel:'#292929',text:'#FFFFFF',muted:'#D6D6D6',border:'#525252',control:'#479EF5',onControl:'#141414',focus:'#FFFFFF',positive:'#54B054',roles:{settings:'#479EF5',destructive:'#FF9AA2',link:'#479EF5'},radiusDp:8,strokeDp:1 };
+const greenPhosphor = { id:'green_phosphor',name:'Green Phosphor',description:'Зелёный люминофор: почти чёрный экран, монохромные знаки и спокойное свечение.',finish:'phosphor',light:false,background:'#040D06',panel:'#0A190D',text:'#B6F5C0',muted:'#83BD8D',border:'#32633D',control:'#65E881',onControl:'#040D06',focus:'#B6F5C0',positive:'#65E881',roles:{settings:'#65E881',destructive:'#65E881',link:'#65E881'},radiusDp:8,strokeDp:1 };
 export const schemes = [
-  { id:'fluent', name:'Fluent', description:'Исходное оформление GPT-Pi 5. Светлый и тёмный режимы.', finish:'fluent' },
-  ...sourceThemes.map(theme=>({...theme, name:names[theme.id]||theme.title, description:descriptions[theme.id], positive:positive[theme.id]})),
+  lightFluent,darkFluent,
+  ...sourceThemes.map(theme=>({...theme,name:names[theme.id]||theme.title,description:descriptions[theme.id],positive:positive[theme.id],radiusDp:8,strokeDp:1})),
+  greenPhosphor,
 ];
-const lightFluent = { light:true, background:'#F7F9FC', panel:'#FFFFFF', text:'#242424', muted:'#4D5968', border:'#C7CDD6', control:'#0969DA', onControl:'#FFFFFF', focus:'#005A9E', positive:'#187542', roles:{settings:'#0969DA',destructive:'#B42332',link:'#0969DA'}, radiusDp:14, strokeDp:1 };
-const darkFluent = { light:false, background:'#111922', panel:'#1B2530', text:'#F6F7FB', muted:'#BDC8D6', border:'#43505E', control:'#63D8FF', onControl:'#111922', focus:'#A6E7FF', positive:'#58F29D', roles:{settings:'#24D5E7',destructive:'#FF7C79',link:'#63D8FF'}, radiusDp:14, strokeDp:1 };
 
 export function resolveAppearance(schemeId, legacyMode = 'light') {
-  const scheme = schemes.find(item=>item.id===schemeId)||schemes[0];
-  return scheme.id==='fluent' ? {...scheme, ...(legacyMode==='dark'?darkFluent:lightFluent)} : scheme;
+  return schemes.find(item=>item.id===schemeId)||(legacyMode==='dark'?darkFluent:lightFluent);
 }
 
 export function readAppearance(storage) {
@@ -40,7 +42,7 @@ export function saveAppearance(storage, appearance) {
   try {
     const saved = storage ?? globalThis.localStorage;
     saved?.setItem('gpt-pi-scheme', appearance.id);
-    if (appearance.id==='fluent') saved?.setItem('gpt-pi-theme',appearance.light?'light':'dark');
+    if (appearance.isFluent) saved?.setItem('gpt-pi-theme',appearance.light?'light':'dark');
     return true;
   } catch { return false; }
 }
@@ -73,6 +75,8 @@ function statusColor(theme, selected) {
 
 export function appearanceVariables(theme) {
   const selected=mixColors(theme.panel,theme.control,.16);
+  const rgba=(color,alpha)=>`rgba(${color.slice(1).match(/../g).map(v=>parseInt(v,16)).join(',')},${alpha})`;
+  const canvas=theme.isFluent?theme.background:`radial-gradient(ellipse at 0% 0%,${mixColors(theme.background,theme.control,.10)} 0,transparent 62%),radial-gradient(ellipse at 100% 100%,${mixColors(theme.background,theme.roles.settings,.055)} 0,transparent 60%),${theme.background}`;
   return {
     '--scheme-bg':theme.background, '--scheme-panel':theme.panel,
     '--scheme-raised':mixColors(theme.panel,theme.text,.055),
@@ -82,6 +86,9 @@ export function appearanceVariables(theme) {
     '--scheme-secondary':theme.roles.settings, '--scheme-positive':theme.positive,
     '--scheme-negative':statusColor(theme,selected), '--scheme-link':theme.roles.link,
     '--scheme-focus':theme.focus, '--scheme-selected':selected,
+    '--scheme-canvas':canvas,'--scheme-glass':rgba(theme.panel,.88),'--scheme-glass-strong':rgba(theme.panel,.96),
+    '--scheme-edge':mixColors(theme.panel,theme.text,theme.light?.10:.12),'--scheme-wash':mixColors(theme.panel,theme.control,.06),
+    '--scheme-font':'"Segoe UI Variable", "Segoe UI", system-ui, sans-serif',
     '--scheme-radius':theme.radiusDp+'px', '--scheme-stroke':theme.strokeDp+'px',
     '--scheme-shadow':theme.light?'0 4px 16px #00000008':'0 4px 16px #00000024',
   };
