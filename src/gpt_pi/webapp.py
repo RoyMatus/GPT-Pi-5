@@ -23,12 +23,16 @@ from .config import Settings
 from .voice import LocalVoice, VoiceError, MAX_AUDIO, MAX_SPEECH_TEXT, validate_audio
 from .audio_devices import AudioDevices
 from .credentials import CredentialStore
+from .dashboard.computer import routes as computer_routes
 
 COOKIE = 'gpt_pi_session'
 
 
 @dataclass
 class Session:
+    dashboard: dict = field(default_factory=dict, repr=False)
+    resources: set = field(default_factory=set, repr=False)
+    dashboard_tasks: set = field(default_factory=set, repr=False)
     csrf: str = field(default_factory=lambda: secrets.token_urlsafe(32))
     touched: float = field(default_factory=time.monotonic)
     alive: bool = True
@@ -43,6 +47,13 @@ class Session:
         self.alive = False
         self.pending = None
         self.chats.clear()
+        self.dashboard.clear()
+        for task in list(self.dashboard_tasks):
+            task.cancel()
+        for resource in list(self.resources):
+            with contextlib.suppress(Exception):
+                resource.close()
+        self.resources.clear()
         self.models.clear()
         for task in list(self.tasks):
             task.cancel()
@@ -505,7 +516,7 @@ def create_app(settings=None, cloud=None):
         Route('/api/chats/{chat_id}/messages', message, methods=['POST']),
         Route('/api/voice/transcribe', voice_request, methods=['POST']),
         Route('/api/voice/speak', voice_request, methods=['POST']),
-        Route('/api/cancel', cancel, methods=['POST'])],
+        Route('/api/cancel', cancel, methods=['POST'])] + computer_routes(runtime, body),
         exception_handlers={HTTPException: errors, CloudError: errors, VoiceError: errors})
     app.state.runtime = runtime
     app.add_middleware(LocalBoundary, settings=settings)

@@ -58,3 +58,7 @@ jobs:
       - name: Synthetic dashboard shell layout
         timeout-minutes: 5
         run: python tests/browser_dashboard_foundation.py
+
+      - name: Synthetic computer connection UI
+        timeout-minutes: 5
+        run: python tests/browser_dashboard_computer.py

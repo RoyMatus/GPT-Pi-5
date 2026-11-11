@@ -124,3 +124,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 The dashboard foundation is available at `/?dashboard`: six destinations and a local system clock. Data sources are not connected yet; the existing Assistant remains at `/`. Epic #2 is not complete.
 
 Assistant is integrated into the dashboard tab. Leaving the tab cancels voice and active generation while retaining login and the RAM-only conversation.
+
+Computer supports a configurable Linux/Windows SSH source, pinned host identity, separate telemetry/SFTP public keys, supported metrics and history. The selected PC needs configured OpenSSH; the display Pi is never selected implicitly. See docs/dashboard/SSH.md.

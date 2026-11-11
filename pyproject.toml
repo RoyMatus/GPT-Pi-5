@@ -12,6 +12,7 @@ dependencies = [
     "starlette>=0.47,<2",
     "uvicorn>=0.35,<1",
     "httpx>=0.28,<1",
+    "paramiko>=3.5,<6",
     "Authlib>=1.6,<2",
     "PyJWT[crypto]>=2.10,<3",
 ]
@@ -23,4 +24,4 @@ gpt-pi = "gpt_pi.app:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-gpt_pi = ["web/*.html", "web/assets/*"]
+gpt_pi = ["web/*.html", "web/assets/*", "dashboard/ssh/collectors/*.ps1"]
