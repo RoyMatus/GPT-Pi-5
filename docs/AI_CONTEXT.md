@@ -131,3 +131,4 @@ Dashboard foundation increment: /?dashboard exposes the supplied shell and syste
 Assistant integration (#8): one mounted auth/chat controller inside the shell; inactive-tab voice and generation cancel, late results are discarded. Synthetic voice/tab transitions and remembered-login browser scenarios passed. No physical audio acceptance.
 
 Computer #4: backend SSH profile/trust service, generated separate Ed25519 keys, Linux and Windows fixed collectors, bounded history and independent SFTP grant interface implemented. Public keys only reach UI. Real Linux ARM64/Windows collector schema verified; selected-PC SSH server/ACL setup is separate and no source is auto-selected.
+Calendar #6 implemented: Monday-first month navigation, separate today/selection/event markers, RAM session-owned event CRUD and calendar-day countdown. No external sync or private persistence. Synthetic API/IDOR and browser CRUD checks passed.

@@ -62,3 +62,6 @@ jobs:
       - name: Synthetic computer connection UI
         timeout-minutes: 5
         run: python tests/browser_dashboard_computer.py
+      - name: Synthetic calendar CRUD
+        timeout-minutes: 5
+        run: python tests/browser_dashboard_calendar.py
