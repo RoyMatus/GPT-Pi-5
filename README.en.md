@@ -124,3 +124,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 The dashboard foundation is available at `/?dashboard`: six destinations and a local system clock. Data sources are not connected yet; the existing Assistant remains at `/`. Epic #2 is not complete.
 
 Assistant is integrated into the dashboard tab. Leaving the tab cancels voice and active generation while retaining login and the RAM-only conversation.
+
+Calendar supports Monday-first months, local event CRUD and calendar-day countdown. Events are session-only RAM data, cleared on logout/restart. Event times are floating local wall times without notifications or UTC conversion.

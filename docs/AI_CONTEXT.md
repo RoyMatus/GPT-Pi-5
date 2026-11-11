@@ -129,3 +129,5 @@ wheel прошли. CI коммита df40542 (Windows/Linux, Python 3.11/3.13, 
 Dashboard foundation increment: /?dashboard exposes the supplied shell and system clock; / retains Assistant. Feature integrations and #10 acceptance remain outstanding. See docs/dashboard/FOUNDATION.md.
 
 Assistant integration (#8): one mounted auth/chat controller inside the shell; inactive-tab voice and generation cancel, late results are discarded. Synthetic voice/tab transitions and remembered-login browser scenarios passed. No physical audio acceptance.
+
+Calendar #6 implemented: Monday-first month navigation, separate today/selection/event markers, RAM session-owned event CRUD and calendar-day countdown. No external sync or private persistence. Synthetic API/IDOR and browser CRUD checks passed.
