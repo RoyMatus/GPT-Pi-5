@@ -26,3 +26,8 @@ until PR handoff. No competing writer. Offline parser, cache/backoff, independen
 summary and HTTP session-isolation tests use synthetic providers. Live provider reachability
 is checked separately, never as a CI dependency. Display rights for a commercial/public
 redistribution are not established by this personal prototype; no commercial use enabled.
+
+Live checks: MOEX shares/index and CBR returned parsed series. Kraken returned
+721 points (including the current candle); regression coverage now permits that
+bounded response. No account/trading calls. Browser watchlist add/remove/reorder
+and period selection passed with intercepted synthetic data.

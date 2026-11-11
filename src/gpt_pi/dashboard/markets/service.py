@@ -41,7 +41,7 @@ def parse_cbr(data,symbol):
 def parse_kraken(data):
  if data.get('error'):raise ValueError('provider_error')
  rows=next((v for k,v in data['result'].items() if k!='last'),[])
- if not rows or len(rows)>720:raise ValueError('empty_series')
+ if not rows or len(rows)>1024:raise ValueError('empty_series')
  result=[]
  for row in rows:
   if not isinstance(row,list) or len(row)!=8:raise ValueError('invalid_series')

@@ -9,3 +9,7 @@ class MarketTests(unittest.TestCase):
  def test_kraken_schema_rejects_nonfinite_and_error_payload(self):
   with self.assertRaises(ValueError):parse_kraken({'error':['limit'],'result':{}})
   with self.assertRaises(ValueError):parse_kraken({'error':[],'result':{'PAIR':[[1,'1','2','0','NaN','0','1',1]]}})
+
+ def test_provider_can_include_current_candle_after_720_closed_candles(self):
+  rows=[[1794300000+i*60,'1','2','0','1','1','1',1] for i in range(721)]
+  self.assertEqual(len(parse_kraken({'error':[],'result':{'PAIR':rows,'last':1794300000}})),721)
