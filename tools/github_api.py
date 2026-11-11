@@ -13,7 +13,7 @@ EXPECTED_CHECKS = frozenset(
     f"test ({system}, {version})"
     for system in ("ubuntu-latest", "windows-latest")
     for version in ("3.11", "3.13")
-)
+) | {'browser'}
 
 
 class GitHubError(RuntimeError):

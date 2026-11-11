@@ -1,0 +1,34 @@
+import React,{useEffect,useRef,useState} from 'react';
+import {Button,Field,Input,Select,Checkbox} from '@fluentui/react-components';
+import {Panel,PhotoFrame,DashboardNavigation} from '../assets/shared/components.jsx';
+import {useResource,dashboardRequest} from '../shared/client.jsx';
+import './photos.css';
+export function usePhotos(tab){return useResource('photos',tab==='photos',60000);}
+export function PhotosScreen({sources,onNavigate,setFullscreen}){
+ const source=sources.photos,files=source.value?.files||[];
+ const [root,setRoot]=useState(''),[permission,setPermission]=useState(false),[restricted,setRestricted]=useState(false),[playing,setPlaying]=useState(false),[paused,setPaused]=useState(false),[controls,setControls]=useState(false),[index,setIndex]=useState(0),[interval,setIntervalSeconds]=useState(5),[order,setOrder]=useState('name'),[fit,setFit]=useState('cover'),[image,setImage]=useState(''),[error,setError]=useState(''),[epoch,setEpoch]=useState(0);
+ const playButton=useRef(null),current=files.length?files[index%files.length]:null;
+ function exit(){setPlaying(false);setControls(false);setFullscreen(false);playButton.current?.focus();}
+ function next(delta){setIndex(i=>files.length?(i+delta+files.length)%files.length:0);}
+ useEffect(()=>{setFullscreen(playing);if(!playing)requestAnimationFrame(()=>playButton.current?.focus());return()=>setFullscreen(false);},[playing,setFullscreen]);
+ useEffect(()=>{
+  const key=e=>{if(!playing)return;if(e.key==='Escape'){e.preventDefault();exit();}else if(e.key==='ArrowRight'){e.preventDefault();next(1);}else if(e.key==='ArrowLeft'){e.preventDefault();next(-1);}else if(e.code==='Space'){e.preventDefault();setPaused(v=>!v);}};
+  const hide=()=>{if(document.hidden){setPlaying(false);setEpoch(v=>v+1);}};
+  window.addEventListener('keydown',key);document.addEventListener('visibilitychange',hide);return()=>{window.removeEventListener('keydown',key);document.removeEventListener('visibilitychange',hide);};
+ },[playing,files.length]);
+ useEffect(()=>{
+  setImage('');if(!playing||!current)return;
+  const controller=new AbortController();let url;
+  fetch('/api/dashboard/photos/'+current.id,{credentials:'same-origin',signal:controller.signal}).then(async r=>{if(!r.ok){if(r.status===401)window.dispatchEvent(new Event('gpt-pi-logout'));throw new Error('photo_unavailable');}const blob=await r.blob();if(blob.size>2*1024*1024)throw new Error('image_limit');if(!controller.signal.aborted){url=URL.createObjectURL(blob);setImage(url);setError('');}}).catch(e=>{if(e.name!=='AbortError')setError('Не удалось загрузить фотографию. Проверь источник или перейди к следующей.');});
+  return()=>{controller.abort();if(url)URL.revokeObjectURL(url);};
+ },[playing,current?.id,epoch]);
+ useEffect(()=>{if(!playing||paused||files.length<2)return;const timer=setTimeout(()=>setIndex(i=>order==='shuffle'?(i+1+Math.floor(Math.random()*(files.length-1)))%files.length:(i+1)%files.length),interval*1000);return()=>clearTimeout(timer);},[playing,paused,index,interval,files.length,order]);
+ async function configure(revoke=false){exit();setEpoch(v=>v+1);setError('');try{await dashboardRequest('photos',revoke?{action:'revoke'}:{root,confirmed:permission,serverRestricted:restricted});source.refresh();setIndex(0);}catch{setError('Не удалось разрешить папку. Проверь SSH-профиль, отдельный SFTP-ключ, путь и ограничения сервера.');}}
+ if(playing)return image?<PhotoFrame src={image} alt="Фотография из разрешённой папки" fit={fit} onReveal={()=>setControls(v=>!v)} controlsVisible={controls} onImageError={()=>{setError('Фотография не декодируется');setControls(true);}} controls={<><div className="dashboard-row"><Button onClick={()=>next(-1)}>Предыдущая</Button><Button onClick={()=>setPaused(v=>!v)}>{paused?'Продолжить':'Пауза'}</Button><Button onClick={()=>next(1)}>Следующая</Button><Button onClick={exit}>Выйти из слайд-шоу</Button><Button onClick={()=>setControls(false)}>Скрыть управление</Button></div><p role="status">{error||`${index%files.length+1} / ${files.length}`}</p><DashboardNavigation activeTab="photos" onNavigate={tab=>{exit();onNavigate(tab);}}/></>}/>:<Panel title="Фотографии"><p role="status">{error||'Загрузка фотографии…'}</p><Button onClick={()=>next(1)}>Следующая</Button><Button onClick={exit}>Выйти из слайд-шоу</Button></Panel>;
+ return <Panel title="Фотографии с компьютера"><p role="status">{error|| (source.error?'Фототека недоступна. Войди в Ассистент и настрой SSH-источник.':source.value?.state==='permission_denied'?'Разрешение папки отозвано после изменения источника.':files.length?`Доступно фотографий: ${files.length}`:'Разрешённой фототеки пока нет или папка пуста.')}</p>
+ <div className="dashboard-row"><Button ref={playButton} appearance="primary" disabled={!files.length} onClick={()=>{setPlaying(true);setControls(false);setPaused(false);}}>Начать слайд-шоу</Button><Button onClick={()=>source.refresh()}>Обновить фототеку</Button><Button onClick={()=>onNavigate('computer')}>Настроить SSH</Button></div>
+ <Field label="Интервал, секунд"><Input type="number" value={String(interval)} min={2} max={300} onChange={(_,d)=>setIntervalSeconds(Math.max(2,Math.min(300,Number(d.value)||5)))}/></Field><Field label="Порядок"><Select value={order} onChange={(_,d)=>setOrder(d.value)}><option value="name">По имени</option><option value="shuffle">Случайно</option></Select></Field><Field label="Размер изображения"><Select value={fit} onChange={(_,d)=>setFit(d.value)}><option value="cover">Заполнить экран (обрезка краёв)</option><option value="contain">Показать целиком</option></Select></Field>
+ <Field label="Разрешённая папка SFTP"><Input value={root} onChange={(_,d)=>setRoot(d.value)} placeholder="/ или /путь/к/фото"/></Field><Checkbox checked={permission} onChange={(_,d)=>setPermission(!!d.checked)} label="Разрешаю чтение изображений из этой папки"/><Checkbox checked={restricted} onChange={(_,d)=>setRestricted(!!d.checked)} label="На сервере проверены read-only SFTP и ограничение учётной записи этой папкой"/>
+ <div className="dashboard-row"><Button disabled={!root||!permission||!restricted} onClick={()=>configure()}>Разрешить папку</Button><Button onClick={()=>configure(true)}>Отозвать разрешение</Button></div>
+ <p className="dashboard-small dashboard-secondary">Приложение не настраивает серверное ограничение автоматически. Прикладная проверка пути не защищает украденный SSH-ключ. Поддерживаются JPEG, PNG и WebP в одной папке, без подпапок и ссылок. Просматриваются первые 512 записей; входной файл до 8 МиБ, до 12 Мп. EXIF-ориентация учитывается, метаданные удаляются. Фото не сохраняются на диск и не отправляются в облако. Выход со страницы, скрытие и выход из аккаунта прекращают воспроизведение.</p>{source.value?.truncated&&<p>Список ограничен первыми 512 записями папки.</p>}</Panel>;
+}

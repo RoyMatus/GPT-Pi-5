@@ -4,11 +4,19 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gpt-pi-5"
-version = "0.1.0"
-description = "Offline development scaffold for a Raspberry Pi 5 desktop assistant"
+version = "0.3.3"
+description = "Personal Raspberry Pi assistant prototype with ChatGPT sign-in and Fluent 2"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "starlette>=0.47,<2",
+    "uvicorn>=0.35,<1",
+    "httpx>=0.28,<1",
+    "paramiko>=3.5,<6",
+    "Pillow>=11,<14",
+    "Authlib>=1.6,<2",
+    "PyJWT[crypto]>=2.10,<3",
+]
 
 [project.scripts]
 gpt-pi = "gpt_pi.app:main"
@@ -17,4 +25,4 @@ gpt-pi = "gpt_pi.app:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-gpt_pi = ["web/*.html"]
+gpt_pi = ["web/*.html", "web/assets/*", "dashboard/ssh/collectors/*.ps1"]

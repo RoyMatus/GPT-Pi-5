@@ -24,7 +24,8 @@ def ready_pr():
 def successful_checks():
     # Explicit fixture independent of production check-name generation.
     names = ['test (ubuntu-latest, 3.11)', 'test (ubuntu-latest, 3.13)',
-             'test (windows-latest, 3.11)', 'test (windows-latest, 3.13)']
+             'test (windows-latest, 3.11)', 'test (windows-latest, 3.13)',
+             'browser']
     return [{'name': name, 'head_sha': SHA, 'status': 'completed',
              'conclusion': 'success', 'app': {'slug': 'github-actions'}} for name in names]
 
@@ -69,20 +70,24 @@ class MergeTests(unittest.TestCase):
         self.assertEqual([('pulls/13/merge', {'merge_method': 'squash', 'sha': SHA})], client.writes)
         self.assertEqual(3, client.head_reads)
 
-    def test_missing_pending_failed_skipped_wrong_source_and_stale_checks_block(self):
-        mutations = [lambda checks: checks.pop(),
-                     lambda checks: checks[0].update(status='queued'),
-                     lambda checks: checks[0].update(conclusion='failure'),
-                     lambda checks: checks[0].update(conclusion='skipped'),
-                     lambda checks: checks[0].update(app={'slug': 'untrusted-app'}),
-                     lambda checks: checks[0].update(head_sha='f' * 40)]
-        for mutation in mutations:
-            with self.subTest(mutation=mutation):
-                client = MergeClient()
-                mutation(client.checks)
-                with self.assertRaises(GitHubError):
-                    merge_pr(client, 13, SHA)
-                self.assertEqual([], client.writes)
+    def test_each_required_check_blocks_when_missing_pending_failed_or_untrusted(self):
+        mutations = {
+            'missing': lambda checks, index: checks.pop(index),
+            'pending': lambda checks, index: checks[index].update(status='queued'),
+            'failed': lambda checks, index: checks[index].update(conclusion='failure'),
+            'skipped': lambda checks, index: checks[index].update(conclusion='skipped'),
+            'neutral': lambda checks, index: checks[index].update(conclusion='neutral'),
+            'wrong_source': lambda checks, index: checks[index].update(app={'slug': 'untrusted-app'}),
+            'stale': lambda checks, index: checks[index].update(head_sha='f' * 40),
+        }
+        for index, check in enumerate(successful_checks()):
+            for reason, mutation in mutations.items():
+                with self.subTest(check=check['name'], reason=reason):
+                    client = MergeClient()
+                    mutation(client.checks, index)
+                    with self.assertRaises(GitHubError):
+                        merge_pr(client, 13, SHA)
+                    self.assertEqual([], client.writes)
 
     def test_bad_or_unknown_mergeability_blocks(self):
         for value in (False, None):
@@ -222,7 +227,7 @@ class TransportTests(unittest.TestCase):
 
     def test_pagination_includes_later_failed_check(self):
         client = Client('synthetic-token')
-        first = successful_checks() + [dict(successful_checks()[0], name=f'extra-{i}') for i in range(96)]
+        first = successful_checks() + [dict(successful_checks()[0], name=f'extra-{i}') for i in range(95)]
         later = dict(successful_checks()[0], name='late-check', conclusion='failure')
         client.request = Mock(side_effect=[{'total_count': 101, 'check_runs': first},
                                           {'total_count': 101, 'check_runs': [later]}])

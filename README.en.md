@@ -2,101 +2,137 @@
 
 [Русский](README.md) | **English**
 
-A desktop voice assistant built around Raspberry Pi 5, with a touchscreen,
-microphone, speaker, and a custom 3D-printed enclosure.
+A desktop Raspberry Pi 5 assistant with a touchscreen and local speech input.
+An independent project by Roy Matus ([RoyMatus](https://github.com/RoyMatus)),
+developed with ChatGPT; not an official OpenAI or Raspberry Pi device.
 
-**Status: a development scaffold, not a finished voice assistant.**
-An independent project; not an official OpenAI or Raspberry Pi device.
+**Status: personal prototype v0.3. Physical microphone/speaker acceptance is not complete.**
 
-## Developer
+## Included in the prototype
 
-Created and developed by **Roy Matus ([RoyMatus](https://github.com/RoyMatus))**.
-This project is written with the help of **ChatGPT**, which assists with
-design, coding, documentation, and checks.
+- Official **Microsoft Fluent 2 / Fluent UI React v9** components: light/dark themes,
+  responsive sign-in, conversations, model selection and text chat.
+- **Continue with ChatGPT** opens OpenAI's website. The app never receives your
+  password. OAuth/PKCE, signed ID-token validation, token refresh and attempted
+  session revocation on sign-out are implemented.
+- Eligible ChatGPT plan usage through the documented Responses API, including
+  streaming, cancellation, quota and network errors. No separately billed API fallback.
+- Personal-device sign-in survives restarts and does not expire after 30 idle minutes.
+  Sign-out removes saved access. Chats remain in RAM; HTTP access is session-scoped.
+- Loopback-only server with Host, Origin and CSRF checks. Access logging is disabled.
+  Registrations and tokens stay in the backend user's data directory; Linux token
+  files have 0600 permissions. Disk encryption is not implemented.
+- A user-service and Wayland app-window installer for Pi, without sudo.
+  Fullscreen kiosk supports squeekboard; labwc needs deploy/install-osk-overlay.sh.
+- Optional local Russian speech: button-controlled recording up to 30 seconds,
+  Vosk transcription, editable text before sending, and Piper speech output.
+  Audio is never stored or uploaded to the cloud. Cancel, sign-out and leaving
+  the page stop recording/playback. Replies up to 2500 characters can be read aloud.
+- “Проверить звук” is available before sign-in and in chat: five-second recording
+  with a level meter, recording playback and a speaker signal. Checks stay local,
+  never enumerate cameras or pin a USB port. On Pi, missing audio output is
+  distinguished from virtual Dummy Output.
 
-## What is included
+Authentication and responses are covered by offline tests with a fake cloud transport.
+On 2026-11-10, the owner's real sign-in, model discovery and an OpenAI response using
+the connected ChatGPT plan were verified on Pi. This confirms one account and its
+current connection, not eligibility for other accounts or regions.
+Persistent chats, memory, files and separate protected local profiles are not
+implemented. App sign-out does not sign out the ordinary OpenAI browser session;
+our kiosk launcher uses a separate persistent browser profile.
 
-- A runnable local status page with large elements suitable for a touchscreen.
-- A Python service bound to loopback, `/health`, `/api/capabilities`, and an offline provider.
-- A model of separate local profiles and in-memory conversation ownership checks.
-  This does not replace authentication and is not connected to HTTP yet.
-- Tests for access boundaries, configuration, and HTTP; CI for Windows and Linux.
-- Product requirements, architecture, a roadmap, and an enclosure design brief.
-- Instructions for Codex, Claude Code, GitHub Copilot, and other AI agents.
-- Examples of systemd and UI autostart configuration; deployment to the device has not been performed.
+## Run from source
 
-- 11 project skills, 4 agent roles, and risk-based verification: [AI workflow](docs/AI_WORKFLOW.md) (Russian).
-- GitHub tools with a preview mode and environment diagnostics: [tools](tools/README.md) (Russian).
-
-## Run on your computer
-
-Requires Python 3.11+. Run from the repository root:
-
-```powershell
-# Windows PowerShell
-$env:PYTHONPATH = 'src'
-python -m gpt_pi
-```
+Requires Python 3.11+ and Node.js 22+. Build the interface first. Node.js is not
+needed on the device when installing a prebuilt wheel.
 
 ```sh
-# Linux / Raspberry Pi
-PYTHONPATH=src python3 -m gpt_pi
+npm ci
+npm run build
+python -m venv .venv
 ```
 
-Open http://127.0.0.1:8765. Press Ctrl+C to stop.
-The demo requires no API keys, makes no OpenAI requests, records no audio, and stores no chats.
-Set `GPT_PI_PORT` to use a different port. `.env.example` is a configuration reference;
-the `.env` file is NOT loaded automatically.
-
-Run checks:
+Windows PowerShell:
 
 ```powershell
-$env:PYTHONPATH = 'src'
+.\.venv\Scripts\python.exe -m pip install .
+.\.venv\Scripts\python.exe -m gpt_pi
+```
+
+Linux / Raspberry Pi:
+
+```sh
+.venv/bin/python -m pip install .
+.venv/bin/python -m gpt_pi
+```
+
+Open http://127.0.0.1:8765 **on the server's machine**. To access Pi from another
+computer, use SSH forwarding with the same local port; do not expose the service
+to the LAN. The OAuth callback always uses `127.0.0.1`, not `localhost`.
+Without a remembered login, the app makes no OpenAI requests until sign-in is started.
+
+Settings: `GPT_PI_PORT`, `GPT_PI_PROVIDER=chatgpt|offline`, `GPT_PI_DATA_DIR`,
+`GPT_PI_REMEMBER_LOGIN=1` (default). Set `0` for RAM-only sign-in with a 30-minute
+idle timeout. Data defaults to the user's application-data directory.
+Remembered login does not override OpenAI's credential expiry or revocation.
+`.env` is not automatically loaded. API keys are not accepted.
+
+For local voice on Linux/Pi, run `python3 tools/install_voice.py` as the app user,
+then reload the page. It downloads SHA-256-verified Russian models and creates a
+separate environment in data-dir/voice; no sudo or extra cloud API is required.
+If `GPT_PI_DATA_DIR` is set, pass the same directory through `--data-dir`.
+Press “Говорить”, allow microphone access, speak, then press “Закончить запись”.
+Review the transcription and send it with the arrow. Voice input enables spoken
+replies; disable them in Settings. This is a turn-based local voice interface,
+not ChatGPT's built-in Voice Mode. Synthetic speech has been checked on Pi;
+real capture and audible playback still need hardware acceptance.
+
+## Checks and packaging
+
+Inside the activated venv:
+
+```sh
 python -m unittest discover -s tests -v
+node --test tests/voice.test.mjs
+python -m pip wheel . --no-deps -w dist
 ```
 
-```sh
-PYTHONPATH=src python3 -m unittest discover -s tests -v
-```
+Wheel builds require the bundled interface. Generated JS/CSS are neither edited nor
+committed; package-lock.json pins npm dependencies. Windows/Linux CI builds the UI,
+runs offline tests without cloud credentials, and builds the wheel. A separate
+Chromium check on Ubuntu covers remembered sign-in, sign-out and voice controls
+with a synthetic cloud and microphone; commands are in [TESTING.md](TESTING.md).
+This does not replace physical Pi screen, audio or startup acceptance.
 
-## Planned experience
+## Deployment and documentation
 
-After the operating system boots, the device will display a locked local profile selector.
-After authenticating, each person will have access only to their own chats, memory,
-and generated files. The owner will configure one active cloud connection for the device.
-Voice conversations and tools will be added in stages. Availability will depend on
-the actual permissions of the selected connection, rather than the subscription name alone.
+Upcoming device dashboard: [design and tasks](https://github.com/RoyMatus/GPT-Pi-5/issues/2) ·
+[development board](https://github.com/users/RoyMatus/projects/8). Six tabs are implemented; a configured SSH/SFTP source is required for actual PC metrics and photos.
 
-Signing in with ChatGPT, using a subscription, using a separately billed API,
-and isolating local users are distinct tasks. The idea of sharing one subscription
-among several people remains a requested feature; its eligibility and availability
-have not been confirmed. Full ChatGPT feature parity through the API cannot be promised.
-See the [research notes](docs/OPENAI.md).
+Supporting documents are currently in Russian:
+[Install and rollback](deploy/README.md) · [Testing](TESTING.md) ·
+[Current state](docs/AI_CONTEXT.md) · [Product](docs/PRODUCT.md) ·
+[Architecture](docs/ARCHITECTURE.md) · [OpenAI](docs/OPENAI.md) ·
+[Roadmap](docs/ROADMAP.md) · [Hardware](docs/HARDWARE.md) ·
+[Enclosure](hardware/enclosure/BRIEF.md) · [AI workflow](docs/AI_WORKFLOW.md) ·
+[GitHub tools](tools/README.md).
 
-## Repository map
-
-The supporting project documents are currently in Russian.
-
-| Path | Purpose |
-| --- | --- |
-| `src/gpt_pi/` | Application, domain model, providers, and local UI |
-| `tests/` | Offline tests without API access or hardware |
-| `docs/PRODUCT.md` | Requirements and acceptance criteria |
-| `docs/ARCHITECTURE.md` | Architecture and trust boundaries |
-| `docs/ROADMAP.md` | Development roadmap |
-| `docs/OPENAI.md` | Verified limitations and sources |
-| `docs/HARDWARE.md` | Components and specifications still to be confirmed |
-| `hardware/enclosure/BRIEF.md` | Enclosure design brief |
-| `deploy/` | Autostart examples |
-| `AGENTS.md` | Main instructions for AI agents |
-| `docs/AI_CONTEXT.md` | Current state and next steps |
-
-GitHub: https://github.com/RoyMatus/GPT-Pi-5
-
-## Contributions and rights
-
-The repository is public; direct write access is granted separately by the owner.
-Other users can open issues and submit pull requests, but cannot merge them.
-A license for using or redistributing the source code has not been selected yet.
-A public repository is not automatically a licensed open-source project.
+Public repository: https://github.com/RoyMatus/GPT-Pi-5.
+A source license has not been selected. Public visibility does not by itself mean OSS.
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
+
+
+Assistant is integrated into the dashboard tab. Leaving the tab cancels voice and active generation while retaining login and the RAM-only conversation.
+
+Computer supports a configurable Linux/Windows SSH source, pinned host identity, separate telemetry/SFTP public keys, supported metrics and history. The selected PC needs configured OpenSSH; the display Pi is never selected implicitly. See docs/dashboard/SSH.md.
+Markets supports a session-only watchlist, Kraken crypto charts, delayed MOEX ISS shares/index data and official Bank of Russia FX rates. Oil/metals are explicitly unsupported, without substituted prices.
+Calendar supports Monday-first months, local event CRUD and calendar-day countdown. Events are session-only RAM data, cleared on logout/restart. Event times are floating local wall times without notifications or UTC conversion.
+
+Photos supports read-only SFTP from an explicitly granted folder, fullscreen slideshow, pause/order/interval and Escape exit. EXIF orientation is applied, metadata stripped and caching is RAM-only. A separate SFTP key and verified server-side folder confinement are required; the app does not configure chroot/ACLs automatically.
+Overview combines the local clock, Open-Meteo forecast and the same Computer/Markets snapshots as their detail tabs. Moscow is the explicit default locality; search selects another city. No geolocation is requested; locality settings are session-only.
+
+The Pi browser profile is owner-only (0700). Its Chromium file store avoids a
+locked desktop keyring during automatic login; cookies have no keyring encryption.
+Actual installation evidence and limits: [deploy/README.md](deploy/README.md).
+
+Baseline Windows metrics use kernel/.NET APIs without CIM. NVIDIA GPU load, temperature, memory and power use installed nvidia-smi. CPU temperature and current clock require the separate sensor setup in deploy/README.md; unsupported readings remain unavailable.
