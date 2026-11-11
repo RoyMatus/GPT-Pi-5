@@ -232,3 +232,16 @@ RemoteSigned задаётся только процессу, общая поли
 ключ сервера и получение реальных метрик с Pi, включая запрет произвольной команды.
 Документация: [Microsoft OpenSSH](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse),
 [конфигурация Windows OpenSSH](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh-server-configuration).
+
+
+Сетевой WMI-запрос Win32_PerfFormattedData может превышать timeout и раньше
+срывал также получение CPU/RAM/диска. Windows-коллектор использует встроенный
+NetworkInterface.GetIPStatistics: сумма байтов доступных интерфейсов без loopback,
+GetTickCount64 для монотонного интервала и расчёт бит/с на backend между реальными
+замерами. Первый замер/сброс счётчиков не выдаётся за нулевой трафик. Недоступный
+сетевой интерфейс не срывает остальные показатели. Дополнительные группы доступа
+к performance counters не требуются. Failed job сохраняет причину ошибки;
+восьмисекундный deadline и cleanup остаются, stderr не отдаётся в UI.
+
+Источники: [Microsoft NetworkInterface](https://learn.microsoft.com/en-us/dotnet/api/system.net.networkinformation.networkinterface.getipstatistics?view=net-10.0),
+[GetTickCount64](https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-gettickcount64).

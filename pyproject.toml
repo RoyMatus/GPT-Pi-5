@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gpt-pi-5"
-version = "0.3.1"
+version = "0.3.2"
 description = "Personal Raspberry Pi assistant prototype with ChatGPT sign-in and Fluent 2"
 readme = "README.md"
 requires-python = ">=3.11"

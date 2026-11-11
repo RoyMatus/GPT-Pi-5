@@ -72,3 +72,12 @@ No PC profile is auto-filled with the display device's credentials.
 Collector lifetime: Linux also sets a 10-second process alarm. Windows uses an
 ephemeral PowerShell job with an 8-second wait deadline and forced job cleanup,
 plus 3-second CIM operation timeouts. Neither creates autostart/background monitoring.
+
+
+Windows network collection now uses NetworkInterface.GetIPStatistics byte totals
+(excluding loopback), with GetTickCount64 uptime and shared backend rate/reset
+handling. No performance-counter group is required. An actual local reproduction
+showed the previous optional WMI network query timing out and discarding all core
+metrics. Failed jobs now expose their underlying failure to the bounded SSH reader,
+which maps it to a generic state and does not log raw stderr. The 8-second worker
+lifetime/cleanup remains. CPU temperatures and GPU metrics remain unsupported.

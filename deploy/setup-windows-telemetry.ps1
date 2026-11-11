@@ -120,6 +120,7 @@ ForceCommand $shell -NoLogo -NoProfile -NonInteractive -ExecutionPolicy RemoteSi
     Set-Service sshd -StartupType Automatic
     Start-Service sshd
     if ((Get-Service sshd).Status -ne 'Running') { throw 'SSH service did not start' }
+    Write-Output ('Collector SHA256: ' + (Get-FileHash -LiteralPath $installedCollector).Hash.ToLowerInvariant())
     Write-Output 'Installed: key-only SSH, fixed telemetry command, dedicated standard account, device-only firewall.'
 } catch {
     # Fail closed. Preserve the previous config and all user data for review/rollback.
