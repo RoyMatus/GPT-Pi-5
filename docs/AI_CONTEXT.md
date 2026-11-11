@@ -125,3 +125,5 @@ Python-теста аудио/HTTP, три Node-теста и браузерны�
 не подтверждено. Пароли/токены из браузера не извлекались.
 Голосовой интерфейс установлен на Pi; шесть голосовых и 13 HTTP-тестов установленного
 wheel прошли. CI коммита df40542 (Windows/Linux, Python 3.11/3.13, Node) успешен.
+
+Dashboard foundation increment: /?dashboard exposes the supplied shell and system clock; / retains Assistant. Feature integrations and #10 acceptance remain outstanding. See docs/dashboard/FOUNDATION.md.

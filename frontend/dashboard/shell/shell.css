@@ -1,0 +1,7 @@
+.dashboard-light { --dash-bg:#f7f9fc; --dash-surface:#fff; --dash-text:#242424; --dash-secondary:#4d5968; --dash-muted:#657080; --dash-stroke:#c7cdd6; --dash-divider:#d3d9e2; --dash-shadow:0 .25rem .75rem #0000000d; }
+.dashboard-light .dashboard-panel,.dashboard-light .dashboard-nav { background:var(--dash-surface); }
+.dashboard-light button.dashboard-nav-item[aria-current="page"] { color:white; }
+.dashboard-light button.dashboard-nav-item:hover { background:#dceaf4; color:#242424; }
+.dashboard-viewport { height:100dvh; min-width:0; }
+.dashboard a { min-height:44px; }
+@media(prefers-reduced-motion:reduce) { .dashboard * { scroll-behavior:auto!important; animation:none!important; transition:none!important; } }

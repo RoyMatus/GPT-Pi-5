@@ -43,6 +43,7 @@ import {
 import { Microphone } from "./voice.js";
 import { AudioCheck } from "./audio-check.jsx";
 import "./style.css";
+import { DashboardShell } from "./dashboard/shell/shell.jsx";
 
 const errors = {
     connection:
@@ -542,6 +543,7 @@ function App() {
             className={"app " + (dark ? "dark" : "")}
         >
             <aside className="sidebar">
+                <Button as="a" href="/?dashboard" appearance="secondary">Панель устройства</Button>
                 <div className="brand">
                     <div className="brand-mark">
                         <Sparkle24Regular />
@@ -1030,4 +1032,4 @@ function App() {
     );
 }
 
-createRoot(document.getElementById("root")).render(<App />);
+createRoot(document.getElementById("root")).render(new URLSearchParams(location.search).has("dashboard") ? <DashboardShell /> : <App />);

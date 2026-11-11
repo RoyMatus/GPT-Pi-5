@@ -72,3 +72,5 @@ launcher включает настройку автоматического по
 Поставщики погоды/котировок, протокол ПК–устройство, владение и хранение событий
 должны быть явно выбраны в соответствующих задачах. Платные сервисы, облачная
 синхронизация и раскрытие loopback-сервера в сеть не подразумеваются этой панелью.
+
+Foundation increment in #10: shell, shared clock and initial contracts added. No downstream gate released; epic #2 remains incomplete.
