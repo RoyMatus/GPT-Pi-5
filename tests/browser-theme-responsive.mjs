@@ -17,7 +17,7 @@ const normal = [[320,568],[390,844],[479,800],[480,800],[481,800],
   [599,960],[600,960],[601,960],[719,1280],[720,1280],[721,1280],[800,1280],
   [1023,768],[1024,768],[1025,768],[1280,800],[1920,1080],[2560,1440],[3840,2160],
   [568,320],[640,360],[1280,360]];
-const configurations = [
+const defaultConfigurations = [
   ...normal.map(([width,height])=>({width,height,dpr:1,text:100})),
   {width:320,height:568,dpr:3,text:100},
   {width:720,height:1280,dpr:2,text:100},
@@ -25,6 +25,11 @@ const configurations = [
   {width:3840,height:2160,dpr:2,text:100},
   ...[[390,844],[720,1280],[1280,800]].map(([width,height])=>({width,height,dpr:1,text:200})),
 ];
+// A declared target subset is useful on resource-constrained devices. Never
+// describe a subset as the full audit; every selected configuration keeps all states/themes.
+const selected = process.env.GPT_PI_RESPONSIVE_CONFIGS ? JSON.parse(process.env.GPT_PI_RESPONSIVE_CONFIGS) : null;
+if(selected) assert(Array.isArray(selected) && selected.length && selected.every(key=>defaultConfigurations.some(c=>`${c.width}x${c.height}@${c.dpr}/text${c.text}`===key)), 'Unknown responsive configuration');
+const configurations = selected ? defaultConfigurations.filter(c=>selected.includes(`${c.width}x${c.height}@${c.dpr}/text${c.text}`)) : defaultConfigurations;
 const output = path.resolve(root,process.env.GPT_PI_RESPONSIVE_OUTPUT || 'build/theme-responsive-report.json');
 const report = {
   schema:1,synthetic:true,kind:'finite-responsive-audit',

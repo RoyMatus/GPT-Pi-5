@@ -148,3 +148,5 @@ never point it at the owner's account/profile. Set GPT_PI_THEME_OUTPUT and
 GPT_PI_RESPONSIVE_OUTPUT to separate target evidence from Windows captures.
 No real providers or paid API are used. The Windows originals remain immutable;
 owner-approved Linux font changes are documented in docs/theme-integration-19.md.
+
+GPT_PI_RESPONSIVE_CONFIGS optionally selects named existing configurations (JSON array, e.g. `["720x1280@1/text100"]`). Default remains the full 29-configuration audit. Report any target subset as a subset; all 15 themes and eight states still run.
