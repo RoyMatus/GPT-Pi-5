@@ -1,5 +1,13 @@
 # Проверки GPT-Pi 5
 
+Ресурсы зафиксированного дизайна: `python -m unittest tests.test_theme_resources
+tests.test_theme_preview_comparison -v`. Экспорт проверяет SHA-256 исходников,
+превью и готовой сборки: `python tools/package_theme_resources.py --verify-only`.
+Новые снимки сравниваются без масок/допуска: `python tools/compare_theme_previews.py
+--actual build/fluent-theme-renders`. Ненулевые отличия требуют разбора, а не
+перегенерации эталонов. Расширенная конечная матрица: `node tests/browser-theme-responsive.mjs`;
+отчёт `build/theme-responsive-report.json` сохраняет и ошибки. Шрифты и Pi проверяются отдельно.
+
 Выбирать проверки по изменённому поведению, а не запускать всё после каждой правки.
 Успешные результаты сохраняют силу, пока относящиеся к ним код, зависимости,
 конфигурация и среда не изменились. Проверка должна обнаруживать реальную ошибку,

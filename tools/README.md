@@ -1,5 +1,18 @@
 # Инструменты разработки GPT-Pi 5
 
+## Ресурсы тем
+
+`python tools/package_theme_resources.py` собирает переносимый ZIP в build/
+из зафиксированной версии исходников и проверяет контрольные суммы превью и
+готовых ресурсов. `--verify-only` выполняет только проверку. Команда ничего
+не устанавливает. Состав, правила переноса и промпт для Sol 6.1:
+[resources/themes/fluent2-v1](../resources/themes/fluent2-v1/README.md).
+
+`python tools/compare_theme_previews.py --actual build/fluent-theme-renders`
+сравнивает все 165 экранов с неизменяемыми эталонами без масок и допустимой
+погрешности; отчёт/изображения отличий пишет только в build/theme-preview-diff/.
+Использует Pillow, уже входящий в зависимости проекта.
+
 Python 3.11+, стандартная библиотека. Запускать из корня репозитория.
 Код GitHub-клиента: github_api.py; CLI: github.py. Они предназначены только для
 RoyMatus/GPT-Pi-5: произвольного параметра repository/URL нет.

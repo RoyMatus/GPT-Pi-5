@@ -17,6 +17,7 @@ developed with ChatGPT; not an official OpenAI or Raspberry Pi device.
   Soft surfaces and translucent navigation preserve all existing functions.
   Appearance preferences are saved locally in the browser.
   [Theme character, sources and adaptation scope](docs/THEMES.md).
+  [Exact transfer resources and mandatory design lock](resources/themes/fluent2-v1/README.md).
 - **Continue with ChatGPT** opens OpenAI's website. The app never receives your
   password. OAuth/PKCE, signed ID-token validation, token refresh and attempted
   session revocation on sign-out are implemented.

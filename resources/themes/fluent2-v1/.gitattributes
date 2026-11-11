@@ -1,0 +1,4 @@
+# SHA-256 applies to exact resource bytes, including text references and reports.
+** -text
+# Unified-diff context lines can be a single space; preserve valid patch syntax.
+integration.patch -whitespace
