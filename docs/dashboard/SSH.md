@@ -10,7 +10,7 @@ Supported matrix:
 | Source | Baseline | Optional | Requirements |
 | --- | --- | --- | --- |
 | Linux | /proc CPU, RAM, root filesystem, sum of non-loopback interface counters | readable CPU thermal/frequency/fan sysfs; installed nvidia-smi GPU | OpenSSH and Python 3; existing filesystem permissions |
-| Windows | PowerShell/CIM CPU, RAM, system drive, summed network-interface rates | CPU frequency from CIM; GPU/temperature/fan unavailable | OpenSSH server, PowerShell and permitted CIM classes |
+| Windows | kernel CPU times, physical RAM, system-drive capacity, summed interface byte counters | frequency/GPU/temperature/fan unavailable | OpenSSH server and Windows PowerShell 5.1+ |
 
 Memory/disk use bytes converted to GiB (2^30); network rates use bits/s converted to
 Mbit/s (10^6). First Linux network sample and counter resets/reboots are unavailable,
@@ -81,3 +81,13 @@ showed the previous optional WMI network query timing out and discarding all cor
 metrics. Failed jobs now expose their underlying failure to the bounded SSH reader,
 which maps it to a generic state and does not log raw stderr. The 8-second worker
 lifetime/cleanup remains. CPU temperatures and GPU metrics remain unsupported.
+
+
+Final Windows implementation avoids CIM entirely: GetSystemTimes over 250 ms for
+CPU usage, GlobalMemoryStatusEx for physical memory, DriveInfo for the system disk,
+and NetworkInterface for IP byte counters. Source uptime uses GetTickCount64, so
+wall-clock adjustments do not distort rates. GetSystemTimes on >64 logical CPUs
+covers only one processor group; the collector reports CPU unavailable there.
+CPU frequency, temperature, fan and GPU remain unavailable on Windows. The SSH
+role also reproduced a Win32_Processor CIM timeout; widening group permissions did
+not resolve it. The temporary counter-read group is removed during this repair.

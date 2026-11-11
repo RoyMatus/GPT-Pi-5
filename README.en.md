@@ -134,3 +134,5 @@ Overview combines the local clock, Open-Meteo forecast and the same Computer/Mar
 The Pi browser profile is owner-only (0700). Its Chromium file store avoids a
 locked desktop keyring during automatic login; cookies have no keyring encryption.
 Actual installation evidence and limits: [deploy/README.md](deploy/README.md).
+
+Windows metrics use built-in kernel/.NET APIs without CIM; CPU frequency, temperatures and GPU data are currently unavailable on Windows.

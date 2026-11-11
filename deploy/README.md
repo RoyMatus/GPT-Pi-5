@@ -1,6 +1,6 @@
 # Развёртывание на Raspberry Pi
 
-## Личный прототип v0.3.1
+## Личный прототип v0.3.2
 
 Проверенная цель: Debian 13 ARM64, Python 3.13, labwc/Wayland, Chromium,
 экран 720×1280 и установленная squeekboard. Адреса и пароли не входят в репозиторий.
@@ -18,7 +18,7 @@ python -m pip wheel . --no-deps -w dist
 Выполнить на Pi от графического пользователя:
 
 ```sh
-sh install-user.sh /absolute/path/gpt_pi_5-0.3.1-py3-none-any.whl
+sh install-user.sh /absolute/path/gpt_pi_5-0.3.2-py3-none-any.whl
 systemctl --user is-active gpt-pi
 curl --fail http://127.0.0.1:8765/health
 ```
@@ -245,3 +245,11 @@ GetTickCount64 для монотонного интервала и расчёт 
 
 Источники: [Microsoft NetworkInterface](https://learn.microsoft.com/en-us/dotnet/api/system.net.networkinformation.networkinterface.getipstatistics?view=net-10.0),
 [GetTickCount64](https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-gettickcount64).
+
+Все Windows CIM-запросы исключены из конечного коллектора: в SSH воспроизведён
+также timeout Win32_Processor. CPU читается через GetSystemTimes за интервал 250 мс,
+физическая память — GlobalMemoryStatusEx, диск — DriveInfo, сеть — IP-interface
+byte counters. CPU frequency/температуры/GPU не выдумываются. На >64 logical CPU
+нагрузка CPU не поддерживается из-за processor-group семантики GetSystemTimes.
+[Microsoft CPU times](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getsystemtimes),
+[Microsoft memory](https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-globalmemorystatusex).

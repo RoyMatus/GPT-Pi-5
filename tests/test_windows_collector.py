@@ -11,17 +11,9 @@ COLLECTOR=Path(__file__).resolve().parents[1]/'src/gpt_pi/dashboard/ssh/collecto
 
 @unittest.skipUnless(SHELL,'Windows PowerShell required')
 class WindowsCollectorFailureTests(unittest.TestCase):
-    def test_network_wmi_timeout_does_not_discard_core_metrics(self):
+    def test_cim_provider_failure_does_not_discard_native_metrics(self):
         script=r'''
-function Get-CimInstance {
- param([string]$ClassName,[int]$OperationTimeoutSec,[string]$Filter)
- switch ($ClassName) {
-  'Win32_Processor' {[pscustomobject]@{LoadPercentage=12;CurrentClockSpeed=3200}}
-  'Win32_OperatingSystem' {[pscustomobject]@{TotalVisibleMemorySize=1000;FreePhysicalMemory=400}}
-  'Win32_LogicalDisk' {[pscustomobject]@{Size=10000;FreeSpace=3000}}
-  default {throw 'synthetic network WMI timeout'}
- }
-}
+function Get-CimInstance { throw 'synthetic unavailable CIM provider' }
 function Start-Job {
  param($ScriptBlock)
  try {$value=& $ScriptBlock; [pscustomobject]@{State='Completed';Value=$value}}
@@ -37,9 +29,9 @@ function Remove-Job { param($Job,[switch]$Force,[string]$ErrorAction) }
         self.assertEqual(result.returncode,0,result.stderr.decode(errors='replace'))
         import json
         data=json.loads(result.stdout.decode('utf-8-sig'))
-        self.assertEqual(data['cpuPct'],12)
-        self.assertEqual(data['ramTotal'],1000*1024)
-        self.assertEqual(data['diskTotal'],10000)
+        self.assertTrue(data['cpuPct'] is None or 0<=data['cpuPct']<=100)
+        self.assertGreater(data['ramTotal'],0)
+        self.assertGreater(data['diskTotal'],0)
         self.assertIsNone(data['netRxBitsPerSecond'])
         self.assertGreater(data['uptime'],0)
 
