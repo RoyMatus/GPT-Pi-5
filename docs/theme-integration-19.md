@@ -63,3 +63,12 @@ wheel with --no-deps --no-index. pip check passed; installed-wheel tests passed
 126 tests (12 platform/optional skips). This avoids an observed package-index
 TLS failure without disabling TLS or changing dependencies. Activation will use
 a separate release directory and retain the previous release for rollback.
+
+Final geometry runs: Windows 3480-case full audit and Pi 960-case target subset
+(15 themes x eight configurations x eight states) cover narrow, portrait,
+landscape/short windows, DPR 2 and 200% root text on the actual ARM64 browser.
+The target subset is explicitly smaller than the full Windows matrix.
+CI previously failed before tests due to DNS resolution of azure.archive.ubuntu.com.
+The browser job now uses Chrome included in the official Ubuntu 24.04 runner,
+prints its version and executes the same synthetic scenarios with unchanged job
+names and pass requirements. No failed/skipped check is accepted for merge.

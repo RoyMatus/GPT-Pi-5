@@ -54,7 +54,9 @@ python tests/browser_voice.py
 python tests/browser_remember_login.py
 ```
 
-На Ubuntu CI устанавливает Chromium с `--with-deps`. Оба сценария используют
+На Ubuntu CI использует установленный в официальном runner Google Chrome
+(`GPT_PI_TEST_BROWSER_CHANNEL=chrome`); версия выводится до тестов. Это устраняет
+зависимость проверок от apt-зеркала, на котором подтверждён сбой DNS. Оба сценария используют
 временный каталог, синтетический аккаунт и FakeCloud; переход на auth.openai.com
 перехватывается браузером, реального OAuth/ответа облака нет. Голосовой сценарий
 подменяет микрофон Chromium и STT/TTS через FakeVoice; модели Vosk/Piper не устанавливаются.
