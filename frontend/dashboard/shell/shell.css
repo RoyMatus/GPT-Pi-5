@@ -9,3 +9,6 @@
 .dashboard-summary-link { display:block;color:inherit;text-decoration:none;min-height:44px; }
 .dashboard-summary-link:focus-visible { outline:2px solid var(--dash-cyan);outline-offset:2px; }
 .dashboard-weather { max-width:100%;overflow-wrap:anywhere; }
+
+.dashboard-countdown-value { line-height:1.2; }
+.dashboard-countdown-label { line-height:1.35; }

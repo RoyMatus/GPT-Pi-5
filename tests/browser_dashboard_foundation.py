@@ -56,6 +56,11 @@ try:
                             assert page.locator('.dashboard-nav-item').evaluate_all('items=>items.every(b=>b.getBoundingClientRect().height>=44)')
                             if text==100 and dpr==1:
                                 page.screenshot(path=str(evidence/f'{width}-{height}-{tab}-{"light" if light else "dark"}.png'))
+                            if tab=='Календарь':
+                                assert page.locator('.dashboard-countdown-value').evaluate('el=>parseFloat(getComputedStyle(el).lineHeight)>=parseFloat(getComputedStyle(el).fontSize)'), 'Countdown glyphs overlap adjacent text'
+                            if tab=='Ассистент' and not light:
+                                contrast=page.locator('.signin-heading strong').evaluate('''el=>{const rgb=s=>s.match(/[0-9.]+/g).slice(0,3).map(Number).map(v=>v/255);const lum=c=>c.map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);const a=lum(rgb(getComputedStyle(el).color)),b=lum(rgb(getComputedStyle(el.closest('.signin-card')).backgroundColor));return (Math.max(a,b)+.05)/(Math.min(a,b)+.05);}''')
+                                assert contrast>=4.5, 'Sign-in heading contrast is too low'
                             count+=1
                         if text==100 and dpr==1:
                             page.get_by_role('button',name='Обзор',exact=True).click()

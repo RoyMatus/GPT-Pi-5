@@ -21,7 +21,7 @@
 .dashboard-assistant-slot .composer-note { color:var(--dash-secondary); font-size:.75rem; }
 .dashboard-assistant-slot .welcome { padding:16px; }
 .dashboard-assistant-slot .welcome h1 { font-size:clamp(1.75rem,4vw,3rem); }
-.dashboard-assistant-slot .signin-card { color:#242424; }
+.dashboard-assistant-slot .signin-card { color:var(--dash-text); }
 @media(max-width:480px) {
  .dashboard-assistant-slot .topbar-actions { margin-left:0; }
  .dashboard-assistant-slot .topbar-actions select { max-width:160px; font-size:.875rem; }
@@ -29,3 +29,5 @@
 }
 
 .dashboard-assistant-slot .sidebar.history-open button { font-size:1rem; }
+
+.dashboard-assistant-slot .signin-heading p, .dashboard-assistant-slot .signin-note, .dashboard-assistant-slot .privacy-line, .dashboard-assistant-slot .welcome-copy { color:var(--dash-secondary); }

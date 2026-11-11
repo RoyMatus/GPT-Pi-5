@@ -21,3 +21,7 @@ Final local verification: Windows/Python 3.12/Node 24/Edge, 103 Python tests,
 7 Node tests, all seven synthetic feature/Assistant browser runners, 192 shell
 geometry cases and wheel build passed. Existing root worktree modifications remain
 limited to the original docs/AI_CONTEXT.md and docs/HARDWARE.md.
+
+Final screenshot inspection reproduced countdown line-height overlap and insufficient
+dark sign-in heading contrast. Geometry/contrast tests observed both failures, then
+CSS restores readable line height and >=4.5 heading contrast without changing design.
