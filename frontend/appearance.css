@@ -1,0 +1,101 @@
+/* Swypetris menu palette adaptation. Shared layout and photographs keep their geometry. */
+.theme-picker { display:grid; gap:12px; max-width:560px; }
+.theme-picker select { min-height:44px; font-size:1rem; }
+.theme-preview { padding:14px 16px; border:var(--scheme-stroke) solid var(--scheme-border); border-radius:var(--scheme-radius); color:var(--scheme-text); background:var(--scheme-panel); }
+.theme-preview p { margin:6px 0 0; font-size:.875rem; line-height:1.5; color:var(--scheme-muted); }
+.theme-preview-swatches { display:flex; gap:6px; margin-bottom:10px; }
+.theme-preview-swatches span { width:30px; height:14px; border:1px solid var(--scheme-muted); border-radius:2px; }
+.theme-save-note { font-size:.875rem; line-height:1.5; }
+
+.dashboard[data-theme]:not([data-theme="fluent"]) {
+  --dash-bg:var(--scheme-bg); --dash-surface:var(--scheme-panel);
+  --dash-surface-raised:var(--scheme-raised); --dash-stroke:var(--scheme-border);
+  --dash-divider:var(--scheme-divider); --dash-text:var(--scheme-text);
+  --dash-secondary:var(--scheme-muted); --dash-muted:var(--scheme-muted);
+  --dash-blue:var(--scheme-control); --dash-cyan:var(--scheme-secondary);
+  --dash-positive:var(--scheme-positive); --dash-negative:var(--scheme-negative);
+  --dash-track:var(--scheme-raised); --dash-selected:var(--scheme-selected);
+  --dash-selected-border:var(--scheme-control); --dash-radius:var(--scheme-radius);
+  --dash-radius-small:var(--scheme-radius); --dash-shadow:var(--scheme-shadow);
+  background:var(--scheme-bg); color:var(--scheme-text); color-scheme:inherit;
+}
+.dashboard[data-theme]:not([data-theme="fluent"]) :is(.dashboard-panel,.dashboard-nav,button.dashboard-suggestion) {
+  background:var(--scheme-panel); border:var(--scheme-stroke) solid var(--scheme-border);
+  border-radius:var(--scheme-radius); box-shadow:var(--scheme-shadow);
+}
+.dashboard[data-theme]:not([data-theme="fluent"]) .dashboard-panel .dashboard-panel {
+  border-color:var(--scheme-divider); box-shadow:none;
+}
+.dashboard[data-theme]:not([data-theme="fluent"]) button.dashboard-nav-item {
+  color:var(--scheme-muted); border-radius:var(--scheme-radius);
+}
+.dashboard[data-theme]:not([data-theme="fluent"]) button.dashboard-nav-item:hover {
+  background:var(--scheme-raised); color:var(--scheme-text);
+}
+.dashboard[data-theme]:not([data-theme="fluent"]) button.dashboard-nav-item[aria-current="page"] {
+  background:var(--scheme-selected); border-color:var(--scheme-control); color:var(--scheme-text); box-shadow:none;
+}
+.dashboard[data-theme]:not([data-theme="fluent"]) .dashboard-nav-item[aria-current="page"] svg { color:var(--scheme-control); }
+.dashboard[data-theme]:not([data-theme="fluent"]) .dashboard-countdown {
+  background:var(--scheme-selected); border-color:var(--scheme-control);
+}
+.dashboard[data-theme]:not([data-theme="fluent"]) .dashboard-progress-fill { background:var(--scheme-control); }
+.dashboard[data-theme]:not([data-theme="fluent"]) .dashboard-calendar-day[data-selected="true"] {
+  color:var(--scheme-on-control); background:var(--scheme-control);
+}
+.dashboard[data-theme]:not([data-theme="fluent"]) .dashboard-event-dot { background:var(--scheme-secondary); }
+.dashboard[data-theme]:not([data-theme="fluent"]) :is(.dashboard-assistant-hero>svg,.mini-orb,.prompt-grid svg:first-child) { color:var(--scheme-control); }
+.dashboard[data-theme]:not([data-theme="fluent"]) :is(.dashboard-photo-caption,.dashboard-photo-controls .dashboard-row) { background:var(--scheme-panel); color:var(--scheme-text); }
+.dashboard[data-theme]:not([data-theme="fluent"]) .dashboard-photo-controls { background:linear-gradient(transparent,var(--scheme-bg)); }
+
+/* The assistant uses the same palette as the shell; no second theme owner. */
+.dashboard[data-theme]:not([data-theme="fluent"]) .app :is(.sidebar,.signin-card,.composer,.prompt-grid button) {
+  color:var(--scheme-text); background:var(--scheme-panel); border-color:var(--scheme-border); border-radius:var(--scheme-radius);
+}
+.dashboard[data-theme]:not([data-theme="fluent"]) .app :is(.welcome h1,.brand strong,.chat-welcome h1,.message-author,.message-text) { color:var(--scheme-text); }
+.dashboard[data-theme]:not([data-theme="fluent"]) .app :is(.eyebrow,.welcome-copy,.signin-heading p,.signin-note,.privacy-line,.chat-welcome p,.composer-note,.composer-bottom>span,.profile small,.device small,.nav-label,.empty-list,.prompt-grid svg:last-child) { color:var(--scheme-muted); }
+.dashboard[data-theme]:not([data-theme="fluent"]) .app :is(.mini-orb,.user .message-text) { background:var(--scheme-selected); }
+.dashboard[data-theme]:not([data-theme="fluent"]) .app :is(.orb,.brand-mark) {
+  color:var(--scheme-on-control); background:var(--scheme-control); border-radius:var(--scheme-radius);
+  transform:none; box-shadow:var(--scheme-shadow);
+}
+.dashboard[data-theme]:not([data-theme="fluent"]) .app .orb svg { color:var(--scheme-on-control); transform:none; filter:none; }
+.dashboard[data-theme]:not([data-theme="fluent"]) .app .message.assistant > .fui-Avatar { --colorNeutralForegroundStaticInverted:var(--scheme-on-control); --colorBrandBackgroundStatic:var(--scheme-control); }
+.dashboard[data-theme]:not([data-theme="fluent"]) .app :is(.signin-heading>svg,.brand strong span) { color:var(--scheme-control); }
+html[data-theme]:not([data-theme="fluent"]) :is(.dashboard,.fui-DialogSurface) :is(.recording-label,.incomplete) { color:var(--scheme-negative); }
+
+/* Fluent portals mount outside the dashboard. Document scope also covers native controls. */
+html[data-theme]:not([data-theme="fluent"]) :is(.fui-DialogSurface,.fui-PopoverSurface,.fui-Tooltip) {
+  background:var(--scheme-panel); color:var(--scheme-text); border-color:var(--scheme-border); border-radius:var(--scheme-radius);
+}
+html[data-theme]:not([data-theme="fluent"]) :is(.dashboard,.fui-DialogSurface) a { color:var(--scheme-link); }
+html[data-theme]:not([data-theme="fluent"]) .settings-content small { color:var(--scheme-muted); }
+html[data-theme]:not([data-theme="fluent"]) .dashboard :is(textarea:not(.fui-Textarea__textarea),input:not(.fui-Input__input)) { color:var(--scheme-text); background:var(--scheme-panel); border-color:var(--scheme-border); }
+html[data-theme]:not([data-theme="fluent"]) :is(button,a,select,input,textarea,[tabindex]):focus-visible { outline:2px solid var(--scheme-focus); outline-offset:2px; }
+
+/* Low-cost static edge finishes; text and charts always have a solid reading surface. */
+html[data-theme] .dashboard[data-theme="classic"] .dashboard-panel { box-shadow:3px 3px 0 var(--scheme-divider); }
+html[data-theme] .dashboard[data-theme="monokai"] .dashboard-panel {
+  background-image:repeating-linear-gradient(90deg,transparent 0 7px,#a6e22e28 7px 9px,transparent 9px 14px);
+  background-size:calc(100% - 24px) 2px; background-position:center 7px; background-repeat:no-repeat;
+}
+html[data-theme] .dashboard[data-theme="gruvbox"] .dashboard-panel { box-shadow:inset 0 0 0 4px var(--scheme-panel),inset 0 0 0 5px var(--scheme-divider); }
+html[data-theme] .dashboard[data-theme="dracula"] .dashboard-panel {
+  background-image:linear-gradient(135deg,transparent 40%,#bd93f940 40% 60%,transparent 60%),linear-gradient(45deg,transparent 40%,#bd93f940 40% 60%,transparent 60%);
+  background-size:14px 7px; background-position:14px 6px,28px 6px; background-repeat:no-repeat;
+}
+html[data-theme] .dashboard[data-theme="nord"] .dashboard-panel { box-shadow:inset 0 0 0 4px var(--scheme-panel),inset 0 0 0 5px #88c0d024; }
+html[data-theme] .dashboard[data-theme="tokyo_night"] .dashboard-panel {
+  background-image:repeating-linear-gradient(90deg,transparent 0 11px,#7dcfff20 11px 12px,transparent 12px 27px);
+  background-size:calc(100% - 24px) 7px; background-position:center 4px; background-repeat:no-repeat;
+}
+html[data-theme] .dashboard[data-theme="catppuccin"] .dashboard-panel { box-shadow:inset 0 1px 0 #cdd6f41a,var(--scheme-shadow); }
+html[data-theme] .dashboard[data-theme="synthwave_84"] .dashboard-panel {
+  box-shadow:inset 0 0 0 4px var(--scheme-panel),inset 0 0 0 5px #c89fff30;
+  background-image:repeating-linear-gradient(0deg,#03edf91a 0 1px,transparent 1px 3px);
+  background-size:calc(100% - 24px) 7px; background-position:center 5px; background-repeat:no-repeat;
+}
+@media (forced-colors:active) {
+  html[data-theme] .dashboard :is(.dashboard-panel,.dashboard-nav,.theme-preview) { border-color:CanvasText!important; background:Canvas!important; color:CanvasText!important; box-shadow:none!important; }
+  html[data-theme] .dashboard button.dashboard-nav-item[aria-current="page"] { border-color:Highlight; color:Highlight; }
+}

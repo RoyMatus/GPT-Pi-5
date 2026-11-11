@@ -12,6 +12,9 @@ developed with ChatGPT; not an official OpenAI or Raspberry Pi device.
 
 - Official **Microsoft Fluent 2 / Fluent UI React v9** components: light/dark themes,
   responsive sign-in, conversations, model selection and text chat.
+- Settings → “Графическая схема” offers 12 Swypetris schemes alongside the original
+  Fluent light/dark modes. Appearance preferences are saved locally in the browser.
+  [Theme character, sources and adaptation scope](docs/THEMES.md).
 - **Continue with ChatGPT** opens OpenAI's website. The app never receives your
   password. OAuth/PKCE, signed ID-token validation, token refresh and attempted
   session revocation on sign-out are implemented.
