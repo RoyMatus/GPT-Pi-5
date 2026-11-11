@@ -130,3 +130,7 @@ Calendar supports Monday-first months, local event CRUD and calendar-day countdo
 
 Photos supports read-only SFTP from an explicitly granted folder, fullscreen slideshow, pause/order/interval and Escape exit. EXIF orientation is applied, metadata stripped and caching is RAM-only. A separate SFTP key and verified server-side folder confinement are required; the app does not configure chroot/ACLs automatically.
 Overview combines the local clock, Open-Meteo forecast and the same Computer/Markets snapshots as their detail tabs. Moscow is the explicit default locality; search selects another city. No geolocation is requested; locality settings are session-only.
+
+The Pi browser profile is owner-only (0700). Its Chromium file store avoids a
+locked desktop keyring during automatic login; cookies have no keyring encryption.
+Actual installation evidence and limits: [deploy/README.md](deploy/README.md).

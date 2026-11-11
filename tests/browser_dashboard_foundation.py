@@ -54,6 +54,11 @@ try:
                             assert page.locator('.dashboard-nav-item[aria-current="page"]').count()==1
                             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1')
                             assert page.locator('.dashboard-nav-item').evaluate_all('items=>items.every(b=>b.getBoundingClientRect().height>=44)')
+                            if tab=='Обзор' and text==100 and dpr==1:
+                                from io import BytesIO
+                                from PIL import Image
+                                background=Image.open(BytesIO(page.screenshot())).convert('RGB').getpixel((2,2))
+                                assert (min(background)>180 if light else max(background)<90), 'Shell background disagrees with selected theme'
                             if text==100 and dpr==1:
                                 page.screenshot(path=str(evidence/f'{width}-{height}-{tab}-{"light" if light else "dark"}.png'))
                             if tab=='Календарь':

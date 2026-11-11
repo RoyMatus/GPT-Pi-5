@@ -25,3 +25,19 @@ limited to the original docs/AI_CONTEXT.md and docs/HARDWARE.md.
 Final screenshot inspection reproduced countdown line-height overlap and insufficient
 dark sign-in heading contrast. Geometry/contrast tests observed both failures, then
 CSS restores readable line height and >=4.5 heading contrast without changing design.
+
+
+On-device HTTP navigation initially hung before sending headers because the desktop
+keyring remained locked under automatic login. A fresh-profile /health experiment
+failed with the default store and passed with Chromium's file store. The dedicated
+0700 application profile now uses that store, without disabling the sandbox or
+network security. Cookies have no keyring encryption; see deploy/README.md.
+The actual 720×1218 Chromium viewport loads all six tabs and survives a backend
+restart. Its current profile is unauthenticated; backend credential records remain
+untouched. Saved-login regression coverage uses synthetic credentials, not a claim
+that this device profile is signed in. Real-PC/SFTP and physical audio/touch remain
+acceptance gates; this delivery does not close Epic #2.
+
+The first device screenshot also exposed a dark hardcoded gradient behind the
+light-theme header/clock. A screenshot-pixel test failed before a light-theme
+background/color-scheme override; the full geometry matrix then passed.

@@ -135,3 +135,11 @@ Calendar #6 implemented: Monday-first month navigation, separate today/selection
 
 Photos #7 implemented: separate session grant using shared SSH/SFTP service, bounded one-folder listing, opaque image IDs, readonly path/link checks and limited metadata-free previews. Fullscreen controls/Escape and cleanup verified synthetically. Real PC folder and server confinement remain an actual setup/acceptance requirement.
 Overview #3: real Open-Meteo forecast with explicit default/locality selection and attribution; consumes Computer/Markets source hooks without duplicate polling. Shared in-flight session reads prevent competing guest cookies on dashboard boot. Browser fixtures now block unrelated dashboard source requests, including voice-tab-transition tests.
+
+
+2026-11-11, эпик #2: v0.3.0 установлена на Pi. 101 тест установленного приложения
+прошёл на ARM64; 103 теста и 192 браузерных случая — локально. Chromium зависал
+на заблокированном keyring; выделенный профиль переведён на file store (cookie
+без шифрования keyring, права 0700). Все шесть вкладок открыты на реальном экране,
+перезапуск backend проверен. В текущем браузерном профиле требуется вход владельца.
+Реальный внешний ПК/SFTP-папка и физическое касание/аудио остаются воротами приёмки.

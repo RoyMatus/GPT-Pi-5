@@ -12,3 +12,5 @@
 
 .dashboard-countdown-value { line-height:1.2; }
 .dashboard-countdown-label { line-height:1.35; }
+
+.dashboard.dashboard-light { background:var(--dash-bg);color:var(--dash-text);color-scheme:light; }
