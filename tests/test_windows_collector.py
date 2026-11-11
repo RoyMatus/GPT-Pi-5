@@ -14,9 +14,10 @@ class WindowsCollectorFailureTests(unittest.TestCase):
     def test_cim_provider_failure_does_not_discard_native_metrics(self):
         script=r'''
 function Get-CimInstance { throw 'synthetic unavailable CIM provider' }
+function Get-GptPiHardware { throw 'synthetic unavailable optional sensors' }
 function Start-Job {
- param($ScriptBlock)
- try {$value=& $ScriptBlock; [pscustomobject]@{State='Completed';Value=$value}}
+ param($ScriptBlock,$ArgumentList)
+ try {$value=& $ScriptBlock @ArgumentList; [pscustomobject]@{State='Completed';Value=$value}}
  catch {[pscustomobject]@{State='Failed';Reason=$_.Exception.Message}}
 }
 function Wait-Job { param([Parameter(ValueFromPipeline)]$InputObject,[int]$Timeout); process {$InputObject} }

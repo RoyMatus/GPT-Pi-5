@@ -12,6 +12,18 @@ SCRIPT = Path(__file__).resolve().parents[1] / 'deploy/setup-windows-telemetry.p
 
 @unittest.skipUnless(SHELL, 'Windows PowerShell is required')
 class WindowsSetupPreviewTests(unittest.TestCase):
+    def test_sensor_setup_rejects_unpinned_packages_before_elevation_or_execution(self):
+        with tempfile.TemporaryDirectory() as directory:
+            package = Path(directory) / 'untrusted.bin'
+            package.write_bytes(b'synthetic invalid sensor package')
+            script = SCRIPT.with_name('setup-windows-sensors.ps1')
+            result = subprocess.run([SHELL, '-NoProfile', '-ExecutionPolicy', 'RemoteSigned',
+                                     '-File', str(script), '-LhmArchive', str(package),
+                                     '-PawnInstaller', str(package), '-Apply'],
+                                    capture_output=True, timeout=15)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn(b'SHA256 does not match', result.stderr)
+
     def run_preview(self, key, device='192.0.2.10', listen='192.0.2.20'):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -8,6 +8,12 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives import serialization
 
 FIELDS=('cpuPct','cpuGHz','cpuTemp','gpuPct','gpuTemp','gpuMemoryUsed','gpuMemoryTotal','gpuWatts','ramUsed','ramTotal','diskUsed','diskTotal','netRxBytes','netTxBytes','netRxBitsPerSecond','netTxBitsPerSecond','uptime','fanRpm')
+
+def windows_collector_script():
+ collectors=Path(__file__).parent/'collectors'
+ return collectors.joinpath('windows.ps1').read_text(encoding='utf-8').replace(
+  '# GPT_PI_OPTIONAL_SENSOR_FUNCTIONS',collectors.joinpath('windows-sensors.ps1').read_text(encoding='utf-8'),1)
+
 class SourceError(Exception):
  def __init__(self,code):self.code=code;super().__init__(code)
 
@@ -120,7 +126,7 @@ class ComputerState:
   with self.connect(session) as client:
    if platform=='linux':command='python3 -c '+shlex.quote((Path(__file__).parent/'collectors/linux.py').read_text(encoding='utf-8'))
    else:
-    encoded=base64.b64encode((Path(__file__).parent/'collectors/windows.ps1').read_text(encoding='utf-8').encode('utf-16le')).decode()
+    encoded=base64.b64encode(windows_collector_script().encode('utf-16le')).decode()
     command='powershell.exe -NoLogo -NoProfile -NonInteractive -EncodedCommand '+encoded
    channel=client.get_transport().open_session(timeout=5);channel.settimeout(8);channel.exec_command(command)
    deadline=time.monotonic()+12;output=bytearray();errors=0

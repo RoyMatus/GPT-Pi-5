@@ -17,6 +17,11 @@
 | Общие зависимости/упаковка/сквозные изменения | Полный offline-набор и проверка пакета |
 
 Для приложения установить `PYTHONPATH=src` (PowerShell: `$env:PYTHONPATH='src'`).
+Windows sensor fixtures: `python -m unittest discover -s tests -p test_windows_sensors.py -v`.
+Без драйверов/сети проверяются CSV/N/A/ranges, MiB→bytes, выбор CPU Package/core
+clock, срок/повреждение cache и повторная атомарная публикация в PowerShell 5.1.
+Проверка упаковки проходит и на Linux; PowerShell-тесты там пропускаются.
+Доступ к физическим CPU/GPU, ACL задачи и реальный SSH проверяются отдельно на ПК/Pi.
 Перед установкой приложения собрать интерфейс: `npm ci`, затем `npm run build`.
 В venv выполнить `python -m pip install .`; зависимости приложения обязательны.
 Полный набор: `python -m unittest discover -s tests -v`.

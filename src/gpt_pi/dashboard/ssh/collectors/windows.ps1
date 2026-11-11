@@ -1,7 +1,9 @@
 $work = {
+param($CollectorDirectory)
+# GPT_PI_OPTIONAL_SENSOR_FUNCTIONS
 $ErrorActionPreference='Stop'
 # CIM providers can time out in SSH sessions. All collection uses local, read-only
-# kernel/.NET APIs; no WMI, performance-counter group or external sensor driver.
+# kernel/.NET APIs; optional sensor failures cannot discard these baseline metrics.
 Add-Type -TypeDefinition @'
 using System;
 using System.ComponentModel;
@@ -61,10 +63,17 @@ try {
 } catch { } # Missing network statistics must not discard CPU/RAM/disk.
 $uptime=[GptPiNative]::GetTickCount64()/1000.0
 $data=[ordered]@{schema=1;cpuPct=$cpuPct;cpuGHz=$null;cpuTemp=$null;gpuPct=$null;gpuTemp=$null;gpuMemoryUsed=$null;gpuMemoryTotal=$null;gpuWatts=$null;ramUsed=$memory.TotalPhys-$memory.AvailPhys;ramTotal=$memory.TotalPhys;diskUsed=$drive.TotalSize-$drive.TotalFreeSpace;diskTotal=$drive.TotalSize;netRxBytes=$rx;netTxBytes=$tx;netRxBitsPerSecond=$null;netTxBitsPerSecond=$null;uptime=$uptime;fanRpm=$null}
+try {
+ if (!(Get-Command Get-GptPiHardware -ErrorAction SilentlyContinue)) {
+  . (Join-Path $CollectorDirectory 'windows-sensors.ps1')
+ }
+ $hardware=Get-GptPiHardware
+ foreach($key in $hardware.Keys) { if($data.Contains($key)) { $data[$key]=$hardware[$key] } }
+} catch { } # Absent/broken optional providers retain basic metrics.
 $data|ConvertTo-Json -Compress
 
 }
-$job=Start-Job -ScriptBlock $work
+$job=Start-Job -ScriptBlock $work -ArgumentList $PSScriptRoot
 try {
  $job | Wait-Job -Timeout 8 | Out-Null
  if ($job.State -eq "Failed") { Receive-Job $job -ErrorAction Stop | Out-Null }

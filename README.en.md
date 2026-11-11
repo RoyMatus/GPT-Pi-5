@@ -135,4 +135,4 @@ The Pi browser profile is owner-only (0700). Its Chromium file store avoids a
 locked desktop keyring during automatic login; cookies have no keyring encryption.
 Actual installation evidence and limits: [deploy/README.md](deploy/README.md).
 
-Windows metrics use built-in kernel/.NET APIs without CIM; CPU frequency, temperatures and GPU data are currently unavailable on Windows.
+Baseline Windows metrics use kernel/.NET APIs without CIM. NVIDIA GPU load, temperature, memory and power use installed nvidia-smi. CPU temperature and current clock require the separate sensor setup in deploy/README.md; unsupported readings remain unavailable.

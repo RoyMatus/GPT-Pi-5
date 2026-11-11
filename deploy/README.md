@@ -263,3 +263,41 @@ byte counters. CPU frequency/температуры/GPU не выдумываю�
 правило отключено. Учётка не входит в Administrators/Performance Monitor Users.
 Временная приватная host-key копия удалена, системная защищённая копия сохранена.
 Фото/SFTP не разрешены; Windows-ПК ради теста не перезагружался.
+
+### Необязательные датчики Windows (v0.3.3)
+
+GPU NVIDIA читается через установленный драйвером `System32/nvidia-smi.exe`.
+Для температуры/частоты CPU отдельно скачать официальные
+[LibreHardwareMonitor.zip 0.9.6](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/releases/download/v0.9.6/LibreHardwareMonitor.zip)
+и [PawnIO_setup.exe 2.2.0](https://github.com/namazso/PawnIO.Setup/releases/download/2.2.0/PawnIO_setup.exe).
+После настройки управляемого SSH endpoint запустить:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File deploy/setup-windows-sensors.ps1 `
+  -LhmArchive C:/private/LibreHardwareMonitor.zip -PawnInstaller C:/private/PawnIO_setup.exe
+# Просмотр по умолчанию; для установки повторить с -Apply в повышенной PowerShell.
+```
+
+Проверяются закреплённые SHA256 обоих пакетов и Authenticode установщика PawnIO.
+Устанавливается официальная подписанная версия; режим unrestricted не применяется.
+Задача `\GPT-Pi\CpuSensors` работает от SYSTEM только по запросу, не имеет
+периодических триггеров и не принимает исполняемые параметры. SSH-учётка остаётся
+обычной: только запуск/чтение задачи и чтение защищённых файлов результата.
+Запись кода/DLL/результата и прямой доступ к драйверу ей не предоставляются.
+Температура — CPU Package (максимум по пакетам; запасной вариант — максимум ядер),
+частота — средняя текущая частота доступных ядер. GPU — первая физическая NVIDIA.
+Неподдерживаемые датчики, включая RPM вентилятора, остаются недоступными.
+Описание границ, сроков и единиц — [SSH.md](../docs/dashboard/SSH.md).
+
+Для удаления необязательного CPU-провайдера администратор удаляет только задачу
+`\GPT-Pi\CpuSensors` и каталог `%ProgramData%\GPT-Pi\telemetry-ssh\sensors`.
+Общий PawnIO удалять отдельно только если он не используется другим ПО.
+Отсутствие задачи не мешает основным и NVIDIA-метрикам. Библиотека и драйвер
+скачиваются с официальных страниц; сторонние бинарники в Git/wheel не включаются.
+
+2026-11-11: v0.3.3 установлена на разрешённый Pi. На выбранном Windows-ПК
+подтверждены CPU GHz/температура и NVIDIA GPU %/температура/VRAM used/total/Watts
+через реальную закреплённую SSH-сессию и в авторизованном интерфейсе обеих вкладок.
+Вход и fullscreen 720×1280 сохранены; после проверки CDP отключён. Повторные
+публикации CPU cache проверены отдельно. RPM вентилятора остаётся недоступным.
+Перезагрузка Windows-ПК в эту проверку не входила.

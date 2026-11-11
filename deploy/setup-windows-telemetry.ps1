@@ -76,10 +76,12 @@ try {
     [IO.File]::WriteAllText($keyFile, $publicKey + "`n", (New-Object Text.UTF8Encoding($false)))
     $installedCollector = Join-Path $root 'collect.ps1'
     Copy-Item -LiteralPath $collector -Destination $installedCollector -Force
+    $sensorFunctions = Join-Path $root 'windows-sensors.ps1'
+    Copy-Item -LiteralPath (Join-Path (Split-Path $collector) 'windows-sensors.ps1') -Destination $sensorFunctions -Force
     $installedHost = Join-Path $root 'host_ed25519'
     if (!(Test-Path -LiteralPath $installedHost)) { Copy-Item -LiteralPath $hostKey -Destination $installedHost }
     if ((Get-FileHash -LiteralPath $hostKey).Hash -ne (Get-FileHash -LiteralPath $installedHost).Hash) { throw 'Host key changed; explicit review required' }
-    foreach ($path in @($installedCollector, $keyFile)) { Set-ProtectedAcl $path $false $true }
+    foreach ($path in @($installedCollector, $sensorFunctions, $keyFile)) { Set-ProtectedAcl $path $false $true }
     Set-ProtectedAcl $installedHost $false $false
     $config = Join-Path $env:ProgramData 'ssh/sshd_config'
     if (!(Test-Path -LiteralPath (Split-Path $config))) { New-Item -ItemType Directory -Path (Split-Path $config) | Out-Null }
