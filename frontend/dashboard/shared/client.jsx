@@ -1,8 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+let sessionRead;
+export function readSession(){
+ if(!sessionRead)sessionRead=fetch('/api/session',{credentials:'same-origin'}).finally(()=>{sessionRead=undefined;});
+ return sessionRead.then(response=>response.clone());
+}
 export async function dashboardRequest(path, data, signal) {
  const options={credentials:'same-origin',signal};
+ const auth=await readSession();
+ if(signal?.aborted)throw new DOMException('Aborted','AbortError');
  if(data!==undefined) {
-  const auth=await fetch('/api/session',{credentials:'same-origin',signal});
   const session=await auth.json();
   Object.assign(options,{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':session.csrf},body:JSON.stringify(data)});
  }

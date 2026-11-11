@@ -1,3 +1,4 @@
+from dashboard_browser_fixtures import isolate_dashboard
 """Synthetic Computer setup/trust-state UI, without a network SSH target."""
 import os,socket,tempfile
 from pathlib import Path
@@ -11,6 +12,7 @@ def check():
   settings=Settings(port=port,data_dir=Path(directory));server=Server(settings);server.start();browser=p.chromium.launch(channel=os.environ.get('GPT_PI_TEST_BROWSER_CHANNEL'))
   try:
    page=browser.new_page(viewport={'width':720,'height':1280});state={'profile':None,'state':'not_configured','sample':None,'history':[]};errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+   isolate_dashboard(page)
    def computer(route):
     if route.request.method=='POST':
      data=route.request.post_data_json

@@ -128,3 +128,5 @@ Assistant is integrated into the dashboard tab. Leaving the tab cancels voice an
 Computer supports a configurable Linux/Windows SSH source, pinned host identity, separate telemetry/SFTP public keys, supported metrics and history. The selected PC needs configured OpenSSH; the display Pi is never selected implicitly. See docs/dashboard/SSH.md.
 Markets supports a session-only watchlist, Kraken crypto charts, delayed MOEX ISS shares/index data and official Bank of Russia FX rates. Oil/metals are explicitly unsupported, without substituted prices.
 Calendar supports Monday-first months, local event CRUD and calendar-day countdown. Events are session-only RAM data, cleared on logout/restart. Event times are floating local wall times without notifications or UTC conversion.
+
+Overview combines the local clock, Open-Meteo forecast and the same Computer/Markets snapshots as their detail tabs. Moscow is the explicit default locality; search selects another city. No geolocation is requested; locality settings are session-only.
