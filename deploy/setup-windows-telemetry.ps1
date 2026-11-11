@@ -102,8 +102,6 @@ AuthorizedKeysFile $keysPosix
 AllowTcpForwarding no
 AllowAgentForwarding no
 PermitTTY no
-PermitTunnel no
-X11Forwarding no
 MaxAuthTries 3
 LoginGraceTime 20
 ForceCommand $shell -NoLogo -NoProfile -NonInteractive -ExecutionPolicy RemoteSigned -File "$collectorPosix"
