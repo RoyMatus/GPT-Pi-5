@@ -130,4 +130,5 @@ Dashboard foundation increment: /?dashboard exposes the supplied shell and syste
 
 Assistant integration (#8): one mounted auth/chat controller inside the shell; inactive-tab voice and generation cancel, late results are discarded. Synthetic voice/tab transitions and remembered-login browser scenarios passed. No physical audio acceptance.
 
+Markets #5: fixed public read-only adapters (Kraken OHLC, MOEX ISS delayed candles, CBR XML FX), session watchlist and shared cache. Missing/stale/rate-limit states are explicit. Commodity provider is unsupported. Synthetic tests do not call live providers.
 Calendar #6 implemented: Monday-first month navigation, separate today/selection/event markers, RAM session-owned event CRUD and calendar-day countdown. No external sync or private persistence. Synthetic API/IDOR and browser CRUD checks passed.
