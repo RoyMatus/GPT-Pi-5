@@ -73,3 +73,6 @@ jobs:
       - name: Synthetic photo slideshow
         timeout-minutes: 5
         run: python tests/browser_dashboard_photos.py
+      - name: Synthetic overview and shared sources
+        timeout-minutes: 5
+        run: python tests/browser_dashboard_overview.py

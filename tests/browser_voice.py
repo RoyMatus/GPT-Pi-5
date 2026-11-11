@@ -1,3 +1,4 @@
+from dashboard_browser_fixtures import isolate_dashboard
 """Optional browser acceptance with a synthetic account, microphone and speech."""
 import os
 from pathlib import Path
@@ -28,6 +29,7 @@ def check(origin):
                 const stream = await getMedia(options);
                 window.testTracks.push(...stream.getTracks()); return stream;
             }; }""")
+        isolate_dashboard(page)
         errors = []
         page.on('pageerror', lambda error: errors.append(str(error)))
         page.route('**/api/audio/devices', lambda route: route.fulfill(json={'microphone': True, 'speaker': True}))

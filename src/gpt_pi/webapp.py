@@ -24,6 +24,7 @@ from .voice import LocalVoice, VoiceError, MAX_AUDIO, MAX_SPEECH_TEXT, validate_
 from .audio_devices import AudioDevices
 from .credentials import CredentialStore
 from .dashboard.photos import routes as photo_routes
+from .dashboard.overview import routes as overview_routes
 from .dashboard.computer import routes as computer_routes
 from .dashboard.markets import routes as market_routes
 from .dashboard.calendar import routes as calendar_routes
@@ -519,7 +520,7 @@ def create_app(settings=None, cloud=None):
         Route('/api/chats/{chat_id}/messages', message, methods=['POST']),
         Route('/api/voice/transcribe', voice_request, methods=['POST']),
         Route('/api/voice/speak', voice_request, methods=['POST']),
-        Route('/api/cancel', cancel, methods=['POST'])] + computer_routes(runtime, body) + market_routes(runtime, body) + calendar_routes(runtime, body) + photo_routes(runtime, body),
+        Route('/api/cancel', cancel, methods=['POST'])] + computer_routes(runtime, body) + market_routes(runtime, body) + calendar_routes(runtime, body) + overview_routes(runtime, body) + photo_routes(runtime, body),
         exception_handlers={HTTPException: errors, CloudError: errors, VoiceError: errors})
     app.state.runtime = runtime
     app.add_middleware(LocalBoundary, settings=settings)

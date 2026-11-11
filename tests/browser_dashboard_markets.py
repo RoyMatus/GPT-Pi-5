@@ -1,3 +1,4 @@
+from dashboard_browser_fixtures import isolate_dashboard
 """Synthetic market watchlist/period UI; live providers are intercepted."""
 import os,socket,tempfile
 from pathlib import Path
@@ -14,6 +15,7 @@ def check():
   try:
    page=browser.new_page(viewport={'width':720,'height':1280});errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
    catalog=[{'id':'kraken:XBTUSD','label':'BTC / USD','category':'crypto','currency':'USD','provider':'Synthetic'},{'id':'kraken:ETHUSD','label':'ETH / USD','category':'crypto','currency':'USD','provider':'Synthetic'}];watch=[x['id'] for x in catalog]
+   isolate_dashboard(page)
    def quote(identifier,period):
     row=next(x for x in catalog if x['id']==identifier);return {**row,'period':period,'value':110,'change':10,'history':[{'time':'2026-11-10','value':100},{'time':'2026-11-11','value':110}],'state':'ready','quoteTime':'2026-11-11','detail':'Synthetic only'}
    def market(route):
