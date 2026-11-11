@@ -120,3 +120,5 @@ Supporting documents are currently in Russian:
 Public repository: https://github.com/RoyMatus/GPT-Pi-5.
 A source license has not been selected. Public visibility does not by itself mean OSS.
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
+
+The dashboard foundation is available at `/?dashboard`: six destinations and a local system clock. Data sources are not connected yet; the existing Assistant remains at `/`. Epic #2 is not complete.

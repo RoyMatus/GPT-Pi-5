@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node frontend/build.mjs",
     "check": "node --check frontend/build.mjs",
-    "test": "node --test tests/voice.test.mjs"
+    "test": "node --test tests/voice.test.mjs tests/dashboard-foundation.test.mjs"
   },
   "dependencies": {
     "@fluentui/react-components": "9.75.1",

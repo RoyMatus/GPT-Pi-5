@@ -106,3 +106,5 @@ GitHub Actions разрешены.
 Не складывать времена параллельных задач в «общее время»; неизвестное не оценивать
 по датам коммитов. Логи хранить в игнорируемом build/ без секретов и личных данных.
 Один владелец координирует проверки на устройстве и интеграцию работы агентов.
+
+Dashboard contracts: `node --test tests/dashboard-foundation.test.mjs`. This verifies cancellation, single-producer subscriptions and timezone midnight behavior, not visual or hardware acceptance.
