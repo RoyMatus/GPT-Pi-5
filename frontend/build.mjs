@@ -13,3 +13,5 @@ await build({
     sourcemap: false,
 });
 await copyFile("frontend/recorder-worklet.js", "src/gpt_pi/web/assets/recorder-worklet.js");
+
+await copyFile('frontend/dashboard/calendar/holiday-tree.png', 'src/gpt_pi/web/assets/holiday-tree.png');
