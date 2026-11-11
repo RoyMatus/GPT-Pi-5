@@ -136,3 +136,5 @@ locked desktop keyring during automatic login; cookies have no keyring encryptio
 Actual installation evidence and limits: [deploy/README.md](deploy/README.md).
 
 Baseline Windows metrics use kernel/.NET APIs without CIM. NVIDIA GPU load, temperature, memory and power use installed nvidia-smi. CPU temperature and current clock require the separate sensor setup in deploy/README.md; unsupported readings remain unavailable.
+
+Themes (#19): all 15 frozen Fluent 2 v1 appearances are integrated with persisted selection. See the [design contract](resources/themes/fluent2-v1/DESIGN_LOCK.md). Pi uses the owner-approved installed Cantarell/Noto Sans Mono with adjusted metrics; Windows retains Segoe UI/Consolas.

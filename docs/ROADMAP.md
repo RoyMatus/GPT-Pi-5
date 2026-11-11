@@ -94,3 +94,5 @@ v0.3.3: расширены Windows-метрики: NVIDIA GPU и явная ус
 Это не закрывает отдельную физическую приёмку и выбор фотокаталога.
 v0.3.3 установлена на Pi; новые датчики показаны в Компьютере и Обзоре при
 сохранённом входе и полноэкранном 720×1280.
+
+#19: transferred the frozen 15-theme frontend without redesign. Owner-approved Pi font adaptation uses installed Cantarell/Noto Sans Mono; see docs/theme-integration-19.md.

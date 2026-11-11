@@ -29,6 +29,8 @@ jobs:
       - run: python -m pip wheel . --no-deps -w dist
   browser:
     name: browser
+    env:
+      GPT_PI_TEST_BROWSER_CHANNEL: chrome
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -45,7 +47,9 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: python -m pip install . playwright==1.65.0
-      - run: python -m playwright install --with-deps chromium
+      # The official Ubuntu image already includes Chrome and its shared libraries.
+      # Avoid an unrelated apt mirror/DNS dependency; fail if the browser is absent.
+      - run: google-chrome --version
       # FakeCloud/FakeVoice and intercepted OAuth use synthetic accounts/audio only.
       # No cloud credentials, voice models, real microphone or device access.
       - name: Synthetic voice and audio controls
@@ -57,7 +61,7 @@ jobs:
 
       - name: Synthetic dashboard shell layout
         timeout-minutes: 5
-        run: python tests/browser_dashboard_foundation.py
+        run: python tests/browser_dashboard_foundation.py --browser-channel chrome
 
       - name: Synthetic computer connection UI
         timeout-minutes: 5

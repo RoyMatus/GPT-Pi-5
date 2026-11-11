@@ -47,7 +47,7 @@ try:
                         page.get_by_role('button',name='Обзор',exact=True).click()
                         page.get_by_role('button',name='Настройки',exact=True).click()
                         page.get_by_role('switch').uncheck()
-                        page.get_by_role('button',name='Настройки',exact=True).click()
+                        page.get_by_role('dialog').get_by_role('button',name='Готово',exact=True).click()
                     for text in (100,200):
                         page.evaluate('(size)=>document.documentElement.style.fontSize=size+"%"',text)
                         for tab in ['Обзор','Компьютер','Рынки','Календарь','Фото','Ассистент']:

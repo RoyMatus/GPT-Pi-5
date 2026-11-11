@@ -179,3 +179,5 @@ temperature, GPU load/temperature/VRAM used/total/power. Повторные пу
 Пакет v0.3.3 установлен на Pi; в авторизованном Chromium проверены все семь новых
 значений и их отображение в Компьютере/Обзоре, fullscreen 720×1280. После проверки
 kiosk перезапущен с прежним профилем без порта отладки. Windows-ПК не перезагружался.
+
+#19 / v0.3.4: 15 themes integrated; strict Windows comparison matches 165/165 originals. Owner-approved Pi typography uses installed Cantarell/Noto Sans Mono with adjusted metrics. See docs/theme-integration-19.md for checks, deployment and limitations.

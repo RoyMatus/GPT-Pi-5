@@ -1,0 +1,1104 @@
+diff --git a/frontend/app.jsx b/frontend/app.jsx
+index d5f702b..fb0d808 100644
+--- a/frontend/app.jsx
++++ b/frontend/app.jsx
+@@ -2,8 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
+ import { createRoot } from "react-dom/client";
+ import {
+     FluentProvider,
+-    webLightTheme,
+-    webDarkTheme,
+     Button,
+     Badge,
+     Avatar,
+@@ -45,6 +43,9 @@ import { AudioCheck } from "./audio-check.jsx";
+ import "./style.css";
+ import { readSession } from "./dashboard/shared/client.jsx";
+ import { DashboardShell } from "./dashboard/shell/shell.jsx";
++import { ThemePicker, fluentAppearance } from "./appearance.jsx";
++import { resolveAppearance } from "./themes.mjs";
++import "./appearance.css";
+ 
+ const errors = {
+     connection:
+@@ -88,13 +89,12 @@ const errors = {
+ const explain = (code) =>
+     errors[code] || "Не удалось выполнить действие. Попробуй ещё раз.";
+ 
+-function App({ active = true, themeDark, onThemeChange }) {
++function App({ active = true, appearance, onAppearanceChange, appearanceSaved }) {
+     const activeRef = useRef(active);
+     activeRef.current = active;
+     const busyRef = useRef(false);
+-    const [dark, setDark] = useState(
+-        () => localStorage.getItem("gpt-pi-theme") === "dark",
+-    );
++    const dark = !appearance.light;
++    const setDark = value => onAppearanceChange(resolveAppearance("fluent", value ? "dark" : "light"));
+     const [session, setSession] = useState(null);
+     const [models, setModels] = useState([]);
+     const [model, setModel] = useState("");
+@@ -127,7 +127,6 @@ function App({ active = true, themeDark, onThemeChange }) {
+     const voiceAbort = useRef(null);
+     const voiceStateRef = useRef("idle");
+     const playback = useRef(null);
+-    useEffect(() => { if (themeDark !== undefined) setDark(themeDark); }, [themeDark]);
+     const authenticated = !!session?.authenticated;
+     busyRef.current = busy;
+     useEffect(() => {
+@@ -255,9 +254,6 @@ function App({ active = true, themeDark, onThemeChange }) {
+             behavior: busy ? "instant" : "smooth",
+         });
+     }, [messages]);
+-    useEffect(() => {
+-        localStorage.setItem("gpt-pi-theme", dark ? "dark" : "light");
+-    }, [dark]);
+ 
+     async function signIn() {
+         setSigningIn(true);
+@@ -557,7 +553,7 @@ function App({ active = true, themeDark, onThemeChange }) {
+ 
+     return (
+         <FluentProvider
+-            theme={dark ? webDarkTheme : webLightTheme}
++            theme={fluentAppearance(appearance)}
+             className={"app " + (dark ? "dark" : "")}
+         >
+             <aside className={"sidebar " + (historyOpen ? "history-open" : "")}>
+@@ -653,7 +649,7 @@ function App({ active = true, themeDark, onThemeChange }) {
+ 
+             <main className="main">
+                 <header className="topbar">
+-                    <Button onClick={() => setHistoryOpen(v => !v)}>История</Button>
++                    <Button appearance="subtle" onClick={() => setHistoryOpen(v => !v)}>История</Button>
+                     <Button icon={<Add24Regular />} disabled={!authenticated || busy} onClick={newChat}>Новый чат</Button>
+                     <div className="topbar-title">
+                         <Chat24Regular />
+@@ -663,8 +659,8 @@ function App({ active = true, themeDark, onThemeChange }) {
+                         </Badge>
+                     </div>
+                     <div className="topbar-actions">
+-                        <Button icon={<Settings24Regular />} aria-label="Настройки" onClick={() => setSettingsOpen(true)} />
+-                        {authenticated && <Button onClick={signOut}>Завершить сеанс</Button>}
++                        <Button appearance="subtle" icon={<Settings24Regular />} aria-label="Настройки" onClick={() => setSettingsOpen(true)} />
++                        {authenticated && <Button appearance="subtle" onClick={signOut}>Завершить сеанс</Button>}
+                         {authenticated && (
+                             <Select
+                                 aria-label="Модель ChatGPT"
+@@ -685,7 +681,7 @@ function App({ active = true, themeDark, onThemeChange }) {
+                             </Select>
+                         )}
+                         <Tooltip
+-                            content={dark ? "Светлая тема" : "Тёмная тема"}
++                            content={appearance.isFluent ? (dark ? "Светлая тема" : "Тёмная тема") : "Графическая схема"}
+                             relationship="label"
+                         >
+                             <Button
+@@ -697,7 +693,7 @@ function App({ active = true, themeDark, onThemeChange }) {
+                                         <WeatherMoon24Regular />
+                                     )
+                                 }
+-                                onClick={() => setDark(!dark)}
++                                onClick={() => appearance.isFluent ? setDark(!dark) : setSettingsOpen(true)}
+                             />
+                         </Tooltip>
+                     </div>
+@@ -992,13 +988,7 @@ function App({ active = true, themeDark, onThemeChange }) {
+                         <DialogContent>
+                             <div className="settings-content">
+                                 <h3>Оформление</h3>
+-                                <Switch
+-                                    checked={dark}
+-                                    label="Тёмная тема"
+-                                    onChange={(_, data) => {
+-                                        setDark(data.checked); onThemeChange?.(!data.checked);
+-                                    }}
+-                                />
++                                <ThemePicker appearance={appearance} onChange={onAppearanceChange} saved={appearanceSaved} darkLabel />
+                                 <h3>Подключение</h3>
+                                 <p>
+                                     {authenticated
+diff --git a/frontend/appearance.css b/frontend/appearance.css
+new file mode 100644
+index 0000000..c8127c6
+--- /dev/null
++++ b/frontend/appearance.css
+@@ -0,0 +1,234 @@
++/* Fluent 2 hierarchy: solid reading surfaces, quiet edges and limited frosted chrome.
++   CSS material treatment is a web adaptation, not native Windows Mica/Acrylic. */
++.dashboard[data-theme] {
++  --dash-bg:var(--scheme-bg); --dash-surface:var(--scheme-panel);
++  --dash-surface-raised:var(--scheme-raised); --dash-stroke:var(--scheme-edge);
++  --dash-divider:var(--scheme-divider); --dash-text:var(--scheme-text);
++  --dash-secondary:var(--scheme-muted); --dash-muted:var(--scheme-muted);
++  --dash-blue:var(--scheme-control); --dash-cyan:var(--scheme-secondary);
++  --dash-positive:var(--scheme-positive); --dash-negative:var(--scheme-negative);
++  --dash-track:var(--scheme-raised); --dash-selected:var(--scheme-selected);
++  --dash-selected-border:var(--scheme-control);
++  --dash-radius:8px; --dash-radius-small:4px; --dash-shadow:var(--scheme-shadow);
++  --dash-gap:16px; --dash-padding:20px;
++  --dash-text-title:1.375rem;
++  --dash-text-metric:clamp(1.5rem,4.4vw,2rem);
++  --dash-text-clock:clamp(3.5rem,12vw,5.25rem);
++  background:var(--scheme-canvas,var(--scheme-bg));
++  background-color:var(--scheme-bg);
++  color:var(--scheme-text); color-scheme:inherit;
++  font-family:var(--scheme-font,"Segoe UI Variable","Segoe UI",system-ui,sans-serif);
++}
++.dashboard[data-theme] .dashboard-shell { padding:20px; gap:16px; }
++.dashboard[data-theme] .dashboard-header { padding:0 4px; min-height:44px; border:0; gap:8px 16px; }
++.dashboard[data-theme] .dashboard-header h1 { font-size:1.375rem; font-weight:600; letter-spacing:-.025em; }
++.dashboard[data-theme] .dashboard-header-status { font-size:.8125rem; gap:8px; }
++.dashboard[data-theme] .dashboard-status-dot { width:6px; height:6px; }
++.dashboard[data-theme] .dashboard-content { padding:0 2px 4px; gap:16px; }
++.dashboard[data-theme] .dashboard-panel {
++  padding:20px; color:var(--scheme-text); background:var(--scheme-panel);
++  border:1px solid var(--scheme-edge); border-radius:8px; box-shadow:var(--scheme-shadow);
++}
++.dashboard[data-theme] .dashboard-panel-title { font-size:1rem; font-weight:600; margin:0 0 16px; gap:10px; }
++.dashboard[data-theme] .dashboard-panel-title svg { width:22px; height:22px; color:var(--scheme-muted); }
++.dashboard[data-theme] .dashboard-panel-actions { font-size:.875rem; }
++.dashboard[data-theme] .dashboard-panel .dashboard-metric-card {
++  padding:12px 4px; border:0; border-radius:0; background:transparent; box-shadow:none;
++}
++.dashboard[data-theme] .dashboard-grid { gap:12px 24px; }
++.dashboard[data-theme] .dashboard-metric-heading { font-size:.8125rem; color:var(--scheme-muted); margin-bottom:8px; font-weight:500; gap:8px; }
++.dashboard[data-theme] .dashboard-metric-heading svg { width:20px; height:20px; }
++.dashboard[data-theme] .dashboard-metric-value { font-weight:600; letter-spacing:-.025em; }
++.dashboard[data-theme] .dashboard-metric-detail { font-size:.875rem; }
++.dashboard[data-theme] .dashboard-metric-card p { font-size:.8125rem; line-height:1.6; color:var(--scheme-muted); }
++.dashboard[data-theme] .dashboard-progress { height:5px; margin-top:14px; background:var(--scheme-raised); }
++.dashboard[data-theme] .dashboard-progress-fill { background:var(--scheme-control); }
++.dashboard[data-theme] .dashboard-sparkline { height:2.5rem; margin-top:12px; }
++.dashboard[data-theme] .dashboard-graph { height:6.5rem; }
++.dashboard[data-theme] .dashboard-small { font-size:.8125rem; line-height:1.6; }
++.dashboard[data-theme] .dashboard-summary-link { color:inherit; }
++.dashboard[data-theme] .dashboard-hero { padding:16px 8px 20px; gap:16px; }
++.dashboard[data-theme] .dashboard-clock { font-weight:600; letter-spacing:-.055em; }
++.dashboard[data-theme] .dashboard-hero-date { margin-top:8px; font-size:1rem; }
++.dashboard[data-theme] .dashboard-weather { font-size:.875rem; }
++.dashboard[data-theme] .dashboard-weather .dashboard-metric-value { font-size:1.875rem; }
++.dashboard[data-theme] .dashboard-seasonal-art { width:clamp(5rem,18vw,8rem); }
++.dashboard[data-theme] .dashboard-countdown { background:var(--scheme-panel); gap:20px; }
++.dashboard[data-theme] .dashboard-countdown > svg { width:32px; height:32px; color:var(--scheme-control); }
++.dashboard[data-theme] .dashboard-countdown-label { font-size:.875rem; color:var(--scheme-muted); }
++.dashboard[data-theme] .dashboard-countdown-value { font-size:2rem; font-weight:600; }
++.dashboard[data-theme] .dashboard-calendar-heading h2 { font-size:1.125rem; font-weight:600; }
++.dashboard[data-theme] .dashboard-calendar th { border:0; font-size:.8125rem; }
++.dashboard[data-theme] .dashboard-calendar-day { font-size:1rem; border-radius:8px; }
++.dashboard[data-theme] .dashboard-calendar-day[data-selected="true"] { color:var(--scheme-on-control); background:var(--scheme-control); }
++.dashboard[data-theme] .dashboard-event-dot { background:var(--scheme-secondary); }
++.dashboard[data-theme] .dashboard-agenda-row { padding:12px 0; border-color:var(--scheme-edge); gap:12px; font-size:.875rem; }
++.dashboard[data-theme] .dashboard-agenda-row strong { font-weight:500; color:var(--scheme-muted); }
++.dashboard[data-theme] .dashboard-reference-section { gap:16px; }
++.dashboard[data-theme] .dashboard-reference-layout { display:grid; grid-template-columns:minmax(0,1fr); gap:16px; }
++.dashboard[data-theme] :is(button,.fui-Input,.fui-Select) { min-height:44px; }
++.dashboard[data-theme] button { border-radius:var(--borderRadiusMedium,4px); }
++.dashboard[data-theme] summary { min-height:44px; padding:12px 0; cursor:pointer; font-size:.875rem; }
++.dashboard[data-theme] details[open] > summary { margin-bottom:8px; }
++.dashboard[data-theme] .dashboard-disclosure { padding:0; border:0; }
++.dashboard[data-theme] .dashboard-disclosure > summary { font-weight:600; }
++.dashboard[data-theme] .dashboard-disclosure .dashboard-stack { padding-top:8px; }
++.dashboard[data-theme] .dashboard-disclosure-content { display:flex; flex-direction:column; gap:16px; padding:8px 0; }
++.dashboard[data-theme] button.dashboard-watchlist-row {
++  display:grid; grid-template-columns:minmax(7rem,1fr) minmax(4rem,.7fr) minmax(7rem,1fr);
++  align-items:center; width:100%; gap:16px; min-height:72px; padding:12px 0;
++  border:0; border-bottom:1px solid var(--scheme-edge); border-radius:0;
++  color:var(--scheme-text); background:transparent; text-align:left;
++}
++.dashboard[data-theme] button.dashboard-watchlist-row:hover { background:var(--scheme-raised); }
++.dashboard[data-theme] .dashboard-watchlist-name { font-weight:600; font-size:.875rem; }
++.dashboard[data-theme] .dashboard-watchlist-price { text-align:right; font-size:.9375rem; font-variant-numeric:tabular-nums; }
++.dashboard[data-theme] .dashboard-watchlist-price :is(strong,span,small) { display:block; }
++.dashboard[data-theme] .dashboard-watchlist-price small { font-size:.8125rem; line-height:1.5; }
++.dashboard[data-theme] .dashboard-watchlist-row .dashboard-sparkline { height:2rem; margin:0; }
++.dashboard[data-theme] .dashboard-watchlist-manage-row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:8px 0; }
++.dashboard[data-theme] .dashboard-watchlist-manage-row > :first-child { flex:1; min-width:7rem; }
++.dashboard[data-theme] .dashboard-photo-actions { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:16px 0; }
++.dashboard[data-theme] .dashboard-photo-library .dashboard-disclosure { margin-top:16px; }
++
++/* Navigation is one translucent supporting plane, not six elevated cards. */
++.dashboard[data-theme] .dashboard-nav {
++  padding:6px; gap:4px; border:1px solid var(--scheme-edge); border-radius:12px;
++  background:var(--scheme-panel); box-shadow:var(--scheme-shadow);
++}
++.dashboard[data-theme] button.dashboard-nav-item {
++  position:relative; min-height:64px; padding:8px 4px; gap:4px;
++  color:var(--scheme-muted); background:transparent; border:0; border-radius:8px;
++  font-size:.75rem; font-weight:500; box-shadow:none;
++}
++.dashboard[data-theme] .dashboard-nav-item svg { width:24px; height:24px; }
++.dashboard[data-theme] button.dashboard-nav-item:hover { color:var(--scheme-text); background:var(--scheme-raised); }
++.dashboard[data-theme] button.dashboard-nav-item[aria-current="page"] {
++  color:var(--scheme-text); background:var(--scheme-wash,var(--scheme-selected)); border:0; box-shadow:none;
++}
++.dashboard[data-theme] .dashboard-nav-item[aria-current="page"] svg { color:var(--scheme-control); }
++.dashboard[data-theme] .dashboard-nav-item[aria-current="page"]::after {
++  content:""; position:absolute; bottom:3px; left:calc(50% - 8px); width:16px; height:2px;
++  border-radius:2px; background:var(--scheme-control);
++}
++/* Keep navigation intrinsically sized while letting content pass behind its glass.
++   The content's trailing space keeps the final control fully above the overlap. */
++.dashboard[data-theme] .dashboard-shell:not(.dashboard-fullscreen) > .dashboard-nav { position:relative; z-index:2; margin-top:-64px; }
++.dashboard[data-theme] .dashboard-shell:not(.dashboard-fullscreen) > .dashboard-content { padding-bottom:80px; scroll-padding-bottom:80px; }
++
++/* The assistant remains the same live component, with the same session and input. */
++.dashboard[data-theme] .app :is(.sidebar,.signin-card,.composer,.prompt-grid button) {
++  color:var(--scheme-text); background:var(--scheme-panel); border:1px solid var(--scheme-edge);
++  border-radius:8px; box-shadow:var(--scheme-shadow);
++}
++.dashboard[data-theme] .app :is(.welcome h1,.brand strong,.chat-welcome h1,.message-author,.message-text) { color:var(--scheme-text); }
++.dashboard[data-theme] .app :is(.eyebrow,.welcome-copy,.signin-heading p,.signin-note,.privacy-line,.chat-welcome p,.composer-note,.composer-bottom>span,.profile small,.device small,.nav-label,.empty-list,.prompt-grid svg:last-child) { color:var(--scheme-muted); }
++.dashboard[data-theme] .app .topbar { padding:0 0 12px; }
++.dashboard[data-theme] .app .topbar-actions { gap:8px; }
++.dashboard[data-theme] .app .messages { padding:20px 8px; max-width:800px; }
++.dashboard[data-theme] .app .message { gap:12px; margin-bottom:28px; }
++.dashboard[data-theme] .app .message-author { margin:4px 0 8px; font-size:.8125rem; }
++.dashboard[data-theme] .app .message-text { line-height:1.75; font-size:1rem; }
++.dashboard[data-theme] .app .user .message-text { background:var(--scheme-selected); border-radius:12px 12px 4px 12px; padding:12px 16px; }
++.dashboard[data-theme] .app .composer { padding:12px 16px; }
++.dashboard[data-theme] .app .composer-note { font-size:.75rem; }
++.dashboard[data-theme] .app .composer-area { padding-top:12px; }
++.dashboard[data-theme] .app .orb { width:64px; height:64px; margin-bottom:24px; }
++.dashboard[data-theme] .app :is(.orb,.brand-mark,.mini-orb) {
++  color:var(--scheme-control); background:var(--scheme-selected); border-radius:16px;
++  transform:none; box-shadow:none;
++}
++.dashboard[data-theme] .app .orb svg { width:34px; height:34px; color:var(--scheme-control); transform:none; filter:none; }
++.dashboard[data-theme] .app .message.assistant > .fui-Avatar { --colorNeutralForegroundStaticInverted:var(--scheme-on-control); --colorBrandBackgroundStatic:var(--scheme-control); }
++.dashboard[data-theme] .app :is(.signin-heading>svg,.brand strong span,.prompt-grid svg:first-child) { color:var(--scheme-control); }
++.dashboard[data-theme] .app .welcome h1 { font-weight:600; letter-spacing:-.04em; font-size:clamp(1.75rem,4vw,2.25rem); }
++.dashboard[data-theme] .app .welcome-copy { font-size:.9375rem; }
++.dashboard[data-theme] .app .signin-card { padding:24px; gap:16px; }
++.dashboard[data-theme] .app .signin-heading strong { font-size:.9375rem; }
++.dashboard[data-theme] .app .signin-heading p { font-size:.8125rem; }
++.dashboard[data-theme] .app .signin-note { font-size:.75rem; }
++.dashboard[data-theme] .app .prompt-grid button { padding:16px; }
++
++/* Settings preview communicates the palette without repeating a framed card. */
++.theme-picker { display:grid; gap:16px; max-width:560px; }
++.theme-picker select { min-height:44px; font-size:1rem; }
++.theme-preview { padding:4px 0; border:0; color:var(--scheme-text); background:transparent; }
++.theme-preview strong { font-size:.875rem; font-weight:600; }
++.theme-preview p { margin:4px 0 0; font-size:.8125rem; line-height:1.6; color:var(--scheme-muted); }
++.theme-preview-swatches { display:flex; gap:6px; margin-bottom:12px; }
++.theme-preview-swatches span { width:28px; height:20px; border:1px solid var(--scheme-edge); border-radius:6px; }
++.theme-save-note { font-size:.8125rem; line-height:1.6; }
++
++/* Portals mount outside .dashboard. Text itself is never made transparent. */
++html[data-theme] :is(.dashboard,.app)[data-portal-node] { background:transparent!important; height:auto!important; min-height:0; overflow:visible; }
++html[data-theme] :is(.fui-DialogSurface,.fui-PopoverSurface,.fui-Tooltip) {
++  background:var(--scheme-panel); color:var(--scheme-text); border:1px solid var(--scheme-edge);
++  border-radius:12px; box-shadow:var(--scheme-shadow);
++}
++html[data-theme] .fui-DialogSurface { padding:24px; }
++html[data-theme] :is(.dashboard,.fui-DialogSurface) a { color:var(--scheme-link); }
++html[data-theme] :is(.dashboard,.fui-DialogSurface) :is(.recording-label,.incomplete) { color:var(--scheme-negative); }
++html[data-theme] .settings-content small { color:var(--scheme-muted); }
++html[data-theme] .dashboard :is(textarea:not(.fui-Textarea__textarea),input:not(.fui-Input__input)) { color:var(--scheme-text); background:var(--scheme-panel); border-color:var(--scheme-edge); }
++html[data-theme] :is(button,a,select,input,textarea,summary,[tabindex]):focus-visible { outline:2px solid var(--scheme-focus); outline-offset:3px; }
++.dashboard[data-theme] .dashboard-photo-caption { background:var(--scheme-panel); color:var(--scheme-muted); }
++.dashboard[data-theme] .dashboard-photo-controls { color:var(--scheme-text); background:linear-gradient(transparent,var(--scheme-bg)); }
++.dashboard[data-theme] .dashboard-photo-controls .dashboard-row { background:var(--scheme-panel); border:1px solid var(--scheme-edge); border-radius:12px; }
++.dashboard[data-theme] .dashboard-fullscreen { padding:0; gap:0; }
++.dashboard[data-theme] .dashboard-fullscreen .dashboard-content { padding:0; }
++
++@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
++  .dashboard[data-theme] .dashboard-nav { background:var(--scheme-glass); backdrop-filter:blur(20px) saturate(1.15); -webkit-backdrop-filter:blur(20px) saturate(1.15); }
++  html[data-theme] :is(.fui-DialogSurface,.fui-PopoverSurface) { background:var(--scheme-glass-strong); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); }
++  .dashboard[data-theme] .dashboard-photo-controls .dashboard-row { background:var(--scheme-glass-strong); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); }
++  .dashboard[data-theme] .dashboard-photo-controls .dashboard-nav { background:var(--scheme-panel); backdrop-filter:none; -webkit-backdrop-filter:none; }
++}
++
++/* Phosphor is static, monochrome interface chrome. User photographs keep their colors. */
++.dashboard[data-theme="green_phosphor"] :is(.dashboard-clock,.dashboard-metric-value,.dashboard-countdown-value) { font-family:Consolas,"Cascadia Mono",monospace; letter-spacing:-.04em; font-weight:400; }
++.dashboard[data-theme="green_phosphor"] .dashboard-clock { text-shadow:0 0 14px #7cf2a326; }
++.dashboard[data-theme="green_phosphor"] .dashboard-seasonal-art { filter:grayscale(1) sepia(1) hue-rotate(75deg) saturate(2); }
++.dashboard[data-theme="green_phosphor"] .dashboard-nav { background-image:repeating-linear-gradient(0deg,transparent 0 3px,#90ffac05 3px 4px); }
++
++@media(max-width:600px) {
++  .dashboard[data-theme] { --dash-padding:16px; --dash-gap:12px; }
++  .dashboard[data-theme] .dashboard-shell { padding:12px; gap:12px; }
++  .dashboard[data-theme] .dashboard-content { gap:12px; }
++  .dashboard[data-theme] .dashboard-panel { padding:16px; }
++  .dashboard[data-theme] .dashboard-header { align-items:center; }
++  .dashboard[data-theme] .dashboard-header h1 { font-size:1.25rem; }
++  .dashboard[data-theme] .dashboard-header-status { margin-left:auto; font-size:.75rem; }
++  .dashboard[data-theme] .dashboard-nav { grid-template-columns:repeat(6,minmax(5rem,1fr)); }
++  .dashboard[data-theme] .dashboard-hero { padding:12px 4px; }
++  .dashboard[data-theme] .app .topbar-actions { gap:4px; }
++  .dashboard[data-theme] .app .messages { padding:16px 0; }
++  .dashboard[data-theme] .app .message-text { font-size:.9375rem; }
++  html[data-theme] .fui-DialogSurface { padding:20px; }
++}
++@media(max-width:480px) {
++  .dashboard[data-theme] button.dashboard-watchlist-row { grid-template-columns:minmax(5rem,1fr) minmax(7rem,1fr); gap:12px; }
++  .dashboard[data-theme] .dashboard-watchlist-row .dashboard-sparkline { display:none; }
++}
++@media(min-width:1024px) {
++  .dashboard[data-theme] .dashboard-shell { padding:24px; gap:20px; }
++  .dashboard[data-theme] .dashboard-nav { max-width:800px; width:100%; align-self:center; }
++  .dashboard[data-theme] .dashboard-hero { padding:8px 12px 16px; }
++  .dashboard[data-theme] .dashboard-reference-layout { grid-template-columns:repeat(2,minmax(0,1fr)); }
++}
++/* Must follow responsive shell rules: fullscreen means every viewport size. */
++.dashboard[data-theme] .dashboard-shell.dashboard-fullscreen { padding:0; gap:0; }
++.dashboard[data-theme] .dashboard-shell.dashboard-fullscreen > .dashboard-content { padding:0; scroll-padding:0; scrollbar-gutter:auto; }
++@media(prefers-reduced-transparency:reduce) {
++  .dashboard[data-theme] { background:var(--scheme-bg); }
++  html[data-theme] :is(.dashboard-nav,.fui-DialogSurface,.fui-PopoverSurface,.dashboard-photo-controls .dashboard-row) { background:var(--scheme-panel)!important; backdrop-filter:none!important; -webkit-backdrop-filter:none!important; }
++}
++@media(prefers-reduced-motion:reduce) {
++  html[data-theme] *,html[data-theme] *::before,html[data-theme] *::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }
++}
++@media(forced-colors:active) {
++  html[data-theme] .dashboard { background:Canvas; color:CanvasText; }
++  html[data-theme] :is(.dashboard-panel,.dashboard-nav,.fui-DialogSurface,.fui-PopoverSurface,.theme-preview,.composer,.signin-card) { background:Canvas!important; color:CanvasText!important; border:1px solid CanvasText!important; box-shadow:none!important; backdrop-filter:none!important; -webkit-backdrop-filter:none!important; }
++  html[data-theme] .dashboard button.dashboard-nav-item[aria-current="page"] { border:2px solid Highlight; color:Highlight; }
++  html[data-theme] .dashboard .dashboard-nav-item[aria-current="page"]::after { background:Highlight; }
++  html[data-theme] .dashboard .dashboard-progress-fill { background:Highlight; }
++}
+diff --git a/frontend/appearance.jsx b/frontend/appearance.jsx
+new file mode 100644
+index 0000000..00434e9
+--- /dev/null
++++ b/frontend/appearance.jsx
+@@ -0,0 +1,83 @@
++import React, { useEffect, useLayoutEffect, useState } from 'react';
++import { Field, Select, Switch, webLightTheme, webDarkTheme } from '@fluentui/react-components';
++import { schemes, resolveAppearance, readAppearance, saveAppearance, appearanceVariables, mixColors } from './themes.mjs';
++
++export function useAppearance() {
++  const [appearance, setAppearance] = useState(()=>readAppearance());
++  const [saved, setSaved] = useState(true);
++  useLayoutEffect(()=>{
++    const root=document.documentElement;
++    root.dataset.theme=appearance.id;
++    root.dataset.themeFinish=appearance.finish;
++    root.style.colorScheme=appearance.light?'light':'dark';
++    for(const [name,value] of Object.entries(appearanceVariables(appearance))) root.style.setProperty(name,value);
++    setSaved(saveAppearance(undefined,appearance));
++  },[appearance]);
++  useEffect(()=>{
++    const changed=event=>{if(event.key===null||['gpt-pi-scheme','gpt-pi-theme'].includes(event.key)) setAppearance(readAppearance());};
++    window.addEventListener('storage',changed);
++    return()=>window.removeEventListener('storage',changed);
++  },[]);
++  return {appearance,setAppearance,saved};
++}
++
++export function fluentAppearance(theme) {
++  if(theme.isFluent) return theme.light?webLightTheme:webDarkTheme;
++  const base=theme.light?webLightTheme:webDarkTheme;
++  const hover=mixColors(theme.panel,theme.control,.12), pressed=mixColors(theme.panel,theme.control,.2);
++  const colors={...base};
++  // Derive all interactive shades from the same palette, including Fluent portals.
++  for(const key of Object.keys(colors)) {
++    if(/^colorNeutralForeground[1-5](Hover|Pressed|Selected)?$/.test(key)) colors[key]=key.includes('1')?theme.text:theme.muted;
++    if(/^colorNeutralBackground[1-6]$/.test(key)) colors[key]=theme.panel;
++    if(/^colorNeutralBackground[1-6](Hover|Selected)$/.test(key)) colors[key]=hover;
++    if(/^colorNeutralBackground[1-6]Pressed$/.test(key)) colors[key]=pressed;
++    if(/^colorBrandForeground|^colorCompoundBrandForeground|^colorNeutralForeground[23]Brand/.test(key)) colors[key]=theme.control;
++    if(/^colorBrandForegroundLink|^colorNeutralForeground2Link/.test(key)) colors[key]=theme.roles.link;
++    if(/^colorBrandStroke|^colorCompoundBrandStroke/.test(key)) colors[key]=theme.control;
++    if(/^colorNeutralStroke[12](Hover|Pressed|Selected)?$/.test(key)) colors[key]=mixColors(theme.panel,theme.text,.20);
++    if(/^colorNeutralStrokeAccessible/.test(key)) colors[key]=theme.muted;
++    if(/^colorBrandBackground2/.test(key)) colors[key]=hover;
++    if(/^colorBrandBackground(Inverted)?(Hover|Pressed|Selected)?$/.test(key)) colors[key]=theme.control;
++    if(/^colorCompoundBrandBackground/.test(key)) colors[key]=theme.control;
++  }
++  if(theme.id==='green_phosphor') {
++    // Preserve warning/error icons and words while keeping the phosphor display monochrome.
++    for(const key of Object.keys(colors)) if(/^color(Status|Palette)/.test(key)) {
++      colors[key]=key.includes('Background')?theme.panel:theme.control;
++    }
++  }
++  return {...colors,
++    colorNeutralForegroundOnBrand:theme.onControl,
++    colorNeutralForegroundInverted:theme.onControl,
++    colorNeutralBackgroundInverted:theme.control,
++    colorNeutralBackgroundAlpha:theme.panel, colorNeutralBackgroundAlpha2:theme.panel,
++    colorNeutralBackground4:theme.background,
++    colorStrokeFocus1:theme.background,colorStrokeFocus2:theme.focus,
++    colorNeutralForegroundDisabled:mixColors(theme.panel,theme.muted,.55),
++    colorNeutralBackgroundDisabled:mixColors(theme.panel,theme.background,.5),
++    borderRadiusSmall:'2px',borderRadiusMedium:'4px',borderRadiusLarge:'6px',borderRadiusXLarge:'8px',
++  };
++}
++
++export function ThemePicker({appearance,onChange,saved=true,darkLabel=false}) {
++  return <div className="theme-picker">
++    <Field label="Графическая схема">
++      <Select aria-label="Графическая схема" value={appearance.id}
++        onChange={(_,data)=>onChange(resolveAppearance(data.value,appearance.light?'light':'dark'))}>
++        {schemes.map(scheme=><option key={scheme.id} value={scheme.id}>{scheme.name}</option>)}
++      </Select>
++    </Field>
++    <div className="theme-preview" style={appearanceVariables(appearance)}>
++      <div className="theme-preview-swatches" aria-hidden="true">
++        {[appearance.background,appearance.panel,appearance.control,appearance.roles.settings,appearance.text].map((color,index)=><span key={index} style={{background:color}} />)}
++      </div>
++      <strong>{appearance.name}</strong>
++      <p>{appearance.description}</p>
++    </div>
++    {appearance.isFluent&&<Switch label={darkLabel?'Тёмная тема':'Светлая тема'}
++      checked={darkLabel?!appearance.light:appearance.light}
++      onChange={(_,data)=>onChange(resolveAppearance('fluent',(darkLabel?data.checked:!data.checked)?'dark':'light'))} />}
++    {!saved&&<p role="status" className="theme-save-note">Выбор действует только на открытой странице: браузер не разрешает сохранение.</p>}
++  </div>;
++}
+diff --git a/frontend/dashboard/assets/shared/components.jsx b/frontend/dashboard/assets/shared/components.jsx
+index 99e58f5..4fe6410 100644
+--- a/frontend/dashboard/assets/shared/components.jsx
++++ b/frontend/dashboard/assets/shared/components.jsx
+@@ -46,7 +46,7 @@ export function DashboardFrame({ title, activeTab, onNavigate, onSettings, conne
+ }
+ 
+ export function Panel({ title, icon: PanelIcon, actions, className = "", children }) {
+-  return <section className={`dashboard-panel ${className}`}>
++  return <section className={`dashboard-panel dashboard-section-card ${className}`}>
+     {title && <h2 className="dashboard-panel-title">{PanelIcon && <PanelIcon aria-hidden="true" />}<span>{title}</span>
+       {actions && <span className="dashboard-panel-actions">{actions}</span>}</h2>}
+     {children}
+@@ -54,7 +54,7 @@ export function Panel({ title, icon: PanelIcon, actions, className = "", childre
+ }
+ 
+ export function MetricCard({ label, value, detail, icon: MetricIcon, children, className = "" }) {
+-  return <section className={`dashboard-panel ${className}`} aria-label={label}>
++  return <section className={`dashboard-panel dashboard-metric-card ${className}`} aria-label={label}>
+     <div className="dashboard-metric-heading">{MetricIcon && <MetricIcon aria-hidden="true" />}<span>{label}</span></div>
+     <div className="dashboard-row dashboard-between"><strong className="dashboard-metric-value">{value ?? "—"}</strong>
+       {detail && <span className="dashboard-metric-detail">{detail}</span>}</div>
+diff --git a/frontend/dashboard/calendar/screen.jsx b/frontend/dashboard/calendar/screen.jsx
+index 29d4c67..250b194 100644
+--- a/frontend/dashboard/calendar/screen.jsx
++++ b/frontend/dashboard/calendar/screen.jsx
+@@ -12,7 +12,7 @@ export function CalendarScreen({sources,clock}) {
+  async function save(remove=false){setSaving(true);setError('');try{await dashboardRequest('calendar',remove?{action:'delete',id:edit.id}:edit);setEdit(null);source.refresh();}catch(e){setError(e.message==='session_expired'?'Войди в Ассистент, чтобы работать с личными событиями.':'Проверь название, дату и время события.');}finally{setSaving(false);}}
+  return <><ClockHero time={clock.time} dateLabel={clock.date} artwork="/assets/holiday-tree.png" artworkAlt="Новогодняя ёлка" />
+  <CountdownCard title={target&&target<clock.dateKey?'Дата прошла':target===clock.dateKey?'Сегодня':target?'До выбранной даты':'До Нового года'} countLabel={`${calendarDays(clock.dateKey,countdown)} дн.`} dateLabel={countdown}/>
+- <Field label="Дата отсчёта"><Input type="date" value={target} onChange={(_,d)=>setTarget(d.value)} /></Field>
++ <details className="dashboard-disclosure"><summary>Изменить дату отсчёта</summary><div className="dashboard-disclosure-content"><Field label="Дата отсчёта"><Input type="date" value={target} onChange={(_,d)=>setTarget(d.value)} /></Field></div></details>
+  <div className="dashboard-reference-layout"><MonthCalendar monthLabel={new Intl.DateTimeFormat('ru-RU',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(month+'-01T12:00:00Z'))} cells={calendarCells(month,selected,clock.dateKey,events)} onPrevious={()=>setMonth(moveMonth(month,-1))} onNext={()=>setMonth(moveMonth(month,1))} onToday={()=>{setSelected(clock.dateKey);setMonth(clock.dateKey.slice(0,7));}} onSelect={cell=>setSelected(cell.dateTime)}/>
+  <Panel title="Ближайшие события" actions={<Button onClick={()=>setEdit({title:'',date:selected,time:''})}>Добавить событие</Button>}>
+  {source.error&&<p role="status">Для личных событий войди в Ассистент.</p>}
+diff --git a/frontend/dashboard/computer/screen.jsx b/frontend/dashboard/computer/screen.jsx
+index 91544ff..22e34f8 100644
+--- a/frontend/dashboard/computer/screen.jsx
++++ b/frontend/dashboard/computer/screen.jsx
+@@ -11,7 +11,7 @@ const bytes=(used,total)=>used==null||total==null?'—':`${fmt(used/1073741824)}
+ const percent=(used,total)=>total>0&&used!=null?100*used/total:null;
+ export function ComputerSummary({source,onNavigate,compact=false}){
+  const data=source.value,m=data?.sample?.values||{},history=data?.history||[];
+- return <Panel title={compact?'Мой компьютер':'Показатели компьютера'} icon={Icon.computer} actions={compact&&<Button onClick={()=>onNavigate('computer')}>Подробнее</Button>}>
++ return <Panel className={`dashboard-computer-summary ${compact?'dashboard-computer-summary-compact':''}`} title={compact?'Мой компьютер':'Показатели компьютера'} icon={Icon.computer} actions={compact&&<Button onClick={()=>onNavigate('computer')}>Подробнее</Button>}>
+  <p role="status" className="dashboard-secondary">{source.error==='session_expired'?'Войди в Ассистент для доступа к личному ПК':sourceStates[data?.state]||'Получение состояния…'}{data?.sample?.stale?' · предыдущие данные устарели':''}</p>
+  <div className="dashboard-grid"><MetricCard label="CPU" value={pct(m.cpuPct)} detail={m.cpuTemp==null?'Температура недоступна':fmt(m.cpuTemp)+' °C'} icon={Icon.cpu}><Sparkline values={history.map(v=>v.cpuPct)} min={0} max={100} label="Загрузка CPU" large={!compact}/>{!compact&&<p>Частота {fmt(m.cpuGHz)} ГГц · вентилятор {fmt(m.fanRpm,0)} об/мин</p>}</MetricCard>
+  <MetricCard label="GPU" value={pct(m.gpuPct)} detail={m.gpuTemp==null?'Температура недоступна':fmt(m.gpuTemp)+' °C'} icon={Icon.gpu}><Sparkline values={history.map(v=>v.gpuPct)} min={0} max={100} label="Загрузка GPU" tone="cyan" large={!compact}/>{!compact&&<p>Видеопамять {bytes(m.gpuMemoryUsed,m.gpuMemoryTotal)} · {fmt(m.gpuWatts)} Вт</p>}</MetricCard>
+@@ -22,16 +22,16 @@ export function ComputerSummary({source,onNavigate,compact=false}){
+  </Panel>;
+ }
+ export function ComputerScreen({sources,onNavigate}){
+- const source=sources.computer,[setup,setSetup]=useState(false),[notice,setNotice]=useState(''),[pending,setPending]=useState(false);
++ const source=sources.computer,[setup,setSetup]=useState(false),[notice,setNotice]=useState(''),[pending,setPending]=useState(false),[keysOpen,setKeysOpen]=useState(false);
+  const [form,setForm]=useState({host:'',port:22,user:'',photoUser:'',platform:'linux',fingerprint:'',label:'Мой компьютер',verified:false});
+  const set=(key,value)=>setForm(v=>({...v,[key]:value}));
+- async function action(data){setPending(true);try{await dashboardRequest('computer',data);source.refresh();setNotice('Настройки применены.');if(data.action==='configure')setSetup(false);}catch{setNotice('Не удалось применить настройки. Проверь поля, вход и доступность хранилища.');}finally{setPending(false);}}
++ async function action(data){setPending(true);try{await dashboardRequest('computer',data);source.refresh();setNotice('Настройки применены.');if(data.action==='configure'){setSetup(false);setKeysOpen(true);}}catch{setNotice('Не удалось применить настройки. Проверь поля, вход и доступность хранилища.');}finally{setPending(false);}}
+  const profile=source.value?.profile;
+  return <><ComputerSummary source={source} onNavigate={onNavigate}/><Panel title="SSH-подключение"><div className="dashboard-row"><Button onClick={()=>{if(profile)setForm({...profile,verified:false});setSetup(v=>!v);}}>Настроить компьютер</Button><Button onClick={()=>source.refresh()}>Обновить</Button>{profile&&<><Button disabled={pending} onClick={()=>action({action:'disable'})}>Отключить</Button><Button disabled={pending} onClick={()=>action({action:'remove'})}>Удалить подключение</Button></>}</div>
+  {source.error==='session_expired'&&<Button onClick={()=>onNavigate('assistant')}>Войти в Ассистент</Button>}
+  {setup&&<div className="dashboard-stack"><Field label="Имя компьютера"><Input value={form.label} onChange={(_,d)=>set('label',d.value)}/></Field><Field label="Адрес SSH"><Input value={form.host} onChange={(_,d)=>set('host',d.value)}/></Field><Field label="Порт SSH"><Input type="number" min={1} max={65535} value={String(form.port)} onChange={(_,d)=>set('port',Number(d.value))}/></Field><Field label="Пользователь телеметрии"><Input value={form.user} onChange={(_,d)=>set('user',d.value)}/></Field><Field label="Пользователь фото (отдельная учётная запись рекомендуется)"><Input value={form.photoUser} onChange={(_,d)=>set('photoUser',d.value)}/></Field><Field label="ОС источника"><Select value={form.platform} onChange={(_,d)=>set('platform',d.value)}><option value="linux">Linux · Python 3</option><option value="windows">Windows · PowerShell</option></Select></Field><Field label="Проверенный SHA256-отпечаток SSH-сервера"><Input value={form.fingerprint} onChange={(_,d)=>set('fingerprint',d.value)}/></Field><p>Сверь отпечаток с выводом ssh-keygen -lf файла публичного host-ключа непосредственно на ПК. Не копируй приватный ключ. Изменение ключа блокирует подключение.</p><Checkbox checked={form.verified} label="Я сверил отпечаток по доверенному каналу" onChange={(_,d)=>set('verified',!!d.checked)}/><Button appearance="primary" disabled={pending||!form.verified} onClick={()=>{const{enabled,...data}=form;action({action:'configure',...data});}}>Сохранить подключение</Button></div>}
+  <p role="status">{notice}</p>
+- {profile&&<><p>Добавь этот публичный ключ в разрешённые ключи отдельной учётной записи телеметрии на ПК:</p><textarea aria-label="Публичный ключ телеметрии" readOnly value={source.value?.publicKey||''} style={{width:'100%',minHeight:90}}/><p>Ключ для отдельной учётной записи SFTP:</p><textarea aria-label="Публичный ключ фото" readOnly value={source.value?.photoPublicKey||''} style={{width:'100%',minHeight:90}}/><Button disabled={pending} onClick={()=>{if(window.confirm('Ротация отключит существующие ключи на устройстве. Новые публичные ключи нужно добавить на ПК. Продолжить?'))action({action:'rotate'});}}>Заменить ключи</Button></>}
+- <p className="dashboard-small dashboard-secondary">Без агента на ПК. Нужен настроенный OpenSSH-сервер. Приватные ключи создаются и остаются на backend; пароль ПК приложение не принимает. Удаление здесь не удаляет публичный ключ на ПК. Доступ к телеметрии не разрешает папку фото. Облачной модели SSH недоступен.</p>
++ {profile&&<details className="dashboard-disclosure" open={keysOpen} onToggle={event=>setKeysOpen(event.currentTarget.open)}><summary>Ключи доступа</summary><div className="dashboard-disclosure-content"><p>Добавь этот публичный ключ в разрешённые ключи отдельной учётной записи телеметрии на ПК:</p><textarea aria-label="Публичный ключ телеметрии" readOnly value={source.value?.publicKey||''} style={{width:'100%',minHeight:90}}/><p>Ключ для отдельной учётной записи SFTP:</p><textarea aria-label="Публичный ключ фото" readOnly value={source.value?.photoPublicKey||''} style={{width:'100%',minHeight:90}}/><Button disabled={pending} onClick={()=>{if(window.confirm('Ротация отключит существующие ключи на устройстве. Новые публичные ключи нужно добавить на ПК. Продолжить?'))action({action:'rotate'});}}>Заменить ключи</Button></div></details>}
++ <details className="dashboard-disclosure"><summary>О подключении и безопасности</summary><p className="dashboard-small dashboard-secondary">Без агента на ПК. Нужен настроенный OpenSSH-сервер. Приватные ключи создаются и остаются на backend; пароль ПК приложение не принимает. Удаление здесь не удаляет публичный ключ на ПК. Доступ к телеметрии не разрешает папку фото. Облачной модели SSH недоступен.</p></details>
+  </Panel></>;
+ }
+diff --git a/frontend/dashboard/markets/screen.jsx b/frontend/dashboard/markets/screen.jsx
+index 92b401e..1e141da 100644
+--- a/frontend/dashboard/markets/screen.jsx
++++ b/frontend/dashboard/markets/screen.jsx
+@@ -1,4 +1,4 @@
+-import React,{useState} from 'react';
++import React,{useId,useState} from 'react';
+ import {Button,Select,Field} from '@fluentui/react-components';
+ import {Panel,MetricCard,Sparkline} from '../assets/shared/components.jsx';
+ import {useResource,dashboardRequest} from '../shared/client.jsx';
+@@ -6,15 +6,33 @@ export function useMarkets(tab){const[selected,setSelected]=useState('kraken:XBT
+ export const money=q=>q?.value==null?'—':new Intl.NumberFormat('ru-RU',{maximumFractionDigits:q.category==='fx'?4:2}).format(q.value)+(q.currency==='USD'?' $':q.currency==='RUB'?' ₽':q.currency==='points'?' п.':' '+q.currency);
+ export function QuoteCard({quote:q,onChoose,large=false}){if(!q)return <Panel><p role="status">Загрузка котировки…</p></Panel>;return <MetricCard label={q.label} value={money(q)} detail={q.change==null?'Изменение недоступно':`${q.change>0?'+':''}${q.change.toFixed(2)}%`}><Sparkline values={q.history.map(p=>p.value)} label={`${q.label}: ${q.period}`} large={large} tone={q.change<0?'negative':'positive'}/><p className="dashboard-small dashboard-secondary">{q.provider} · {q.state==='ready'?'Получено':q.state==='stale'?'Устаревшие данные':q.state==='unsupported'?'Не поддерживается':'Недоступно'}<br/>{q.detail}<br/>{q.quoteTime||'Нет времени котировки'}</p>{onChoose&&<Button appearance="subtle" onClick={onChoose}>Открыть {q.label}</Button>}</MetricCard>;}
+ export function MarketSummary({source,onNavigate}){const quotes=source.value?.quotes||[];return <Panel title="Рынки"><div className="dashboard-grid">{quotes.slice(0,4).map(q=><QuoteCard key={q.id} quote={q} onChoose={()=>{source.setSelected(q.id);onNavigate('markets');}}/>)}</div>{!quotes.length&&<p role="status">{source.error?'Источник недоступен':'Загрузка рынков…'}</p>}</Panel>;}
++function WatchlistRow({quote:q,onChoose,selected}) {
++ const descriptionId=useId();
++ const state=q.state==='ready'?'Получено':q.state==='stale'?'Устаревшие данные':q.state==='unsupported'?'Не поддерживается':'Недоступно';
++ return <Button appearance="transparent" className="dashboard-watchlist-row" aria-label={`Открыть ${q.label}`} aria-describedby={`${descriptionId}-price ${descriptionId}-state`} aria-pressed={selected} onClick={onChoose}>
++  <span className="dashboard-watchlist-name"><strong>{q.label}</strong><small id={`${descriptionId}-state`}>{state}</small></span>
++  <Sparkline values={q.history.map(p=>p.value)} label={`${q.label}: ${q.period}`} tone={q.change<0?'negative':'positive'}/>
++  <span id={`${descriptionId}-price`} className="dashboard-watchlist-price"><strong>{money(q)}</strong><small className={q.change<0?'dashboard-negative':'dashboard-positive'}>{q.change==null?'—':`${q.change>0?'+':''}${q.change.toFixed(2)}%`}</small></span>
++ </Button>;
++}
+ export function MarketsScreen({sources}) {
+  const source=sources.markets,[filter,setFilter]=useState('all'),[add,setAdd]=useState(''),[notice,setNotice]=useState('');
+  const data=source.value,watch=data?.watchlist||[],catalog=data?.catalog||[];
++ const quotes=data?.quotes||[];
+  async function update(items){try{await dashboardRequest('markets',{watchlist:items});source.refresh();setNotice('');}catch{setNotice('Не удалось обновить избранное.');}}
+  return <div className="dashboard-reference-layout"><div className="dashboard-reference-section"><QuoteCard quote={data?.selected} large/>
+  <div className="dashboard-row">{['1D','1W','1M','1Y'].map(p=><Button key={p} appearance={source.period===p?'primary':'secondary'} onClick={()=>source.setPeriod(p)}>{p}</Button>)}</div><p className="dashboard-small dashboard-secondary">Изменение от первой до последней доступной свечи выбранного периода. У валют — официальный курс ЦБ за единицу. Не торговый терминал.</p></div>
+  <div className="dashboard-reference-section"><Panel title="Избранное"><Field label="Категория"><Select value={filter} onChange={(_,d)=>setFilter(d.value)}>{[['all','Все'],['crypto','Криптовалюты'],['stock','Акции'],['index','Индексы'],['fx','Валюты'],['commodity','Сырьё']].map(([id,label])=><option key={id} value={id}>{label}</option>)}</Select></Field>
+- {(data?.quotes||[]).filter(q=>filter==='all'||q.category===filter).map(q=><div key={q.id} className="dashboard-stack" style={{marginTop:'1rem'}}><QuoteCard quote={q} onChoose={()=>source.setSelected(q.id)}/><div className="dashboard-row"><Button disabled={watch.indexOf(q.id)===0} onClick={()=>{const next=[...watch],i=next.indexOf(q.id);[next[i-1],next[i]]=[next[i],next[i-1]];update(next);}}>Выше</Button><Button onClick={()=>update(watch.filter(i=>i!==q.id))}>Убрать {q.label}</Button></div></div>)}
+- {!watch.length&&<p>Избранное пусто. Добавь инструмент ниже.</p>}
+- <Field label="Добавить инструмент"><Select value={add} onChange={(_,d)=>setAdd(d.value)}><option value="">Выбери инструмент</option>{catalog.filter(i=>!watch.includes(i.id)).map(i=><option key={i.id} value={i.id}>{i.label}</option>)}</Select></Field><Button disabled={!add||watch.includes(add)} onClick={()=>update([...watch,add])}>Добавить</Button>
+- <p role="status">{notice||source.error}</p><p className="dashboard-small dashboard-secondary">Избранное только в текущем сеансе. Поставщики: <a href="https://docs.kraken.com/api/" target="_blank" rel="noreferrer">Kraken</a>, <a href="https://www.moex.com/a2920" target="_blank" rel="noreferrer">MOEX ISS</a>, <a href="https://www.cbr.ru/development/sxml/" target="_blank" rel="noreferrer">Банк России</a>. MOEX — задержанные данные. Источник нефти и металлов не подключён; spot/futures не подменяются.</p></Panel></div></div>;
++ <div className="dashboard-watchlist">{quotes.filter(q=>filter==='all'||q.category===filter).map(q=><WatchlistRow key={q.id} quote={q} selected={source.selected===q.id} onChoose={()=>source.setSelected(q.id)}/>)}</div>
++ {!watch.length&&<p>Избранное пусто. Открой «Управлять избранным», чтобы добавить инструмент.</p>}
++ <details className="dashboard-disclosure"><summary>Управлять избранным</summary><div className="dashboard-disclosure-content">
++  {watch.map((id,index)=>{const label=catalog.find(item=>item.id===id)?.label||id;return <div key={id} className="dashboard-watchlist-manage-row"><span>{label}</span><Button disabled={index===0} onClick={()=>{const next=[...watch];[next[index-1],next[index]]=[next[index],next[index-1]];update(next);}}>Выше</Button><Button onClick={()=>update(watch.filter(item=>item!==id))}>Убрать {label}</Button></div>;})}
++  <Field label="Добавить инструмент"><Select value={add} onChange={(_,d)=>setAdd(d.value)}><option value="">Выбери инструмент</option>{catalog.filter(i=>!watch.includes(i.id)).map(i=><option key={i.id} value={i.id}>{i.label}</option>)}</Select></Field><Button disabled={!add||watch.includes(add)} onClick={()=>update([...watch,add])}>Добавить</Button>
++  <p className="dashboard-small dashboard-secondary">Избранное только в текущем сеансе.</p>
++ </div></details>
++ <p role="status">{notice||source.error}</p>
++ <details className="dashboard-disclosure"><summary>Источники и время котировок</summary><div className="dashboard-disclosure-content">
++  {quotes.map(q=><p key={q.id} className="dashboard-small dashboard-secondary">{q.label} · {q.provider} · {q.quoteTime||'Нет времени котировки'}<br/>{q.detail}</p>)}
++  <p className="dashboard-small dashboard-secondary">Поставщики: <a href="https://docs.kraken.com/api/" target="_blank" rel="noreferrer">Kraken</a>, <a href="https://www.moex.com/a2920" target="_blank" rel="noreferrer">MOEX ISS</a>, <a href="https://www.cbr.ru/development/sxml/" target="_blank" rel="noreferrer">Банк России</a>. MOEX — задержанные данные. Источник нефти и металлов не подключён; spot/futures не подменяются.</p>
++ </div></details></Panel></div></div>;
+ }
+diff --git a/frontend/dashboard/photos/screen.jsx b/frontend/dashboard/photos/screen.jsx
+index 8668a29..0465240 100644
+--- a/frontend/dashboard/photos/screen.jsx
++++ b/frontend/dashboard/photos/screen.jsx
+@@ -25,10 +25,12 @@ export function PhotosScreen({sources,onNavigate,setFullscreen}){
+  useEffect(()=>{if(!playing||paused||files.length<2)return;const timer=setTimeout(()=>setIndex(i=>order==='shuffle'?(i+1+Math.floor(Math.random()*(files.length-1)))%files.length:(i+1)%files.length),interval*1000);return()=>clearTimeout(timer);},[playing,paused,index,interval,files.length,order]);
+  async function configure(revoke=false){exit();setEpoch(v=>v+1);setError('');try{await dashboardRequest('photos',revoke?{action:'revoke'}:{root,confirmed:permission,serverRestricted:restricted});source.refresh();setIndex(0);}catch{setError('Не удалось разрешить папку. Проверь SSH-профиль, отдельный SFTP-ключ, путь и ограничения сервера.');}}
+  if(playing)return image?<PhotoFrame src={image} alt="Фотография из разрешённой папки" fit={fit} onReveal={()=>setControls(v=>!v)} controlsVisible={controls} onImageError={()=>{setError('Фотография не декодируется');setControls(true);}} controls={<><div className="dashboard-row"><Button onClick={()=>next(-1)}>Предыдущая</Button><Button onClick={()=>setPaused(v=>!v)}>{paused?'Продолжить':'Пауза'}</Button><Button onClick={()=>next(1)}>Следующая</Button><Button onClick={exit}>Выйти из слайд-шоу</Button><Button onClick={()=>setControls(false)}>Скрыть управление</Button></div><p role="status">{error||`${index%files.length+1} / ${files.length}`}</p><DashboardNavigation activeTab="photos" onNavigate={tab=>{exit();onNavigate(tab);}}/></>}/>:<Panel title="Фотографии"><p role="status">{error||'Загрузка фотографии…'}</p><Button onClick={()=>next(1)}>Следующая</Button><Button onClick={exit}>Выйти из слайд-шоу</Button></Panel>;
+- return <Panel title="Фотографии с компьютера"><p role="status">{error|| (source.error?'Фототека недоступна. Войди в Ассистент и настрой SSH-источник.':source.value?.state==='permission_denied'?'Разрешение папки отозвано после изменения источника.':files.length?`Доступно фотографий: ${files.length}`:'Разрешённой фототеки пока нет или папка пуста.')}</p>
+- <div className="dashboard-row"><Button ref={playButton} appearance="primary" disabled={!files.length} onClick={()=>{setPlaying(true);setControls(false);setPaused(false);}}>Начать слайд-шоу</Button><Button onClick={()=>source.refresh()}>Обновить фототеку</Button><Button onClick={()=>onNavigate('computer')}>Настроить SSH</Button></div>
++ return <Panel className="dashboard-photo-library" title="Фотографии с компьютера"><p role="status">{error|| (source.error?'Фототека недоступна. Войди в Ассистент и настрой SSH-источник.':source.value?.state==='permission_denied'?'Разрешение папки отозвано после изменения источника.':files.length?`Доступно фотографий: ${files.length}`:'Разрешённой фототеки пока нет или папка пуста.')}</p>
++ <div className="dashboard-row dashboard-photo-actions"><Button ref={playButton} appearance="primary" disabled={!files.length} onClick={()=>{setPlaying(true);setControls(false);setPaused(false);}}>Начать слайд-шоу</Button><Button onClick={()=>source.refresh()}>Обновить фототеку</Button><Button onClick={()=>onNavigate('computer')}>Настроить SSH</Button></div>
++ <details className="dashboard-disclosure"><summary>Показ слайдов</summary><div className="dashboard-disclosure-content">
+  <Field label="Интервал, секунд"><Input type="number" value={String(interval)} min={2} max={300} onChange={(_,d)=>setIntervalSeconds(Math.max(2,Math.min(300,Number(d.value)||5)))}/></Field><Field label="Порядок"><Select value={order} onChange={(_,d)=>setOrder(d.value)}><option value="name">По имени</option><option value="shuffle">Случайно</option></Select></Field><Field label="Размер изображения"><Select value={fit} onChange={(_,d)=>setFit(d.value)}><option value="cover">Заполнить экран (обрезка краёв)</option><option value="contain">Показать целиком</option></Select></Field>
+- <Field label="Разрешённая папка SFTP"><Input value={root} onChange={(_,d)=>setRoot(d.value)} placeholder="/ или /путь/к/фото"/></Field><Checkbox checked={permission} onChange={(_,d)=>setPermission(!!d.checked)} label="Разрешаю чтение изображений из этой папки"/><Checkbox checked={restricted} onChange={(_,d)=>setRestricted(!!d.checked)} label="На сервере проверены read-only SFTP и ограничение учётной записи этой папкой"/>
++ </div></details>
++ <details className="dashboard-disclosure" open={!files.length}><summary>Доступ к папке</summary><div className="dashboard-disclosure-content"><Field label="Разрешённая папка SFTP"><Input value={root} onChange={(_,d)=>setRoot(d.value)} placeholder="/ или /путь/к/фото"/></Field><Checkbox checked={permission} onChange={(_,d)=>setPermission(!!d.checked)} label="Разрешаю чтение изображений из этой папки"/><Checkbox checked={restricted} onChange={(_,d)=>setRestricted(!!d.checked)} label="На сервере проверены read-only SFTP и ограничение учётной записи этой папкой"/>
+  <div className="dashboard-row"><Button disabled={!root||!permission||!restricted} onClick={()=>configure()}>Разрешить папку</Button><Button onClick={()=>configure(true)}>Отозвать разрешение</Button></div>
+- <p className="dashboard-small dashboard-secondary">Приложение не настраивает серверное ограничение автоматически. Прикладная проверка пути не защищает украденный SSH-ключ. Поддерживаются JPEG, PNG и WebP в одной папке, без подпапок и ссылок. Просматриваются первые 512 записей; входной файл до 8 МиБ, до 12 Мп. EXIF-ориентация учитывается, метаданные удаляются. Фото не сохраняются на диск и не отправляются в облако. Выход со страницы, скрытие и выход из аккаунта прекращают воспроизведение.</p>{source.value?.truncated&&<p>Список ограничен первыми 512 записями папки.</p>}</Panel>;
++ <p className="dashboard-small dashboard-secondary">Приложение не настраивает серверное ограничение автоматически. Прикладная проверка пути не защищает украденный SSH-ключ. Поддерживаются JPEG, PNG и WebP в одной папке, без подпапок и ссылок. Просматриваются первые 512 записей; входной файл до 8 МиБ, до 12 Мп. EXIF-ориентация учитывается, метаданные удаляются.</p></div></details><p className="dashboard-small dashboard-secondary">Фото не сохраняются на диск и не отправляются в облако. Выход со страницы, скрытие и выход из аккаунта прекращают воспроизведение.</p>{source.value?.truncated&&<p>Список ограничен первыми 512 записями папки.</p>}</Panel>;
+ }
+diff --git a/frontend/dashboard/shell/shell.jsx b/frontend/dashboard/shell/shell.jsx
+index 3f06203..7d29eef 100644
+--- a/frontend/dashboard/shell/shell.jsx
++++ b/frontend/dashboard/shell/shell.jsx
+@@ -1,6 +1,6 @@
+ import React, { useEffect, useState } from 'react';
+-import { Button, Switch, webLightTheme, FluentProvider } from '@fluentui/react-components';
+-import { DashboardFrame, dashboardTheme, Panel, ClockHero } from '../assets/shared/components.jsx';
++import { FluentProvider, Button, Dialog, DialogSurface, DialogBody, DialogTitle, DialogContent, DialogActions } from '@fluentui/react-components';
++import { DashboardFrame, Panel, ClockHero } from '../assets/shared/components.jsx';
+ import { dashboardTabs } from '../assets/shared/icons.jsx';
+ import { useClock } from '../shared/clock.jsx';
+ import { useKeyboardInset } from '../shared/keyboard.jsx';
+@@ -8,10 +8,12 @@ import './shell.css';
+ import { sourceStates } from '../computer/screen.jsx';
+ import { features, useSources } from '../registry.jsx';
+ import '../assistant/assistant.css';
++import { useAppearance, fluentAppearance, ThemePicker } from '../../appearance.jsx';
++import { appearanceVariables } from '../../themes.mjs';
+ const unavailable={overview:'Источники погоды и сводок ещё не настроены.',computer:'Компьютер не настроен.',markets:'Источник котировок ещё не настроен.',calendar:'Событий нет.',photos:'Папка фотографий не разрешена.'};
+ export function DashboardShell({ Assistant }) {
+  const [tab,setTab]=useState(()=>new URLSearchParams(location.search).has('dashboard')?'overview':'assistant');
+- const [light,setLight]=useState(()=>localStorage.getItem('gpt-pi-theme')!=='dark');
++ const {appearance,setAppearance,saved}=useAppearance();
+  const [settings,setSettings]=useState(false);
+  const [fullscreen,setFullscreen]=useState(false);
+  const navigate=next=>{setFullscreen(false);setTab(next);};
+@@ -21,11 +23,16 @@ export function DashboardShell({ Assistant }) {
+  const Screen=features[tab]?.screen;
+  useEffect(()=>{const logout=()=>setTab('assistant');window.addEventListener('gpt-pi-logout',logout);return()=>window.removeEventListener('gpt-pi-logout',logout);},[]);
+  const title=dashboardTabs.find(t=>t.id===tab).label;
+- return <FluentProvider theme={light?webLightTheme:dashboardTheme} style={{height:`calc(100dvh - ${keyboardInset}px)`}} className={`dashboard dashboard-viewport ${light?'dashboard-light':''}`}>
++ return <FluentProvider theme={fluentAppearance(appearance)} data-theme={appearance.id} style={{...appearanceVariables(appearance),height:`calc(100dvh - ${keyboardInset}px)`}} className={`dashboard dashboard-viewport ${appearance.light?'dashboard-light':''}`}>
+   <DashboardFrame fullscreen={fullscreen} title={title} activeTab={tab} onNavigate={navigate} onSettings={tab==='assistant'?undefined:()=>setSettings(v=>!v)} connected={sources.computer?.value?.state==='ready'} connectionLabel={sourceStates[sources.computer?.value?.state]||'ПК не настроен'}>
+-   {settings && <Panel title="Настройки панели"><Switch label="Светлая тема" checked={light} onChange={(_,d)=>{setLight(d.checked);localStorage.setItem('gpt-pi-theme',d.checked?'light':'dark');}} /><p>Часовой пояс: {clock.timeZone}</p></Panel>}
+-   <div className="dashboard-assistant-slot" hidden={tab!=='assistant'}><Assistant active={tab==='assistant'} themeDark={!light} onThemeChange={setLight} /></div>
++   <div className="dashboard-assistant-slot" hidden={tab!=='assistant'}><Assistant active={tab==='assistant'} appearance={appearance} onAppearanceChange={setAppearance} appearanceSaved={saved} /></div>
+    {tab!=='assistant' && (Screen ? <Screen sources={sources} onNavigate={navigate} clock={clock} setFullscreen={setFullscreen} /> : <>{(tab==='overview'||tab==='calendar') && <ClockHero time={clock.time} dateLabel={clock.date} />}<Panel title={title}><p role="status">{unavailable[tab]}</p></Panel></>)}
+   </DashboardFrame>
++  <Dialog open={settings} onOpenChange={(_,data)=>setSettings(data.open)}>
++   <DialogSurface><DialogBody><DialogTitle>Оформление</DialogTitle>
++    <DialogContent><ThemePicker appearance={appearance} onChange={setAppearance} saved={saved} /><p className="dashboard-small">Часовой пояс: {clock.timeZone}</p></DialogContent>
++    <DialogActions><Button appearance="primary" onClick={()=>setSettings(false)}>Готово</Button></DialogActions>
++   </DialogBody></DialogSurface>
++  </Dialog>
+  </FluentProvider>;
+ }
+diff --git a/frontend/themes-data.json b/frontend/themes-data.json
+new file mode 100644
+index 0000000..b6ccf2b
+--- /dev/null
++++ b/frontend/themes-data.json
+@@ -0,0 +1,350 @@
++[
++  {
++    "id": "classic",
++    "title": "Classic / Early color PC",
++    "light": false,
++    "background": "#0C1935",
++    "panel": "#132342",
++    "text": "#FFF4CA",
++    "muted": "#CAD6E6",
++    "border": "#FFF4CA",
++    "control": "#7CDDFA",
++    "finish": "pixel",
++    "roles": {
++      "primary": "#1456B8",
++      "resume": "#7CDDFA",
++      "settings": "#7CDDFA",
++      "help": "#BC9DF2",
++      "results": "#F7CF40",
++      "contacts": "#36CB89",
++      "destructive": "#F05A53",
++      "back": "#FFF4CA",
++      "link": "#7CDDFA"
++    },
++    "radiusDp": 0,
++    "strokeDp": 2.5,
++    "onControl": "#0B1020",
++    "onPrimary": "#FFFFFF",
++    "primaryFill": "#1456B8",
++    "focus": "#FFFFFF"
++  },
++  {
++    "id": "monokai",
++    "title": "Monokai",
++    "light": false,
++    "background": "#171914",
++    "panel": "#272822",
++    "text": "#F8F8F2",
++    "muted": "#D4D1C3",
++    "border": "#A6E22E",
++    "control": "#A6E22E",
++    "finish": "syntax",
++    "roles": {
++      "primary": "#A6E22E",
++      "resume": "#A6E22E",
++      "settings": "#66D9EF",
++      "help": "#AE81FF",
++      "results": "#E6DB74",
++      "contacts": "#FD971F",
++      "destructive": "#F92672",
++      "back": "#A6E22E",
++      "link": "#A6E22E"
++    },
++    "radiusDp": 12,
++    "strokeDp": 2,
++    "onControl": "#0B1020",
++    "onPrimary": "#F8F8F2",
++    "primaryFill": "#272822",
++    "focus": "#FFFFFF"
++  },
++  {
++    "id": "gruvbox",
++    "title": "Gruvbox",
++    "light": false,
++    "background": "#1D2021",
++    "panel": "#282828",
++    "text": "#FBF1C7",
++    "muted": "#D5C4A1",
++    "border": "#A9B665",
++    "control": "#A9B665",
++    "finish": "warm",
++    "roles": {
++      "primary": "#A9B665",
++      "resume": "#A9B665",
++      "settings": "#83A598",
++      "help": "#8EC07C",
++      "results": "#FABD2F",
++      "contacts": "#FE8019",
++      "destructive": "#FB4934",
++      "back": "#A9B665",
++      "link": "#A9B665"
++    },
++    "radiusDp": 12,
++    "strokeDp": 2,
++    "onControl": "#0B1020",
++    "onPrimary": "#FBF1C7",
++    "primaryFill": "#282828",
++    "focus": "#FFFFFF"
++  },
++  {
++    "id": "vscode",
++    "title": "VSCode Dark+",
++    "light": false,
++    "background": "#1E1E1E",
++    "panel": "#252526",
++    "text": "#F4F4F4",
++    "muted": "#BDBDBD",
++    "border": "#4EC9B0",
++    "control": "#4EC9B0",
++    "finish": "editor",
++    "roles": {
++      "primary": "#4EC9B0",
++      "resume": "#4EC9B0",
++      "settings": "#569CD6",
++      "help": "#C586C0",
++      "results": "#DCDCAA",
++      "contacts": "#CE9178",
++      "destructive": "#F44747",
++      "back": "#4EC9B0",
++      "link": "#4EC9B0"
++    },
++    "radiusDp": 12,
++    "strokeDp": 2,
++    "onControl": "#0B1020",
++    "onPrimary": "#F4F4F4",
++    "primaryFill": "#252526",
++    "focus": "#FFFFFF"
++  },
++  {
++    "id": "dracula",
++    "title": "Dracula",
++    "light": false,
++    "background": "#191B2C",
++    "panel": "#282A36",
++    "text": "#F8F8F2",
++    "muted": "#C5BDE5",
++    "border": "#8BE9FD",
++    "control": "#8BE9FD",
++    "finish": "gothic",
++    "roles": {
++      "primary": "#8BE9FD",
++      "resume": "#8BE9FD",
++      "settings": "#BD93F9",
++      "help": "#809BFF",
++      "results": "#F1FA8C",
++      "contacts": "#FFB86C",
++      "destructive": "#FF6E6E",
++      "back": "#8BE9FD",
++      "link": "#8BE9FD"
++    },
++    "radiusDp": 12,
++    "strokeDp": 2,
++    "onControl": "#0B1020",
++    "onPrimary": "#F8F8F2",
++    "primaryFill": "#282A36",
++    "focus": "#FFFFFF"
++  },
++  {
++    "id": "nord",
++    "title": "Nord",
++    "light": false,
++    "background": "#242C3A",
++    "panel": "#344359",
++    "text": "#ECEFF4",
++    "muted": "#D8DEE9",
++    "border": "#88C0D0",
++    "control": "#88C0D0",
++    "finish": "frost",
++    "roles": {
++      "primary": "#88C0D0",
++      "resume": "#88C0D0",
++      "settings": "#B48EAD",
++      "help": "#81A1C1",
++      "results": "#EBCB8B",
++      "contacts": "#D08770",
++      "destructive": "#E6A1A8",
++      "back": "#88C0D0",
++      "link": "#88C0D0"
++    },
++    "radiusDp": 12,
++    "strokeDp": 2,
++    "onControl": "#0B1020",
++    "onPrimary": "#ECEFF4",
++    "primaryFill": "#344359",
++    "focus": "#FFFFFF"
++  },
++  {
++    "id": "solarized_light",
++    "title": "Solarized Light",
++    "light": true,
++    "background": "#FDF6E3",
++    "panel": "#EEE8D5",
++    "text": "#073642",
++    "muted": "#52666D",
++    "border": "#2AA198",
++    "control": "#006E68",
++    "finish": "paper",
++    "roles": {
++      "primary": "#006E68",
++      "resume": "#006E68",
++      "settings": "#6C71C4",
++      "help": "#268BD2",
++      "results": "#987500",
++      "contacts": "#B84B22",
++      "destructive": "#A62D35",
++      "back": "#2AA198",
++      "link": "#07699E"
++    },
++    "radiusDp": 12,
++    "strokeDp": 2,
++    "onControl": "#FFFFFF",
++    "onPrimary": "#073642",
++    "primaryFill": "#EEE8D5",
++    "focus": "#002B36"
++  },
++  {
++    "id": "solarized_dark",
++    "title": "Solarized Dark",
++    "light": false,
++    "background": "#002B36",
++    "panel": "#073642",
++    "text": "#FDF6E3",
++    "muted": "#B4C4C4",
++    "border": "#2AA198",
++    "control": "#59CFC3",
++    "finish": "petrol",
++    "roles": {
++      "primary": "#59CFC3",
++      "resume": "#59CFC3",
++      "settings": "#6C9CB1",
++      "help": "#268BD2",
++      "results": "#F0CB4B",
++      "contacts": "#ED8B4C",
++      "destructive": "#FF786B",
++      "back": "#2AA198",
++      "link": "#59CFC3"
++    },
++    "radiusDp": 12,
++    "strokeDp": 2,
++    "onControl": "#0B1020",
++    "onPrimary": "#FDF6E3",
++    "primaryFill": "#073642",
++    "focus": "#FFFFFF"
++  },
++  {
++    "id": "github_light",
++    "title": "GitHub Light",
++    "light": true,
++    "background": "#FFFFFF",
++    "panel": "#F6F8FA",
++    "text": "#1F2328",
++    "muted": "#59636E",
++    "border": "#A4BDD2",
++    "control": "#0969DA",
++    "finish": "clean",
++    "roles": {
++      "primary": "#0969DA",
++      "resume": "#1A7F37",
++      "settings": "#0969DA",
++      "help": "#8250DF",
++      "results": "#1A7F37",
++      "contacts": "#BC4C00",
++      "destructive": "#CF222E",
++      "back": "#A4BDD2",
++      "link": "#0969DA"
++    },
++    "radiusDp": 12,
++    "strokeDp": 2,
++    "onControl": "#FFFFFF",
++    "onPrimary": "#FFFFFF",
++    "primaryFill": "#0969DA",
++    "focus": "#002B36"
++  },
++  {
++    "id": "tokyo_night",
++    "title": "Tokyo Night",
++    "light": false,
++    "background": "#141628",
++    "panel": "#24283B",
++    "text": "#D9E1FF",
++    "muted": "#A9B1D6",
++    "border": "#7DCFFF",
++    "control": "#7DCFFF",
++    "finish": "rain",
++    "roles": {
++      "primary": "#7DCFFF",
++      "resume": "#7DCFFF",
++      "settings": "#BB9AF7",
++      "help": "#7AA2F7",
++      "results": "#E0AF68",
++      "contacts": "#FF9E64",
++      "destructive": "#F7768E",
++      "back": "#7DCFFF",
++      "link": "#7DCFFF"
++    },
++    "radiusDp": 12,
++    "strokeDp": 2,
++    "onControl": "#0B1020",
++    "onPrimary": "#D9E1FF",
++    "primaryFill": "#24283B",
++    "focus": "#FFFFFF"
++  },
++  {
++    "id": "catppuccin",
++    "title": "Catppuccin Mocha",
++    "light": false,
++    "background": "#1E1E2E",
++    "panel": "#313244",
++    "text": "#CDD6F4",
++    "muted": "#BAC2DE",
++    "border": "#89B4FA",
++    "control": "#89DCEB",
++    "finish": "satin",
++    "roles": {
++      "primary": "#89DCEB",
++      "resume": "#89DCEB",
++      "settings": "#CBA6F7",
++      "help": "#89B4FA",
++      "results": "#F9E2AF",
++      "contacts": "#FAB387",
++      "destructive": "#F38BA8",
++      "back": "#89B4FA",
++      "link": "#89DCEB"
++    },
++    "radiusDp": 12,
++    "strokeDp": 2,
++    "onControl": "#0B1020",
++    "onPrimary": "#CDD6F4",
++    "primaryFill": "#313244",
++    "focus": "#FFFFFF"
++  },
++  {
++    "id": "synthwave_84",
++    "title": "SynthWave '84",
++    "light": false,
++    "background": "#19132B",
++    "panel": "#261747",
++    "text": "#FFFFFF",
++    "muted": "#D6C9EA",
++    "border": "#C89FFF",
++    "control": "#03EDF9",
++    "finish": "arcade",
++    "roles": {
++      "primary": "#03EDF9",
++      "resume": "#03EDF9",
++      "settings": "#03EDF9",
++      "help": "#03EDF9",
++      "results": "#03EDF9",
++      "contacts": "#03EDF9",
++      "destructive": "#FE668B",
++      "back": "#C89FFF",
++      "link": "#03EDF9"
++    },
++    "radiusDp": 8,
++    "strokeDp": 2,
++    "onControl": "#0B1020",
++    "onPrimary": "#FFFFFF",
++    "primaryFill": "#6D1CBE",
++    "focus": "#FFFFFF"
++  }
++]
+diff --git a/frontend/themes.mjs b/frontend/themes.mjs
+new file mode 100644
+index 0000000..6b9991c
+--- /dev/null
++++ b/frontend/themes.mjs
+@@ -0,0 +1,95 @@
++// Swypetris identities with Fluent 2 surfaces; original menu tokens stay unchanged.
++import sourceThemes from './themes-data.json' with { type: 'json' };
++
++const descriptions = {
++  classic: 'Насыщенный синий и кремовый текст в спокойных слоях Fluent 2.',
++  monokai: 'Цветной синтаксис: угольный фон, лайм и небольшие яркие акценты.',
++  gruvbox: 'Тёплый графит, кремовый текст и оливковые акценты на мягких поверхностях.',
++  vscode: 'Рабочий редактор: нейтральный графит, мятный акцент и спокойные поверхности.',
++  dracula: 'Чернильный фон, лиловая глубина и холодный голубой акцент.',
++  nord: 'Северный иней: сине-серые поверхности, ледяной акцент и мягкие блики.',
++  solarized_light: 'Светлая бумага: тёплый фон, глубокий текст и сдержанная бирюза.',
++  solarized_dark: 'Глубокий петроль: сине-зелёный фон, светлый текст и ясная бирюза.',
++  github_light: 'Чистый лист: белое поле, лёгкие серые карточки и синий акцент.',
++  tokyo_night: 'Дождливый город: ночной индиго, голубые линии и лиловые отражения.',
++  catppuccin: 'Мягкий сатин: тёмная основа и спокойные пастельные оттенки.',
++  synthwave_84: 'Фиолетовая глубина и электрический циан с мягким стеклом Fluent 2.',
++};
++const names = { classic: 'Classic', vscode: 'VSCode', catppuccin: 'Catppuccin', synthwave_84: "Synthwave '84" };
++const positive = { classic:'#36CB89', monokai:'#A6E22E', gruvbox:'#B8BB26', vscode:'#8FCB82', dracula:'#50FA7B', nord:'#A3BE8C', solarized_light:'#397024', solarized_dark:'#9CB943', github_light:'#1A7F37', tokyo_night:'#9ECE6A', catppuccin:'#A6E3A1', synthwave_84:'#72F1B8' };
++// Neutral/brand values verified against installed Fluent UI React v9 web themes.
++const lightFluent = { id:'fluent_light', name:'Fluent 2 Light', description:'Чистая Fluent 2: светлые нейтральные поверхности, синий акцент и мягкая глубина.',isFluent:true,finish:'fluent',light:true,background:'#F5F5F5',panel:'#FFFFFF',text:'#242424',muted:'#424242',border:'#E0E0E0',control:'#0F6CBD',onControl:'#FFFFFF',focus:'#242424',positive:'#107C10',roles:{settings:'#0F6CBD',destructive:'#C50F1F',link:'#0F6CBD'},radiusDp:8,strokeDp:1 };
++const darkFluent = { id:'fluent_dark', name:'Fluent 2 Dark', description:'Чистая Fluent 2: нейтральный графит, светлая типографика и синие действия.',isFluent:true,finish:'fluent',light:false,background:'#141414',panel:'#292929',text:'#FFFFFF',muted:'#D6D6D6',border:'#525252',control:'#479EF5',onControl:'#141414',focus:'#FFFFFF',positive:'#54B054',roles:{settings:'#479EF5',destructive:'#FF9AA2',link:'#479EF5'},radiusDp:8,strokeDp:1 };
++const greenPhosphor = { id:'green_phosphor',name:'Green Phosphor',description:'Зелёный люминофор: почти чёрный экран, монохромные знаки и спокойное свечение.',finish:'phosphor',light:false,background:'#040D06',panel:'#0A190D',text:'#B6F5C0',muted:'#83BD8D',border:'#32633D',control:'#65E881',onControl:'#040D06',focus:'#B6F5C0',positive:'#65E881',roles:{settings:'#65E881',destructive:'#65E881',link:'#65E881'},radiusDp:8,strokeDp:1 };
++export const schemes = [
++  lightFluent,darkFluent,
++  ...sourceThemes.map(theme=>({...theme,name:names[theme.id]||theme.title,description:descriptions[theme.id],positive:positive[theme.id],radiusDp:8,strokeDp:1})),
++  greenPhosphor,
++];
++
++export function resolveAppearance(schemeId, legacyMode = 'light') {
++  return schemes.find(item=>item.id===schemeId)||(legacyMode==='dark'?darkFluent:lightFluent);
++}
++
++export function readAppearance(storage) {
++  try {
++    const saved = storage ?? globalThis.localStorage;
++    return resolveAppearance(saved?.getItem('gpt-pi-scheme'), saved?.getItem('gpt-pi-theme'));
++  } catch { return resolveAppearance('fluent'); }
++}
++
++export function saveAppearance(storage, appearance) {
++  try {
++    const saved = storage ?? globalThis.localStorage;
++    saved?.setItem('gpt-pi-scheme', appearance.id);
++    if (appearance.isFluent) saved?.setItem('gpt-pi-theme',appearance.light?'light':'dark');
++    return true;
++  } catch { return false; }
++}
++
++// Derived surface tones avoid translucent text and preserve a single solid reading surface.
++export function mixColors(a, b, amount) {
++  const values = color=>color.slice(1).match(/../g).map(value=>parseInt(value,16));
++  return '#'+values(a).map((value,i)=>Math.round(value*(1-amount)+values(b)[i]*amount).toString(16).padStart(2,'0')).join('');
++}
++
++function contrastRatio(a, b) {
++  const luminance = color=>color.slice(1).match(/../g)
++    .map(value=>parseInt(value,16)/255)
++    .map(value=>value<=.04045?value/12.92:((value+.055)/1.055)**2.4)
++    .reduce((sum,value,index)=>sum+value*[.2126,.7152,.0722][index],0);
++  const first=luminance(a), second=luminance(b);
++  return (Math.max(first,second)+.05)/(Math.min(first,second)+.05);
++}
++
++// Source destructive colors are preserved in the data. Small status text needs
++// a readable variant on every surface where recording/error labels can appear.
++function statusColor(theme, selected) {
++  const surfaces=[theme.background,theme.panel,selected];
++  for(let step=0;step<=100;step++) {
++    const color=mixColors(theme.roles.destructive,theme.text,step/100);
++    if(surfaces.every(surface=>contrastRatio(color,surface)>=4.5)) return color;
++  }
++  return theme.text;
++}
++
++export function appearanceVariables(theme) {
++  const selected=mixColors(theme.panel,theme.control,.16);
++  const rgba=(color,alpha)=>`rgba(${color.slice(1).match(/../g).map(v=>parseInt(v,16)).join(',')},${alpha})`;
++  const canvas=theme.isFluent?theme.background:`radial-gradient(ellipse at 0% 0%,${mixColors(theme.background,theme.control,.10)} 0,transparent 62%),radial-gradient(ellipse at 100% 100%,${mixColors(theme.background,theme.roles.settings,.055)} 0,transparent 60%),${theme.background}`;
++  return {
++    '--scheme-bg':theme.background, '--scheme-panel':theme.panel,
++    '--scheme-raised':mixColors(theme.panel,theme.text,.055),
++    '--scheme-text':theme.text, '--scheme-muted':theme.muted,
++    '--scheme-border':theme.border, '--scheme-divider':mixColors(theme.panel,theme.border,.3),
++    '--scheme-control':theme.control, '--scheme-on-control':theme.onControl,
++    '--scheme-secondary':theme.roles.settings, '--scheme-positive':theme.positive,
++    '--scheme-negative':statusColor(theme,selected), '--scheme-link':theme.roles.link,
++    '--scheme-focus':theme.focus, '--scheme-selected':selected,
++    '--scheme-canvas':canvas,'--scheme-glass':rgba(theme.panel,.88),'--scheme-glass-strong':rgba(theme.panel,.96),
++    '--scheme-edge':mixColors(theme.panel,theme.text,theme.light?.10:.12),'--scheme-wash':mixColors(theme.panel,theme.control,.06),
++    '--scheme-font':'"Segoe UI Variable", "Segoe UI", system-ui, sans-serif',
++    '--scheme-radius':theme.radiusDp+'px', '--scheme-stroke':theme.strokeDp+'px',
++    '--scheme-shadow':theme.light?'0 4px 16px #00000008':'0 4px 16px #00000024',
++  };
++}
+diff --git a/package.json b/package.json
+index 3957f70..88f15cb 100644
+--- a/package.json
++++ b/package.json
+@@ -6,7 +6,7 @@
+   "scripts": {
+     "build": "node frontend/build.mjs",
+     "check": "node --check frontend/build.mjs",
+-    "test": "node --test tests/voice.test.mjs tests/dashboard-foundation.test.mjs tests/dashboard-calendar.test.mjs"
++    "test": "node --test tests/voice.test.mjs tests/dashboard-foundation.test.mjs tests/dashboard-calendar.test.mjs tests/appearance.test.mjs"
+   },
+   "dependencies": {
+     "@fluentui/react-components": "9.75.1",

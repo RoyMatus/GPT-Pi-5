@@ -54,7 +54,9 @@ python tests/browser_voice.py
 python tests/browser_remember_login.py
 ```
 
-На Ubuntu CI устанавливает Chromium с `--with-deps`. Оба сценария используют
+На Ubuntu CI использует установленный в официальном runner Google Chrome
+(`GPT_PI_TEST_BROWSER_CHANNEL=chrome`); версия выводится до тестов. Это устраняет
+зависимость проверок от apt-зеркала, на котором подтверждён сбой DNS. Оба сценария используют
 временный каталог, синтетический аккаунт и FakeCloud; переход на auth.openai.com
 перехватывается браузером, реального OAuth/ответа облака нет. Голосовой сценарий
 подменяет микрофон Chromium и STT/TTS через FakeVoice; модели Vosk/Piper не устанавливаются.
@@ -140,3 +142,19 @@ forced-command проверяются отдельно на разрешённо
 появление клавиатуры, синтетическую экранную букву и видимость composer над ней.
 
 `test_windows_collector.py` проверяет сохранение причины Failed job и освобождение job, а также получение CPU/RAM/диска при полностью недоступном CIM provider. Штатные IP byte counters и uptime не требуют внешнего запроса или дополнительных групп. Реальный источник проверять отдельно через закреплённый SSH-ключ и авторизованный browser-сеанс.
+
+Theme typography: `node tests/browser-theme-fonts.mjs` checks numeric advance,
+actual CDP fonts and the overview network row. Browser theme/responsive runners
+accept GPT_PI_CDP_URL for an isolated target browser forwarded over trusted SSH;
+never point it at the owner's account/profile. Set GPT_PI_THEME_OUTPUT and
+GPT_PI_RESPONSIVE_OUTPUT to separate target evidence from Windows captures.
+No real providers or paid API are used. The Windows originals remain immutable;
+owner-approved Linux font changes are documented in docs/theme-integration-19.md.
+
+GPT_PI_RESPONSIVE_CONFIGS optionally selects named existing configurations (JSON array, e.g. `["720x1280@1/text100"]`). Default remains the full 29-configuration audit. Report any target subset as a subset; all 15 themes and eight states still run.
+
+`node tests/browser-theme-wayland.mjs` is an optional real-device test. It requires
+GPT_PI_CDP_URL for a separate visible kiosk test profile and
+GPT_PI_KEYBOARD_PROXY_URL for a trusted SSH-forwarded /api/keyboard endpoint.
+It intercepts all other APIs with synthetic fixtures. Never use the owner's
+browser/profile; the test changes local theme settings and window content.

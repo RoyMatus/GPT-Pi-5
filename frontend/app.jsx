@@ -2,8 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
     FluentProvider,
-    webLightTheme,
-    webDarkTheme,
     Button,
     Badge,
     Avatar,
@@ -45,6 +43,10 @@ import { AudioCheck } from "./audio-check.jsx";
 import "./style.css";
 import { readSession } from "./dashboard/shared/client.jsx";
 import { DashboardShell } from "./dashboard/shell/shell.jsx";
+import { ThemePicker, fluentAppearance } from "./appearance.jsx";
+import { resolveAppearance } from "./themes.mjs";
+import "./appearance.css";
+import "./platform-fonts.css";
 
 const errors = {
     connection:
@@ -88,13 +90,12 @@ const errors = {
 const explain = (code) =>
     errors[code] || "Не удалось выполнить действие. Попробуй ещё раз.";
 
-function App({ active = true, themeDark, onThemeChange }) {
+function App({ active = true, appearance, onAppearanceChange, appearanceSaved }) {
     const activeRef = useRef(active);
     activeRef.current = active;
     const busyRef = useRef(false);
-    const [dark, setDark] = useState(
-        () => localStorage.getItem("gpt-pi-theme") === "dark",
-    );
+    const dark = !appearance.light;
+    const setDark = value => onAppearanceChange(resolveAppearance("fluent", value ? "dark" : "light"));
     const [session, setSession] = useState(null);
     const [models, setModels] = useState([]);
     const [model, setModel] = useState("");
@@ -127,7 +128,6 @@ function App({ active = true, themeDark, onThemeChange }) {
     const voiceAbort = useRef(null);
     const voiceStateRef = useRef("idle");
     const playback = useRef(null);
-    useEffect(() => { if (themeDark !== undefined) setDark(themeDark); }, [themeDark]);
     const authenticated = !!session?.authenticated;
     busyRef.current = busy;
     useEffect(() => {
@@ -255,9 +255,6 @@ function App({ active = true, themeDark, onThemeChange }) {
             behavior: busy ? "instant" : "smooth",
         });
     }, [messages]);
-    useEffect(() => {
-        localStorage.setItem("gpt-pi-theme", dark ? "dark" : "light");
-    }, [dark]);
 
     async function signIn() {
         setSigningIn(true);
@@ -557,7 +554,7 @@ function App({ active = true, themeDark, onThemeChange }) {
 
     return (
         <FluentProvider
-            theme={dark ? webDarkTheme : webLightTheme}
+            theme={fluentAppearance(appearance)}
             className={"app " + (dark ? "dark" : "")}
         >
             <aside className={"sidebar " + (historyOpen ? "history-open" : "")}>
@@ -653,7 +650,7 @@ function App({ active = true, themeDark, onThemeChange }) {
 
             <main className="main">
                 <header className="topbar">
-                    <Button onClick={() => setHistoryOpen(v => !v)}>История</Button>
+                    <Button appearance="subtle" onClick={() => setHistoryOpen(v => !v)}>История</Button>
                     <Button icon={<Add24Regular />} disabled={!authenticated || busy} onClick={newChat}>Новый чат</Button>
                     <div className="topbar-title">
                         <Chat24Regular />
@@ -663,8 +660,8 @@ function App({ active = true, themeDark, onThemeChange }) {
                         </Badge>
                     </div>
                     <div className="topbar-actions">
-                        <Button icon={<Settings24Regular />} aria-label="Настройки" onClick={() => setSettingsOpen(true)} />
-                        {authenticated && <Button onClick={signOut}>Завершить сеанс</Button>}
+                        <Button appearance="subtle" icon={<Settings24Regular />} aria-label="Настройки" onClick={() => setSettingsOpen(true)} />
+                        {authenticated && <Button appearance="subtle" onClick={signOut}>Завершить сеанс</Button>}
                         {authenticated && (
                             <Select
                                 aria-label="Модель ChatGPT"
@@ -685,7 +682,7 @@ function App({ active = true, themeDark, onThemeChange }) {
                             </Select>
                         )}
                         <Tooltip
-                            content={dark ? "Светлая тема" : "Тёмная тема"}
+                            content={appearance.isFluent ? (dark ? "Светлая тема" : "Тёмная тема") : "Графическая схема"}
                             relationship="label"
                         >
                             <Button
@@ -697,7 +694,7 @@ function App({ active = true, themeDark, onThemeChange }) {
                                         <WeatherMoon24Regular />
                                     )
                                 }
-                                onClick={() => setDark(!dark)}
+                                onClick={() => appearance.isFluent ? setDark(!dark) : setSettingsOpen(true)}
                             />
                         </Tooltip>
                     </div>
@@ -992,13 +989,7 @@ function App({ active = true, themeDark, onThemeChange }) {
                         <DialogContent>
                             <div className="settings-content">
                                 <h3>Оформление</h3>
-                                <Switch
-                                    checked={dark}
-                                    label="Тёмная тема"
-                                    onChange={(_, data) => {
-                                        setDark(data.checked); onThemeChange?.(!data.checked);
-                                    }}
-                                />
+                                <ThemePicker appearance={appearance} onChange={onAppearanceChange} saved={appearanceSaved} darkLabel />
                                 <h3>Подключение</h3>
                                 <p>
                                     {authenticated

@@ -1,0 +1,234 @@
+/* Fluent 2 hierarchy: solid reading surfaces, quiet edges and limited frosted chrome.
+   CSS material treatment is a web adaptation, not native Windows Mica/Acrylic. */
+.dashboard[data-theme] {
+  --dash-bg:var(--scheme-bg); --dash-surface:var(--scheme-panel);
+  --dash-surface-raised:var(--scheme-raised); --dash-stroke:var(--scheme-edge);
+  --dash-divider:var(--scheme-divider); --dash-text:var(--scheme-text);
+  --dash-secondary:var(--scheme-muted); --dash-muted:var(--scheme-muted);
+  --dash-blue:var(--scheme-control); --dash-cyan:var(--scheme-secondary);
+  --dash-positive:var(--scheme-positive); --dash-negative:var(--scheme-negative);
+  --dash-track:var(--scheme-raised); --dash-selected:var(--scheme-selected);
+  --dash-selected-border:var(--scheme-control);
+  --dash-radius:8px; --dash-radius-small:4px; --dash-shadow:var(--scheme-shadow);
+  --dash-gap:16px; --dash-padding:20px;
+  --dash-text-title:1.375rem;
+  --dash-text-metric:clamp(1.5rem,4.4vw,2rem);
+  --dash-text-clock:clamp(3.5rem,12vw,5.25rem);
+  background:var(--scheme-canvas,var(--scheme-bg));
+  background-color:var(--scheme-bg);
+  color:var(--scheme-text); color-scheme:inherit;
+  font-family:var(--scheme-font,"Segoe UI Variable","Segoe UI","GPT Pi Sans",system-ui,sans-serif);
+}
+.dashboard[data-theme] .dashboard-shell { padding:20px; gap:16px; }
+.dashboard[data-theme] .dashboard-header { padding:0 4px; min-height:44px; border:0; gap:8px 16px; }
+.dashboard[data-theme] .dashboard-header h1 { font-size:1.375rem; font-weight:600; letter-spacing:-.025em; }
+.dashboard[data-theme] .dashboard-header-status { font-size:.8125rem; gap:8px; }
+.dashboard[data-theme] .dashboard-status-dot { width:6px; height:6px; }
+.dashboard[data-theme] .dashboard-content { padding:0 2px 4px; gap:16px; }
+.dashboard[data-theme] .dashboard-panel {
+  padding:20px; color:var(--scheme-text); background:var(--scheme-panel);
+  border:1px solid var(--scheme-edge); border-radius:8px; box-shadow:var(--scheme-shadow);
+}
+.dashboard[data-theme] .dashboard-panel-title { font-size:1rem; font-weight:600; margin:0 0 16px; gap:10px; }
+.dashboard[data-theme] .dashboard-panel-title svg { width:22px; height:22px; color:var(--scheme-muted); }
+.dashboard[data-theme] .dashboard-panel-actions { font-size:.875rem; }
+.dashboard[data-theme] .dashboard-panel .dashboard-metric-card {
+  padding:12px 4px; border:0; border-radius:0; background:transparent; box-shadow:none;
+}
+.dashboard[data-theme] .dashboard-grid { gap:12px 24px; }
+.dashboard[data-theme] .dashboard-metric-heading { font-size:.8125rem; color:var(--scheme-muted); margin-bottom:8px; font-weight:500; gap:8px; }
+.dashboard[data-theme] .dashboard-metric-heading svg { width:20px; height:20px; }
+.dashboard[data-theme] .dashboard-metric-value { font-weight:600; letter-spacing:-.025em; }
+.dashboard[data-theme] .dashboard-metric-detail { font-size:.875rem; }
+.dashboard[data-theme] .dashboard-metric-card p { font-size:.8125rem; line-height:1.6; color:var(--scheme-muted); }
+.dashboard[data-theme] .dashboard-progress { height:5px; margin-top:14px; background:var(--scheme-raised); }
+.dashboard[data-theme] .dashboard-progress-fill { background:var(--scheme-control); }
+.dashboard[data-theme] .dashboard-sparkline { height:2.5rem; margin-top:12px; }
+.dashboard[data-theme] .dashboard-graph { height:6.5rem; }
+.dashboard[data-theme] .dashboard-small { font-size:.8125rem; line-height:1.6; }
+.dashboard[data-theme] .dashboard-summary-link { color:inherit; }
+.dashboard[data-theme] .dashboard-hero { padding:16px 8px 20px; gap:16px; }
+.dashboard[data-theme] .dashboard-clock { font-weight:600; letter-spacing:-.055em; }
+.dashboard[data-theme] .dashboard-hero-date { margin-top:8px; font-size:1rem; }
+.dashboard[data-theme] .dashboard-weather { font-size:.875rem; }
+.dashboard[data-theme] .dashboard-weather .dashboard-metric-value { font-size:1.875rem; }
+.dashboard[data-theme] .dashboard-seasonal-art { width:clamp(5rem,18vw,8rem); }
+.dashboard[data-theme] .dashboard-countdown { background:var(--scheme-panel); gap:20px; }
+.dashboard[data-theme] .dashboard-countdown > svg { width:32px; height:32px; color:var(--scheme-control); }
+.dashboard[data-theme] .dashboard-countdown-label { font-size:.875rem; color:var(--scheme-muted); }
+.dashboard[data-theme] .dashboard-countdown-value { font-size:2rem; font-weight:600; }
+.dashboard[data-theme] .dashboard-calendar-heading h2 { font-size:1.125rem; font-weight:600; }
+.dashboard[data-theme] .dashboard-calendar th { border:0; font-size:.8125rem; }
+.dashboard[data-theme] .dashboard-calendar-day { font-size:1rem; border-radius:8px; }
+.dashboard[data-theme] .dashboard-calendar-day[data-selected="true"] { color:var(--scheme-on-control); background:var(--scheme-control); }
+.dashboard[data-theme] .dashboard-event-dot { background:var(--scheme-secondary); }
+.dashboard[data-theme] .dashboard-agenda-row { padding:12px 0; border-color:var(--scheme-edge); gap:12px; font-size:.875rem; }
+.dashboard[data-theme] .dashboard-agenda-row strong { font-weight:500; color:var(--scheme-muted); }
+.dashboard[data-theme] .dashboard-reference-section { gap:16px; }
+.dashboard[data-theme] .dashboard-reference-layout { display:grid; grid-template-columns:minmax(0,1fr); gap:16px; }
+.dashboard[data-theme] :is(button,.fui-Input,.fui-Select) { min-height:44px; }
+.dashboard[data-theme] button { border-radius:var(--borderRadiusMedium,4px); }
+.dashboard[data-theme] summary { min-height:44px; padding:12px 0; cursor:pointer; font-size:.875rem; }
+.dashboard[data-theme] details[open] > summary { margin-bottom:8px; }
+.dashboard[data-theme] .dashboard-disclosure { padding:0; border:0; }
+.dashboard[data-theme] .dashboard-disclosure > summary { font-weight:600; }
+.dashboard[data-theme] .dashboard-disclosure .dashboard-stack { padding-top:8px; }
+.dashboard[data-theme] .dashboard-disclosure-content { display:flex; flex-direction:column; gap:16px; padding:8px 0; }
+.dashboard[data-theme] button.dashboard-watchlist-row {
+  display:grid; grid-template-columns:minmax(7rem,1fr) minmax(4rem,.7fr) minmax(7rem,1fr);
+  align-items:center; width:100%; gap:16px; min-height:72px; padding:12px 0;
+  border:0; border-bottom:1px solid var(--scheme-edge); border-radius:0;
+  color:var(--scheme-text); background:transparent; text-align:left;
+}
+.dashboard[data-theme] button.dashboard-watchlist-row:hover { background:var(--scheme-raised); }
+.dashboard[data-theme] .dashboard-watchlist-name { font-weight:600; font-size:.875rem; }
+.dashboard[data-theme] .dashboard-watchlist-price { text-align:right; font-size:.9375rem; font-variant-numeric:tabular-nums; }
+.dashboard[data-theme] .dashboard-watchlist-price :is(strong,span,small) { display:block; }
+.dashboard[data-theme] .dashboard-watchlist-price small { font-size:.8125rem; line-height:1.5; }
+.dashboard[data-theme] .dashboard-watchlist-row .dashboard-sparkline { height:2rem; margin:0; }
+.dashboard[data-theme] .dashboard-watchlist-manage-row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:8px 0; }
+.dashboard[data-theme] .dashboard-watchlist-manage-row > :first-child { flex:1; min-width:7rem; }
+.dashboard[data-theme] .dashboard-photo-actions { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:16px 0; }
+.dashboard[data-theme] .dashboard-photo-library .dashboard-disclosure { margin-top:16px; }
+
+/* Navigation is one translucent supporting plane, not six elevated cards. */
+.dashboard[data-theme] .dashboard-nav {
+  padding:6px; gap:4px; border:1px solid var(--scheme-edge); border-radius:12px;
+  background:var(--scheme-panel); box-shadow:var(--scheme-shadow);
+}
+.dashboard[data-theme] button.dashboard-nav-item {
+  position:relative; min-height:64px; padding:8px 4px; gap:4px;
+  color:var(--scheme-muted); background:transparent; border:0; border-radius:8px;
+  font-size:.75rem; font-weight:500; box-shadow:none;
+}
+.dashboard[data-theme] .dashboard-nav-item svg { width:24px; height:24px; }
+.dashboard[data-theme] button.dashboard-nav-item:hover { color:var(--scheme-text); background:var(--scheme-raised); }
+.dashboard[data-theme] button.dashboard-nav-item[aria-current="page"] {
+  color:var(--scheme-text); background:var(--scheme-wash,var(--scheme-selected)); border:0; box-shadow:none;
+}
+.dashboard[data-theme] .dashboard-nav-item[aria-current="page"] svg { color:var(--scheme-control); }
+.dashboard[data-theme] .dashboard-nav-item[aria-current="page"]::after {
+  content:""; position:absolute; bottom:3px; left:calc(50% - 8px); width:16px; height:2px;
+  border-radius:2px; background:var(--scheme-control);
+}
+/* Keep navigation intrinsically sized while letting content pass behind its glass.
+   The content's trailing space keeps the final control fully above the overlap. */
+.dashboard[data-theme] .dashboard-shell:not(.dashboard-fullscreen) > .dashboard-nav { position:relative; z-index:2; margin-top:-64px; }
+.dashboard[data-theme] .dashboard-shell:not(.dashboard-fullscreen) > .dashboard-content { padding-bottom:80px; scroll-padding-bottom:80px; }
+
+/* The assistant remains the same live component, with the same session and input. */
+.dashboard[data-theme] .app :is(.sidebar,.signin-card,.composer,.prompt-grid button) {
+  color:var(--scheme-text); background:var(--scheme-panel); border:1px solid var(--scheme-edge);
+  border-radius:8px; box-shadow:var(--scheme-shadow);
+}
+.dashboard[data-theme] .app :is(.welcome h1,.brand strong,.chat-welcome h1,.message-author,.message-text) { color:var(--scheme-text); }
+.dashboard[data-theme] .app :is(.eyebrow,.welcome-copy,.signin-heading p,.signin-note,.privacy-line,.chat-welcome p,.composer-note,.composer-bottom>span,.profile small,.device small,.nav-label,.empty-list,.prompt-grid svg:last-child) { color:var(--scheme-muted); }
+.dashboard[data-theme] .app .topbar { padding:0 0 12px; }
+.dashboard[data-theme] .app .topbar-actions { gap:8px; }
+.dashboard[data-theme] .app .messages { padding:20px 8px; max-width:800px; }
+.dashboard[data-theme] .app .message { gap:12px; margin-bottom:28px; }
+.dashboard[data-theme] .app .message-author { margin:4px 0 8px; font-size:.8125rem; }
+.dashboard[data-theme] .app .message-text { line-height:1.75; font-size:1rem; }
+.dashboard[data-theme] .app .user .message-text { background:var(--scheme-selected); border-radius:12px 12px 4px 12px; padding:12px 16px; }
+.dashboard[data-theme] .app .composer { padding:12px 16px; }
+.dashboard[data-theme] .app .composer-note { font-size:.75rem; }
+.dashboard[data-theme] .app .composer-area { padding-top:12px; }
+.dashboard[data-theme] .app .orb { width:64px; height:64px; margin-bottom:24px; }
+.dashboard[data-theme] .app :is(.orb,.brand-mark,.mini-orb) {
+  color:var(--scheme-control); background:var(--scheme-selected); border-radius:16px;
+  transform:none; box-shadow:none;
+}
+.dashboard[data-theme] .app .orb svg { width:34px; height:34px; color:var(--scheme-control); transform:none; filter:none; }
+.dashboard[data-theme] .app .message.assistant > .fui-Avatar { --colorNeutralForegroundStaticInverted:var(--scheme-on-control); --colorBrandBackgroundStatic:var(--scheme-control); }
+.dashboard[data-theme] .app :is(.signin-heading>svg,.brand strong span,.prompt-grid svg:first-child) { color:var(--scheme-control); }
+.dashboard[data-theme] .app .welcome h1 { font-weight:600; letter-spacing:-.04em; font-size:clamp(1.75rem,4vw,2.25rem); }
+.dashboard[data-theme] .app .welcome-copy { font-size:.9375rem; }
+.dashboard[data-theme] .app .signin-card { padding:24px; gap:16px; }
+.dashboard[data-theme] .app .signin-heading strong { font-size:.9375rem; }
+.dashboard[data-theme] .app .signin-heading p { font-size:.8125rem; }
+.dashboard[data-theme] .app .signin-note { font-size:.75rem; }
+.dashboard[data-theme] .app .prompt-grid button { padding:16px; }
+
+/* Settings preview communicates the palette without repeating a framed card. */
+.theme-picker { display:grid; gap:16px; max-width:560px; }
+.theme-picker select { min-height:44px; font-size:1rem; }
+.theme-preview { padding:4px 0; border:0; color:var(--scheme-text); background:transparent; }
+.theme-preview strong { font-size:.875rem; font-weight:600; }
+.theme-preview p { margin:4px 0 0; font-size:.8125rem; line-height:1.6; color:var(--scheme-muted); }
+.theme-preview-swatches { display:flex; gap:6px; margin-bottom:12px; }
+.theme-preview-swatches span { width:28px; height:20px; border:1px solid var(--scheme-edge); border-radius:6px; }
+.theme-save-note { font-size:.8125rem; line-height:1.6; }
+
+/* Portals mount outside .dashboard. Text itself is never made transparent. */
+html[data-theme] :is(.dashboard,.app)[data-portal-node] { background:transparent!important; height:auto!important; min-height:0; overflow:visible; }
+html[data-theme] :is(.fui-DialogSurface,.fui-PopoverSurface,.fui-Tooltip) {
+  background:var(--scheme-panel); color:var(--scheme-text); border:1px solid var(--scheme-edge);
+  border-radius:12px; box-shadow:var(--scheme-shadow);
+}
+html[data-theme] .fui-DialogSurface { padding:24px; }
+html[data-theme] :is(.dashboard,.fui-DialogSurface) a { color:var(--scheme-link); }
+html[data-theme] :is(.dashboard,.fui-DialogSurface) :is(.recording-label,.incomplete) { color:var(--scheme-negative); }
+html[data-theme] .settings-content small { color:var(--scheme-muted); }
+html[data-theme] .dashboard :is(textarea:not(.fui-Textarea__textarea),input:not(.fui-Input__input)) { color:var(--scheme-text); background:var(--scheme-panel); border-color:var(--scheme-edge); }
+html[data-theme] :is(button,a,select,input,textarea,summary,[tabindex]):focus-visible { outline:2px solid var(--scheme-focus); outline-offset:3px; }
+.dashboard[data-theme] .dashboard-photo-caption { background:var(--scheme-panel); color:var(--scheme-muted); }
+.dashboard[data-theme] .dashboard-photo-controls { color:var(--scheme-text); background:linear-gradient(transparent,var(--scheme-bg)); }
+.dashboard[data-theme] .dashboard-photo-controls .dashboard-row { background:var(--scheme-panel); border:1px solid var(--scheme-edge); border-radius:12px; }
+.dashboard[data-theme] .dashboard-fullscreen { padding:0; gap:0; }
+.dashboard[data-theme] .dashboard-fullscreen .dashboard-content { padding:0; }
+
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+  .dashboard[data-theme] .dashboard-nav { background:var(--scheme-glass); backdrop-filter:blur(20px) saturate(1.15); -webkit-backdrop-filter:blur(20px) saturate(1.15); }
+  html[data-theme] :is(.fui-DialogSurface,.fui-PopoverSurface) { background:var(--scheme-glass-strong); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); }
+  .dashboard[data-theme] .dashboard-photo-controls .dashboard-row { background:var(--scheme-glass-strong); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); }
+  .dashboard[data-theme] .dashboard-photo-controls .dashboard-nav { background:var(--scheme-panel); backdrop-filter:none; -webkit-backdrop-filter:none; }
+}
+
+/* Phosphor is static, monochrome interface chrome. User photographs keep their colors. */
+.dashboard[data-theme="green_phosphor"] :is(.dashboard-clock,.dashboard-metric-value,.dashboard-countdown-value) { font-family:Consolas,"Cascadia Mono","GPT Pi Mono",monospace; letter-spacing:-.04em; font-weight:400; }
+.dashboard[data-theme="green_phosphor"] .dashboard-clock { text-shadow:0 0 14px #7cf2a326; }
+.dashboard[data-theme="green_phosphor"] .dashboard-seasonal-art { filter:grayscale(1) sepia(1) hue-rotate(75deg) saturate(2); }
+.dashboard[data-theme="green_phosphor"] .dashboard-nav { background-image:repeating-linear-gradient(0deg,transparent 0 3px,#90ffac05 3px 4px); }
+
+@media(max-width:600px) {
+  .dashboard[data-theme] { --dash-padding:16px; --dash-gap:12px; }
+  .dashboard[data-theme] .dashboard-shell { padding:12px; gap:12px; }
+  .dashboard[data-theme] .dashboard-content { gap:12px; }
+  .dashboard[data-theme] .dashboard-panel { padding:16px; }
+  .dashboard[data-theme] .dashboard-header { align-items:center; }
+  .dashboard[data-theme] .dashboard-header h1 { font-size:1.25rem; }
+  .dashboard[data-theme] .dashboard-header-status { margin-left:auto; font-size:.75rem; }
+  .dashboard[data-theme] .dashboard-nav { grid-template-columns:repeat(6,minmax(5rem,1fr)); }
+  .dashboard[data-theme] .dashboard-hero { padding:12px 4px; }
+  .dashboard[data-theme] .app .topbar-actions { gap:4px; }
+  .dashboard[data-theme] .app .messages { padding:16px 0; }
+  .dashboard[data-theme] .app .message-text { font-size:.9375rem; }
+  html[data-theme] .fui-DialogSurface { padding:20px; }
+}
+@media(max-width:480px) {
+  .dashboard[data-theme] button.dashboard-watchlist-row { grid-template-columns:minmax(5rem,1fr) minmax(7rem,1fr); gap:12px; }
+  .dashboard[data-theme] .dashboard-watchlist-row .dashboard-sparkline { display:none; }
+}
+@media(min-width:1024px) {
+  .dashboard[data-theme] .dashboard-shell { padding:24px; gap:20px; }
+  .dashboard[data-theme] .dashboard-nav { max-width:800px; width:100%; align-self:center; }
+  .dashboard[data-theme] .dashboard-hero { padding:8px 12px 16px; }
+  .dashboard[data-theme] .dashboard-reference-layout { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+/* Must follow responsive shell rules: fullscreen means every viewport size. */
+.dashboard[data-theme] .dashboard-shell.dashboard-fullscreen { padding:0; gap:0; }
+.dashboard[data-theme] .dashboard-shell.dashboard-fullscreen > .dashboard-content { padding:0; scroll-padding:0; scrollbar-gutter:auto; }
+@media(prefers-reduced-transparency:reduce) {
+  .dashboard[data-theme] { background:var(--scheme-bg); }
+  html[data-theme] :is(.dashboard-nav,.fui-DialogSurface,.fui-PopoverSurface,.dashboard-photo-controls .dashboard-row) { background:var(--scheme-panel)!important; backdrop-filter:none!important; -webkit-backdrop-filter:none!important; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html[data-theme] *,html[data-theme] *::before,html[data-theme] *::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }
+}
+@media(forced-colors:active) {
+  html[data-theme] .dashboard { background:Canvas; color:CanvasText; }
+  html[data-theme] :is(.dashboard-panel,.dashboard-nav,.fui-DialogSurface,.fui-PopoverSurface,.theme-preview,.composer,.signin-card) { background:Canvas!important; color:CanvasText!important; border:1px solid CanvasText!important; box-shadow:none!important; backdrop-filter:none!important; -webkit-backdrop-filter:none!important; }
+  html[data-theme] .dashboard button.dashboard-nav-item[aria-current="page"] { border:2px solid Highlight; color:Highlight; }
+  html[data-theme] .dashboard .dashboard-nav-item[aria-current="page"]::after { background:Highlight; }
+  html[data-theme] .dashboard .dashboard-progress-fill { background:Highlight; }
+}

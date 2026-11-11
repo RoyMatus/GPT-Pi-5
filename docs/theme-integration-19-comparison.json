@@ -1,0 +1,997 @@
+{
+  "pixel_threshold": 0,
+  "masks": [],
+  "files": [
+    {
+      "name": "fluent_light-overview.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_light-computer.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_light-markets.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_light-calendar.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_light-photos.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_light-assistant.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_light-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_light-signin.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_light-event-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_light-assistant-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_light-audio-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_dark-overview.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_dark-computer.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_dark-markets.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_dark-calendar.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_dark-photos.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_dark-assistant.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_dark-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_dark-signin.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_dark-event-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_dark-assistant-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "fluent_dark-audio-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "classic-overview.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "classic-computer.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "classic-markets.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "classic-calendar.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "classic-photos.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "classic-assistant.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "classic-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "classic-signin.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "classic-event-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "classic-assistant-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "classic-audio-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "monokai-overview.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "monokai-computer.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "monokai-markets.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "monokai-calendar.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "monokai-photos.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "monokai-assistant.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "monokai-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "monokai-signin.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "monokai-event-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "monokai-assistant-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "monokai-audio-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "gruvbox-overview.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "gruvbox-computer.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "gruvbox-markets.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "gruvbox-calendar.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "gruvbox-photos.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "gruvbox-assistant.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "gruvbox-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "gruvbox-signin.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "gruvbox-event-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "gruvbox-assistant-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "gruvbox-audio-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "vscode-overview.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "vscode-computer.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "vscode-markets.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "vscode-calendar.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "vscode-photos.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "vscode-assistant.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "vscode-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "vscode-signin.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "vscode-event-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "vscode-assistant-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "vscode-audio-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "dracula-overview.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "dracula-computer.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "dracula-markets.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "dracula-calendar.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "dracula-photos.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "dracula-assistant.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "dracula-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "dracula-signin.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "dracula-event-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "dracula-assistant-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "dracula-audio-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "nord-overview.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "nord-computer.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "nord-markets.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "nord-calendar.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "nord-photos.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "nord-assistant.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "nord-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "nord-signin.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "nord-event-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "nord-assistant-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "nord-audio-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_light-overview.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_light-computer.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_light-markets.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_light-calendar.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_light-photos.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_light-assistant.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_light-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_light-signin.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_light-event-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_light-assistant-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_light-audio-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_dark-overview.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_dark-computer.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_dark-markets.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_dark-calendar.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_dark-photos.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_dark-assistant.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_dark-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_dark-signin.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_dark-event-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_dark-assistant-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "solarized_dark-audio-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "github_light-overview.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "github_light-computer.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "github_light-markets.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "github_light-calendar.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "github_light-photos.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "github_light-assistant.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "github_light-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "github_light-signin.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "github_light-event-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "github_light-assistant-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "github_light-audio-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "tokyo_night-overview.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "tokyo_night-computer.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "tokyo_night-markets.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "tokyo_night-calendar.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "tokyo_night-photos.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "tokyo_night-assistant.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "tokyo_night-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "tokyo_night-signin.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "tokyo_night-event-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "tokyo_night-assistant-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "tokyo_night-audio-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "catppuccin-overview.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "catppuccin-computer.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "catppuccin-markets.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "catppuccin-calendar.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "catppuccin-photos.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "catppuccin-assistant.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "catppuccin-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "catppuccin-signin.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "catppuccin-event-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "catppuccin-assistant-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "catppuccin-audio-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "synthwave_84-overview.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "synthwave_84-computer.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "synthwave_84-markets.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "synthwave_84-calendar.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "synthwave_84-photos.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "synthwave_84-assistant.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "synthwave_84-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "synthwave_84-signin.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "synthwave_84-event-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "synthwave_84-assistant-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "synthwave_84-audio-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "green_phosphor-overview.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "green_phosphor-computer.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "green_phosphor-markets.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "green_phosphor-calendar.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "green_phosphor-photos.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "green_phosphor-assistant.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "green_phosphor-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "green_phosphor-signin.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "green_phosphor-event-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "green_phosphor-assistant-settings.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    },
+    {
+      "name": "green_phosphor-audio-dialog.png",
+      "passed": true,
+      "changed_pixels": 0,
+      "total_pixels": 921600
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "synthetic": true,
+  "kind": "finite-responsive-audit",
+  "capturedAt": "2026-11-11T14:42:19.606Z",
+  "configurations": [
+    {
+      "width": 320,
+      "height": 568,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 720,
+      "height": 1280,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 1280,
+      "height": 360,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 720,
+      "height": 1280,
+      "dpr": 2,
+      "text": 100
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "dpr": 1,
+      "text": 200
+    },
+    {
+      "width": 720,
+      "height": 1280,
+      "dpr": 1,
+      "text": 200
+    }
+  ],
+  "schemes": [
+    "fluent_light",
+    "fluent_dark",
+    "classic",
+    "monokai",
+    "gruvbox",
+    "vscode",
+    "dracula",
+    "nord",
+    "solarized_light",
+    "solarized_dark",
+    "github_light",
+    "tokyo_night",
+    "catppuccin",
+    "synthwave_84",
+    "green_phosphor"
+  ],
+  "appJsSha256": "3f0d6d3f4d0dfc3f0d31d2586971b0b0920f88bc72765abff8297f2fb925c1d0",
+  "scope": "Six populated tabs, appearance dialog, guest sign-in; root text scaling is not browser zoom. No screenshots or design changes.",
+  "limitations": "Finite browser geometry/reachability audit; not all possible screens, pixel fidelity, full accessibility, hardware or Pi performance certification.",
+  "browserErrors": [],
+  "externalRequests": [],
+  "passed": true,
+  "browserVersion": "154.0.8037.92",
+  "caseCount": 960,
+  "failedCases": 0
+}
