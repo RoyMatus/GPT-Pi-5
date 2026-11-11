@@ -54,4 +54,12 @@ from automated rendering. Font substitutions intentionally differ from Windows
 glyphs; strict cross-platform comparator differences are reported, not masked.
 
 Rollback: revert integration changes and rebuild, or restore the retained
-previous device release with deploy/rollback-user.sh. Preserve profile/data.
+previous device release using the validated symlink/service procedure in
+deploy/README.md (section "Откат"). Preserve profile/data.
+
+Pi wheel validation used a fresh venv with an independent copy of the unchanged
+ARM64 dependency versions from the active release, then installed only the new
+wheel with --no-deps --no-index. pip check passed; installed-wheel tests passed
+126 tests (12 platform/optional skips). This avoids an observed package-index
+TLS failure without disabling TLS or changing dependencies. Activation will use
+a separate release directory and retain the previous release for rollback.
