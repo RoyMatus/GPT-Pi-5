@@ -23,12 +23,14 @@ from .config import Settings
 from .voice import LocalVoice, VoiceError, MAX_AUDIO, MAX_SPEECH_TEXT, validate_audio
 from .audio_devices import AudioDevices
 from .credentials import CredentialStore
+from .dashboard.calendar import routes as calendar_routes
 
 COOKIE = 'gpt_pi_session'
 
 
 @dataclass
 class Session:
+    dashboard: dict = field(default_factory=dict, repr=False)
     csrf: str = field(default_factory=lambda: secrets.token_urlsafe(32))
     touched: float = field(default_factory=time.monotonic)
     alive: bool = True
@@ -43,6 +45,7 @@ class Session:
         self.alive = False
         self.pending = None
         self.chats.clear()
+        self.dashboard.clear()
         self.models.clear()
         for task in list(self.tasks):
             task.cancel()
@@ -243,12 +246,12 @@ def create_app(settings=None, cloud=None):
 
     async def asset(request):
         name = request.path_params['name']
-        if name not in {'app.js', 'app.css', 'app.js.LEGAL.txt', 'recorder-worklet.js'}:
+        if name not in {'app.js', 'app.css', 'app.js.LEGAL.txt', 'recorder-worklet.js', 'holiday-tree.png'}:
             raise HTTPException(404)
         path = files('gpt_pi').joinpath('web/assets/' + name)
         if not path.is_file():
             return Response('Build the interface: npm ci && npm run build', status_code=503)
-        content_type = 'text/javascript' if name.endswith('.js') else 'text/css' if name.endswith('.css') else 'text/plain'
+        content_type = 'image/png' if name.endswith('.png') else 'text/javascript' if name.endswith('.js') else 'text/css' if name.endswith('.css') else 'text/plain'
         return Response(path.read_bytes(), media_type=content_type)
 
     async def health(request):
@@ -505,7 +508,7 @@ def create_app(settings=None, cloud=None):
         Route('/api/chats/{chat_id}/messages', message, methods=['POST']),
         Route('/api/voice/transcribe', voice_request, methods=['POST']),
         Route('/api/voice/speak', voice_request, methods=['POST']),
-        Route('/api/cancel', cancel, methods=['POST'])],
+        Route('/api/cancel', cancel, methods=['POST'])] + calendar_routes(runtime, body),
         exception_handlers={HTTPException: errors, CloudError: errors, VoiceError: errors})
     app.state.runtime = runtime
     app.add_middleware(LocalBoundary, settings=settings)
