@@ -34,3 +34,11 @@ recorded measurements. Runtime bytes reproduce the frozen SHA-256 values.
 This narrows the investigation but does not prove rasterization is the sole
 cause. Pixel fidelity is unresolved and must not be declared accepted.
 192 shell layout cases passed. Wheel build succeeded.
+
+Responsive audit completed: 3480/3480 cases passed (15 themes, 29
+configurations, eight states), widths 320–3840 CSS px, DPR 1/2/3 and
+200% root text size. No browser errors or external requests. Original report
+and actual renders/diffs are retained under ignored build/. See the committed
+comparison JSON for all 165 pixel counts and current sampled font measurements.
+Overview fixture also reported PASS; its Windows server shutdown emitted a
+WinError 10022 warning, so it is not reported as a clean log.

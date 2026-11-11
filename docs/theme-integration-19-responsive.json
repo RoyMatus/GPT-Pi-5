@@ -1,0 +1,208 @@
+{
+  "schema": 1,
+  "synthetic": true,
+  "kind": "finite-responsive-audit",
+  "capturedAt": "2026-11-11T14:08:37.466Z",
+  "configurations": [
+    {
+      "width": 320,
+      "height": 568,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 479,
+      "height": 800,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 480,
+      "height": 800,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 481,
+      "height": 800,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 599,
+      "height": 960,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 600,
+      "height": 960,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 601,
+      "height": 960,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 719,
+      "height": 1280,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 720,
+      "height": 1280,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 721,
+      "height": 1280,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 800,
+      "height": 1280,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 1023,
+      "height": 768,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 1025,
+      "height": 768,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 3840,
+      "height": 2160,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 568,
+      "height": 320,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 640,
+      "height": 360,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 1280,
+      "height": 360,
+      "dpr": 1,
+      "text": 100
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "dpr": 3,
+      "text": 100
+    },
+    {
+      "width": 720,
+      "height": 1280,
+      "dpr": 2,
+      "text": 100
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "dpr": 2,
+      "text": 100
+    },
+    {
+      "width": 3840,
+      "height": 2160,
+      "dpr": 2,
+      "text": 100
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "dpr": 1,
+      "text": 200
+    },
+    {
+      "width": 720,
+      "height": 1280,
+      "dpr": 1,
+      "text": 200
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "dpr": 1,
+      "text": 200
+    }
+  ],
+  "schemes": [
+    "fluent_light",
+    "fluent_dark",
+    "classic",
+    "monokai",
+    "gruvbox",
+    "vscode",
+    "dracula",
+    "nord",
+    "solarized_light",
+    "solarized_dark",
+    "github_light",
+    "tokyo_night",
+    "catppuccin",
+    "synthwave_84",
+    "green_phosphor"
+  ],
+  "appJsSha256": "4d359fc408162794b5381d8e37f2e995346467394389b4c03ae4653e780a7d7f",
+  "scope": "Six populated tabs, appearance dialog, guest sign-in; root text scaling is not browser zoom. No screenshots or design changes.",
+  "limitations": "Finite browser geometry/reachability audit; not all possible screens, pixel fidelity, full accessibility, hardware or Pi performance certification.",
+  "browserErrors": [],
+  "externalRequests": [],
+  "passed": true,
+  "browserVersion": "157.0.4341.46",
+  "caseCount": 3480,
+  "failedCases": 0
+}
