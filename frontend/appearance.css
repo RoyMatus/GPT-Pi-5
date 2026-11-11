@@ -17,7 +17,7 @@
   background:var(--scheme-canvas,var(--scheme-bg));
   background-color:var(--scheme-bg);
   color:var(--scheme-text); color-scheme:inherit;
-  font-family:var(--scheme-font,"Segoe UI Variable","Segoe UI",system-ui,sans-serif);
+  font-family:var(--scheme-font,"Segoe UI Variable","Segoe UI","GPT Pi Sans",system-ui,sans-serif);
 }
 .dashboard[data-theme] .dashboard-shell { padding:20px; gap:16px; }
 .dashboard[data-theme] .dashboard-header { padding:0 4px; min-height:44px; border:0; gap:8px 16px; }
@@ -185,7 +185,7 @@ html[data-theme] :is(button,a,select,input,textarea,summary,[tabindex]):focus-vi
 }
 
 /* Phosphor is static, monochrome interface chrome. User photographs keep their colors. */
-.dashboard[data-theme="green_phosphor"] :is(.dashboard-clock,.dashboard-metric-value,.dashboard-countdown-value) { font-family:Consolas,"Cascadia Mono",monospace; letter-spacing:-.04em; font-weight:400; }
+.dashboard[data-theme="green_phosphor"] :is(.dashboard-clock,.dashboard-metric-value,.dashboard-countdown-value) { font-family:Consolas,"Cascadia Mono","GPT Pi Mono",monospace; letter-spacing:-.04em; font-weight:400; }
 .dashboard[data-theme="green_phosphor"] .dashboard-clock { text-shadow:0 0 14px #7cf2a326; }
 .dashboard[data-theme="green_phosphor"] .dashboard-seasonal-art { filter:grayscale(1) sepia(1) hue-rotate(75deg) saturate(2); }
 .dashboard[data-theme="green_phosphor"] .dashboard-nav { background-image:repeating-linear-gradient(0deg,transparent 0 3px,#90ffac05 3px 4px); }

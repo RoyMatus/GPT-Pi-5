@@ -25,7 +25,7 @@ const configurations = [
   {width:3840,height:2160,dpr:2,text:100},
   ...[[390,844],[720,1280],[1280,800]].map(([width,height])=>({width,height,dpr:1,text:200})),
 ];
-const output = path.join(root,'build/theme-responsive-report.json');
+const output = path.resolve(root,process.env.GPT_PI_RESPONSIVE_OUTPUT || 'build/theme-responsive-report.json');
 const report = {
   schema:1,synthetic:true,kind:'finite-responsive-audit',
   capturedAt:new Date().toISOString(),configurations,schemes:schemes.map(s=>s.id),
@@ -34,7 +34,7 @@ const report = {
   limitations:'Finite browser geometry/reachability audit; not all possible screens, pixel fidelity, full accessibility, hardware or Pi performance certification.',
   cases:[],browserErrors:[],externalRequests:[],passed:false,
 };
-const browser = await chromium.launch({channel:process.env.GPT_PI_TEST_BROWSER_CHANNEL || undefined});
+const browser = process.env.GPT_PI_CDP_URL ? await chromium.connectOverCDP(process.env.GPT_PI_CDP_URL) : await chromium.launch({channel:process.env.GPT_PI_TEST_BROWSER_CHANNEL || undefined});
 report.browserVersion=browser.version();
 async function pageFor(context,authenticated) {
   const page=await context.newPage();page.setDefaultTimeout(3000);

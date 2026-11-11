@@ -17,7 +17,7 @@
   --dash-track: #405162;
   --dash-selected: #075d94;
   --dash-selected-border: #1eb9ff;
-  --dash-font: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+  --dash-font: "Segoe UI Variable", "Segoe UI", "GPT Pi Sans", system-ui, sans-serif;
   --dash-text-small: .875rem;
   --dash-text-body: 1rem;
   --dash-text-title: clamp(1.5rem, 3.7vw, 2rem);

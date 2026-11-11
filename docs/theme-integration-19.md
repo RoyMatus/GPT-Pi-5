@@ -1,59 +1,57 @@
 # Theme integration #19
 
-Transferred the restricted frontend delta from frozen implementation
-`24946e1b69cb7ffabd5ea7e8777a8df6238c6bdc` onto its exact base
-`06a5d709a9c0d1216ce7ec1fe65c8d70d287fa50`. No backend/provider changes.
-All archive manifest SHA-256 values verified. Frozen originals remain unchanged.
-`package_theme_resources.py --verify-only` verified 248 files after rebuilding.
-Both providers, portal variables, legacy migration and denied-storage handling
-are supplied unchanged. Existing design references are preserved.
+Version 0.3.4 transfers the restricted frontend delta from implementation
+`24946e1b69cb7ffabd5ea7e8777a8df6238c6bdc` onto its exact comparison base.
+All 15 IDs, palettes, assets, components, providers and portal variables are
+preserved. No live backend/provider has been replaced by a fixture.
+Original references/checksums and older dashboard references are unchanged.
 
-Validation: Windows x64, Python 3.12.14, Node 24.22.1, Edge.
-126 offline tests passed (one platform skip); 11 Node tests passed; five resource
-and pixel-comparator tests passed. npm ci/build succeeded.
-Theme browser: 270 layout cases, 165 renders, all 15 schemes/persistence passed.
-Computer, markets, calendar, photos, voice and remembered-login browser runners
-passed with synthetic providers. No paid cloud calls or real microphone used.
-Additional matrix/comparison results are recorded in the PR.
+## Authorized platform typography
 
-Pi access restored on 2026-11-11 using owner-supplied credentials and resolved
-device address (not published). ARM64 Raspberry Pi 5, Python 3.13.5 and active
-service confirmed. Initial host trust was accepted in memory for the new address;
-subsequent connections pinned its SHA-256 key. No credentials were persisted.
-Fontconfig selects Cantarell for Segoe UI and DejaVu Sans Mono for Consolas.
-These are unapproved substitutes, so target visual acceptance remains blocked. No fallback is approved as exact visual acceptance.
-Physical touch/audio, blur performance, browser zoom and target OSK acceptance
-remain pending. Root font scaling tests do not establish browser zoom support.
+The owner explicitly approved out-of-box substitute fonts on 2026-11-11,
+provided the layout is retained. This is an exception for platform typography
+only; the original DESIGN_LOCK and PNGs remain immutable.
+Windows retains Segoe UI/Consolas. Pi uses installed Cantarell and Noto Sans Mono
+through local-only font faces. No font binaries are downloaded or redistributed.
+Cantarell size-adjust 98.5% prevents the evidenced 720px overview network-detail
+wrap (previously increasing the panel height by 28px). The Noto mono adjustment
+91.63423% matches measured Consolas digit advance: 109.87 vs 109.96px for ten
+digits at 20px. CDP confirms the actual target fonts. These are measured layout
+substitutes, not a claim of identical glyphs or cross-platform pixels.
 
-Rollback: revert the integration commit and rebuild; for a later device install,
-retain the previous release and use deploy/rollback-user.sh. Preserve profiles,
-credentials and unrelated local changes. Actual captures/logs belong in ignored
-build/, never over the originals.
+## Verification
 
-Strict comparison: all 165 captures differ (zero threshold, no masks).
-The current browser matches the recorded Edge 157.0.4341.46. CDP confirms
-Segoe UI Semibold for the sampled overview heading and clock, matching the
-recorded measurements. Runtime bytes reproduce the frozen SHA-256 values.
-This narrows the investigation but does not prove rasterization is the sole
-cause. Pixel fidelity is unresolved and must not be declared accepted.
-192 shell layout cases passed. Wheel build succeeded.
+Windows x64/Python 3.12/Node 24/Edge: 126 offline tests (one platform skip),
+11 Node tests, five resource/comparison tests, 270 theme layout cases and
+192 shell cases passed. Synthetic computer, markets, calendar, photos, voice
+and remembered-login scenarios passed; wheel built. No paid API/microphone.
+The separate overview runner reported PASS with a Windows shutdown warning.
+The original resource exporter verified 248 locked files before the authorized
+font adaptation. It remains an exporter for the original resource set, not
+an assertion that the adapted application runtime has the old hash.
 
-Responsive audit completed: 3480/3480 cases passed (15 themes, 29
-configurations, eight states), widths 320–3840 CSS px, DPR 1/2/3 and
-200% root text size. No browser errors or external requests. Original report
-and actual renders/diffs are retained under ignored build/. See the committed
-comparison JSON for all 165 pixel counts and current sampled font measurements.
-Overview fixture also reported PASS; its Windows server shutdown emitted a
-WinError 10022 warning, so it is not reported as a clean log.
+Strict Windows comparison: 165/165 screenshots match the frozen originals,
+zero changed pixels, no masks/thresholds. Initial differences were not
+reproducible in the normal Edge renderer; isolated GPU-mode probes produced
+SVG-edge raster differences, while normal/default and sRGB probes matched.
+The compositor-specific cause of that transient initial state is not proven.
 
-ARM64 source-checkout regression: 126 tests, OK with 12 platform/optional skips.
-The first run found invalid UTF-8 in this integration report; corrected to UTF-8
-and rerun successfully. Guidance/link validation passed locally. A wheel and
-synthetic tests were staged in the user cache; active release/service, browser
-profile and credentials were not changed. Device activation awaits design/font
-acceptance and successful CI of the corrected commit.
+Original Windows responsive audit: 3480/3480 cases, widths 320–3840 CSS px,
+DPR 1/2/3, 200% root text. Root scaling is not browser zoom.
+Pi ARM64/Python 3.13 source-checkout regression: 126 tests, 12 platform/optional
+skips. Corrected an invalid UTF-8 report discovered during this run.
+Pi browser matrix and installation results are recorded in the PR.
+Actual renders/logs stay in ignored build/; original expected images never change.
 
-Microsoft's font redistribution FAQ does not grant copying Windows font binaries
-to this Linux device. Segoe UI licensing is available separately; no font purchase,
-redistribution or fallback acceptance has been performed:
-https://learn.microsoft.com/en-us/typography/fonts/font-faq
+## Deployment and limits
+
+Target is verified Raspberry Pi 5 ARM64, Debian 13, Chromium 154, 720x1280.
+Credentials and addresses are excluded from Git. Connections pin the observed
+SSH key after the initial authorized connection. Separate synthetic browser
+profiles keep real chats/account data out of screenshots and fixtures.
+Physical audio/touch and physical power-cycle acceptance cannot be inferred
+from automated rendering. Font substitutions intentionally differ from Windows
+glyphs; strict cross-platform comparator differences are reported, not masked.
+
+Rollback: revert integration changes and rebuild, or restore the retained
+previous device release with deploy/rollback-user.sh. Preserve profile/data.

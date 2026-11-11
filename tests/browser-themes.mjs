@@ -9,11 +9,11 @@ const require = createRequire(import.meta.url);
 const { chromium } = process.env.GPT_PI_PLAYWRIGHT_PATH
   ? require(process.env.GPT_PI_PLAYWRIGHT_PATH) : await import('playwright');
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const output=path.join(root,'build/fluent-theme-renders');
+const output=path.resolve(root,process.env.GPT_PI_THEME_OUTPUT || 'build/fluent-theme-renders');
 await mkdir(output,{recursive:true});
 const ids=['fluent_light','fluent_dark','classic','monokai','gruvbox','vscode','dracula','nord','solarized_light','solarized_dark','github_light','tokyo_night','catppuccin','synthwave_84','green_phosphor'];
 const tabs=[['overview','Обзор'],['computer','Компьютер'],['markets','Рынки'],['calendar','Календарь'],['photos','Фото'],['assistant','Ассистент']];
-const browser = await chromium.launch({channel: process.env.GPT_PI_TEST_BROWSER_CHANNEL || undefined});
+const browser = process.env.GPT_PI_CDP_URL ? await chromium.connectOverCDP(process.env.GPT_PI_CDP_URL) : await chromium.launch({channel:process.env.GPT_PI_TEST_BROWSER_CHANNEL || undefined});
 const errors=[],report={synthetic:true,schemes:ids,screenshots:[],layoutCases:0,contrast:[]};
 async function makePage({authenticated=true,width=720,height=1280,initial,blocked=false,search='?dashboard'}={}) {
   const context=await browser.newContext({viewport:{width,height},timezoneId:'Europe/Moscow',reducedMotion:'reduce'});

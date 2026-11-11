@@ -140,3 +140,11 @@ forced-command проверяются отдельно на разрешённо
 появление клавиатуры, синтетическую экранную букву и видимость composer над ней.
 
 `test_windows_collector.py` проверяет сохранение причины Failed job и освобождение job, а также получение CPU/RAM/диска при полностью недоступном CIM provider. Штатные IP byte counters и uptime не требуют внешнего запроса или дополнительных групп. Реальный источник проверять отдельно через закреплённый SSH-ключ и авторизованный browser-сеанс.
+
+Theme typography: `node tests/browser-theme-fonts.mjs` checks numeric advance,
+actual CDP fonts and the overview network row. Browser theme/responsive runners
+accept GPT_PI_CDP_URL for an isolated target browser forwarded over trusted SSH;
+never point it at the owner's account/profile. Set GPT_PI_THEME_OUTPUT and
+GPT_PI_RESPONSIVE_OUTPUT to separate target evidence from Windows captures.
+No real providers or paid API are used. The Windows originals remain immutable;
+owner-approved Linux font changes are documented in docs/theme-integration-19.md.

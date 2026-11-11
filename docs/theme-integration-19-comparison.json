@@ -4,1022 +4,994 @@
   "files": [
     {
       "name": "fluent_light-overview.png",
-      "passed": false,
-      "changed_pixels": 22927,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_light-computer.png",
-      "passed": false,
-      "changed_pixels": 21524,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_light-markets.png",
-      "passed": false,
-      "changed_pixels": 28692,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_light-calendar.png",
-      "passed": false,
-      "changed_pixels": 8533,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_light-photos.png",
-      "passed": false,
-      "changed_pixels": 4065,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_light-assistant.png",
-      "passed": false,
-      "changed_pixels": 7971,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_light-settings.png",
-      "passed": false,
-      "changed_pixels": 13728,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_light-signin.png",
-      "passed": false,
-      "changed_pixels": 6460,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_light-event-dialog.png",
-      "passed": false,
-      "changed_pixels": 8771,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_light-assistant-settings.png",
-      "passed": false,
-      "changed_pixels": 16647,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_light-audio-dialog.png",
-      "passed": false,
-      "changed_pixels": 9986,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_dark-overview.png",
-      "passed": false,
-      "changed_pixels": 22638,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_dark-computer.png",
-      "passed": false,
-      "changed_pixels": 22278,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_dark-markets.png",
-      "passed": false,
-      "changed_pixels": 26830,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_dark-calendar.png",
-      "passed": false,
-      "changed_pixels": 9905,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_dark-photos.png",
-      "passed": false,
-      "changed_pixels": 3816,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_dark-assistant.png",
-      "passed": false,
-      "changed_pixels": 3776,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_dark-settings.png",
-      "passed": false,
-      "changed_pixels": 8727,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_dark-signin.png",
-      "passed": false,
-      "changed_pixels": 5891,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_dark-event-dialog.png",
-      "passed": false,
-      "changed_pixels": 4481,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_dark-assistant-settings.png",
-      "passed": false,
-      "changed_pixels": 4075,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "fluent_dark-audio-dialog.png",
-      "passed": false,
-      "changed_pixels": 2231,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "classic-overview.png",
-      "passed": false,
-      "changed_pixels": 195714,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "classic-computer.png",
-      "passed": false,
-      "changed_pixels": 191894,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "classic-markets.png",
-      "passed": false,
-      "changed_pixels": 173489,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "classic-calendar.png",
-      "passed": false,
-      "changed_pixels": 183080,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "classic-photos.png",
-      "passed": false,
-      "changed_pixels": 385885,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "classic-assistant.png",
-      "passed": false,
-      "changed_pixels": 422432,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "classic-settings.png",
-      "passed": false,
-      "changed_pixels": 110255,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "classic-signin.png",
-      "passed": false,
-      "changed_pixels": 443666,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "classic-event-dialog.png",
-      "passed": false,
-      "changed_pixels": 106412,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "classic-assistant-settings.png",
-      "passed": false,
-      "changed_pixels": 98782,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "classic-audio-dialog.png",
-      "passed": false,
-      "changed_pixels": 175941,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "monokai-overview.png",
-      "passed": false,
-      "changed_pixels": 199903,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "monokai-computer.png",
-      "passed": false,
-      "changed_pixels": 197410,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "monokai-markets.png",
-      "passed": false,
-      "changed_pixels": 176868,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "monokai-calendar.png",
-      "passed": false,
-      "changed_pixels": 185980,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "monokai-photos.png",
-      "passed": false,
-      "changed_pixels": 395443,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "monokai-assistant.png",
-      "passed": false,
-      "changed_pixels": 431322,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "monokai-settings.png",
-      "passed": false,
-      "changed_pixels": 112372,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "monokai-signin.png",
-      "passed": false,
-      "changed_pixels": 453220,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "monokai-event-dialog.png",
-      "passed": false,
-      "changed_pixels": 110506,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "monokai-assistant-settings.png",
-      "passed": false,
-      "changed_pixels": 119594,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "monokai-audio-dialog.png",
-      "passed": false,
-      "changed_pixels": 196408,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "gruvbox-overview.png",
-      "passed": false,
-      "changed_pixels": 199612,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "gruvbox-computer.png",
-      "passed": false,
-      "changed_pixels": 195762,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "gruvbox-markets.png",
-      "passed": false,
-      "changed_pixels": 176894,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "gruvbox-calendar.png",
-      "passed": false,
-      "changed_pixels": 188305,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "gruvbox-photos.png",
-      "passed": false,
-      "changed_pixels": 403452,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "gruvbox-assistant.png",
-      "passed": false,
-      "changed_pixels": 438726,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "gruvbox-settings.png",
-      "passed": false,
-      "changed_pixels": 118102,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "gruvbox-signin.png",
-      "passed": false,
-      "changed_pixels": 461546,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "gruvbox-event-dialog.png",
-      "passed": false,
-      "changed_pixels": 112353,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "gruvbox-assistant-settings.png",
-      "passed": false,
-      "changed_pixels": 104681,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "gruvbox-audio-dialog.png",
-      "passed": false,
-      "changed_pixels": 196471,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "vscode-overview.png",
-      "passed": false,
-      "changed_pixels": 185171,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "vscode-computer.png",
-      "passed": false,
-      "changed_pixels": 179428,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "vscode-markets.png",
-      "passed": false,
-      "changed_pixels": 164219,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "vscode-calendar.png",
-      "passed": false,
-      "changed_pixels": 174205,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "vscode-photos.png",
-      "passed": false,
-      "changed_pixels": 366541,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "vscode-assistant.png",
-      "passed": false,
-      "changed_pixels": 405269,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "vscode-settings.png",
-      "passed": false,
-      "changed_pixels": 105697,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "vscode-signin.png",
-      "passed": false,
-      "changed_pixels": 419978,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "vscode-event-dialog.png",
-      "passed": false,
-      "changed_pixels": 106484,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "vscode-assistant-settings.png",
-      "passed": false,
-      "changed_pixels": 96489,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "vscode-audio-dialog.png",
-      "passed": false,
-      "changed_pixels": 177452,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "dracula-overview.png",
-      "passed": false,
-      "changed_pixels": 199837,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "dracula-computer.png",
-      "passed": false,
-      "changed_pixels": 195405,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "dracula-markets.png",
-      "passed": false,
-      "changed_pixels": 178561,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "dracula-calendar.png",
-      "passed": false,
-      "changed_pixels": 184458,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "dracula-photos.png",
-      "passed": false,
-      "changed_pixels": 390156,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "dracula-assistant.png",
-      "passed": false,
-      "changed_pixels": 426045,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "dracula-settings.png",
-      "passed": false,
-      "changed_pixels": 119650,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "dracula-signin.png",
-      "passed": false,
-      "changed_pixels": 446583,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "dracula-event-dialog.png",
-      "passed": false,
-      "changed_pixels": 113043,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "dracula-assistant-settings.png",
-      "passed": false,
-      "changed_pixels": 109588,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "dracula-audio-dialog.png",
-      "passed": false,
-      "changed_pixels": 197747,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "nord-overview.png",
-      "passed": false,
-      "changed_pixels": 198469,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "nord-computer.png",
-      "passed": false,
-      "changed_pixels": 200699,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "nord-markets.png",
-      "passed": false,
-      "changed_pixels": 179658,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "nord-calendar.png",
-      "passed": false,
-      "changed_pixels": 188509,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "nord-photos.png",
-      "passed": false,
-      "changed_pixels": 396657,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "nord-assistant.png",
-      "passed": false,
-      "changed_pixels": 430838,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "nord-settings.png",
-      "passed": false,
-      "changed_pixels": 109061,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "nord-signin.png",
-      "passed": false,
-      "changed_pixels": 453449,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "nord-event-dialog.png",
-      "passed": false,
-      "changed_pixels": 110702,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "nord-assistant-settings.png",
-      "passed": false,
-      "changed_pixels": 105422,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "nord-audio-dialog.png",
-      "passed": false,
-      "changed_pixels": 184999,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_light-overview.png",
-      "passed": false,
-      "changed_pixels": 239787,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_light-computer.png",
-      "passed": false,
-      "changed_pixels": 232241,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_light-markets.png",
-      "passed": false,
-      "changed_pixels": 209753,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_light-calendar.png",
-      "passed": false,
-      "changed_pixels": 221119,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_light-photos.png",
-      "passed": false,
-      "changed_pixels": 460471,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_light-assistant.png",
-      "passed": false,
-      "changed_pixels": 503893,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_light-settings.png",
-      "passed": false,
-      "changed_pixels": 173084,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_light-signin.png",
-      "passed": false,
-      "changed_pixels": 532438,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_light-event-dialog.png",
-      "passed": false,
-      "changed_pixels": 166667,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_light-assistant-settings.png",
-      "passed": false,
-      "changed_pixels": 157026,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_light-audio-dialog.png",
-      "passed": false,
-      "changed_pixels": 277737,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_dark-overview.png",
-      "passed": false,
-      "changed_pixels": 168613,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_dark-computer.png",
-      "passed": false,
-      "changed_pixels": 166558,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_dark-markets.png",
-      "passed": false,
-      "changed_pixels": 156548,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_dark-calendar.png",
-      "passed": false,
-      "changed_pixels": 155696,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_dark-photos.png",
-      "passed": false,
-      "changed_pixels": 330527,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_dark-assistant.png",
-      "passed": false,
-      "changed_pixels": 361437,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_dark-settings.png",
-      "passed": false,
-      "changed_pixels": 92671,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_dark-signin.png",
-      "passed": false,
-      "changed_pixels": 374202,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_dark-event-dialog.png",
-      "passed": false,
-      "changed_pixels": 89072,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_dark-assistant-settings.png",
-      "passed": false,
-      "changed_pixels": 90139,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "solarized_dark-audio-dialog.png",
-      "passed": false,
-      "changed_pixels": 154285,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "github_light-overview.png",
-      "passed": false,
-      "changed_pixels": 190302,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "github_light-computer.png",
-      "passed": false,
-      "changed_pixels": 187909,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "github_light-markets.png",
-      "passed": false,
-      "changed_pixels": 177186,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "github_light-calendar.png",
-      "passed": false,
-      "changed_pixels": 171769,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "github_light-photos.png",
-      "passed": false,
-      "changed_pixels": 373399,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "github_light-assistant.png",
-      "passed": false,
-      "changed_pixels": 406620,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "github_light-settings.png",
-      "passed": false,
-      "changed_pixels": 124648,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "github_light-signin.png",
-      "passed": false,
-      "changed_pixels": 421074,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "github_light-event-dialog.png",
-      "passed": false,
-      "changed_pixels": 117814,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "github_light-assistant-settings.png",
-      "passed": false,
-      "changed_pixels": 109407,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "github_light-audio-dialog.png",
-      "passed": false,
-      "changed_pixels": 201649,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "tokyo_night-overview.png",
-      "passed": false,
-      "changed_pixels": 199886,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "tokyo_night-computer.png",
-      "passed": false,
-      "changed_pixels": 196951,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "tokyo_night-markets.png",
-      "passed": false,
-      "changed_pixels": 180821,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "tokyo_night-calendar.png",
-      "passed": false,
-      "changed_pixels": 186707,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "tokyo_night-photos.png",
-      "passed": false,
-      "changed_pixels": 395938,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "tokyo_night-assistant.png",
-      "passed": false,
-      "changed_pixels": 430556,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "tokyo_night-settings.png",
-      "passed": false,
-      "changed_pixels": 113667,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "tokyo_night-signin.png",
-      "passed": false,
-      "changed_pixels": 452753,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "tokyo_night-event-dialog.png",
-      "passed": false,
-      "changed_pixels": 109674,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "tokyo_night-assistant-settings.png",
-      "passed": false,
-      "changed_pixels": 105795,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "tokyo_night-audio-dialog.png",
-      "passed": false,
-      "changed_pixels": 190032,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "catppuccin-overview.png",
-      "passed": false,
-      "changed_pixels": 192472,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "catppuccin-computer.png",
-      "passed": false,
-      "changed_pixels": 192983,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "catppuccin-markets.png",
-      "passed": false,
-      "changed_pixels": 173688,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "catppuccin-calendar.png",
-      "passed": false,
-      "changed_pixels": 180920,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "catppuccin-photos.png",
-      "passed": false,
-      "changed_pixels": 384532,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "catppuccin-assistant.png",
-      "passed": false,
-      "changed_pixels": 418477,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "catppuccin-settings.png",
-      "passed": false,
-      "changed_pixels": 106096,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "catppuccin-signin.png",
-      "passed": false,
-      "changed_pixels": 438961,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "catppuccin-event-dialog.png",
-      "passed": false,
-      "changed_pixels": 105298,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "catppuccin-assistant-settings.png",
-      "passed": false,
-      "changed_pixels": 97071,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "catppuccin-audio-dialog.png",
-      "passed": false,
-      "changed_pixels": 178285,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "synthwave_84-overview.png",
-      "passed": false,
-      "changed_pixels": 196630,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "synthwave_84-computer.png",
-      "passed": false,
-      "changed_pixels": 193377,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "synthwave_84-markets.png",
-      "passed": false,
-      "changed_pixels": 176948,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "synthwave_84-calendar.png",
-      "passed": false,
-      "changed_pixels": 186117,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "synthwave_84-photos.png",
-      "passed": false,
-      "changed_pixels": 399072,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "synthwave_84-assistant.png",
-      "passed": false,
-      "changed_pixels": 434016,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "synthwave_84-settings.png",
-      "passed": false,
-      "changed_pixels": 112341,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "synthwave_84-signin.png",
-      "passed": false,
-      "changed_pixels": 457617,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "synthwave_84-event-dialog.png",
-      "passed": false,
-      "changed_pixels": 107619,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "synthwave_84-assistant-settings.png",
-      "passed": false,
-      "changed_pixels": 96941,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "synthwave_84-audio-dialog.png",
-      "passed": false,
-      "changed_pixels": 167529,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "green_phosphor-overview.png",
-      "passed": false,
-      "changed_pixels": 200511,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "green_phosphor-computer.png",
-      "passed": false,
-      "changed_pixels": 192440,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "green_phosphor-markets.png",
-      "passed": false,
-      "changed_pixels": 185278,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "green_phosphor-calendar.png",
-      "passed": false,
-      "changed_pixels": 188099,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "green_phosphor-photos.png",
-      "passed": false,
-      "changed_pixels": 396150,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "green_phosphor-assistant.png",
-      "passed": false,
-      "changed_pixels": 431196,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "green_phosphor-settings.png",
-      "passed": false,
-      "changed_pixels": 116228,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "green_phosphor-signin.png",
-      "passed": false,
-      "changed_pixels": 451071,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "green_phosphor-event-dialog.png",
-      "passed": false,
-      "changed_pixels": 115316,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "green_phosphor-assistant-settings.png",
-      "passed": false,
-      "changed_pixels": 106675,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     },
     {
       "name": "green_phosphor-audio-dialog.png",
-      "passed": false,
-      "changed_pixels": 197325,
+      "passed": true,
+      "changed_pixels": 0,
       "total_pixels": 921600
     }
   ],
-  "passed": false,
-  "current_fonts": {
-    "browser": "157.0.4341.46",
-    "results": [
-      {
-        "selector": ".dashboard-header h1",
-        "fonts": [
-          {
-            "familyName": "Segoe UI Semibold",
-            "postScriptName": "SegoeUI-Semibold",
-            "isCustomFont": false,
-            "glyphCount": 5
-          }
-        ]
-      },
-      {
-        "selector": ".dashboard-clock",
-        "fonts": [
-          {
-            "familyName": "Segoe UI Semibold",
-            "postScriptName": "SegoeUI-Semibold",
-            "isCustomFont": false,
-            "glyphCount": 5
-          }
-        ]
-      }
-    ]
-  },
-  "status": "unresolved; no expected images, masks or thresholds changed"
+  "passed": true
 }

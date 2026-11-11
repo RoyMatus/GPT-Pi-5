@@ -9,7 +9,7 @@ body,
   width: 100%;
 }
 body {
-  font-family: "Segoe UI Variable", "Segoe UI", Arial, sans-serif;
+  font-family: "Segoe UI Variable", "Segoe UI", "GPT Pi Sans", Arial, sans-serif;
 }
 .app {
   height: 100dvh;

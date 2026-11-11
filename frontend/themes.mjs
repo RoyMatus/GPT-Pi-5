@@ -88,7 +88,7 @@ export function appearanceVariables(theme) {
     '--scheme-focus':theme.focus, '--scheme-selected':selected,
     '--scheme-canvas':canvas,'--scheme-glass':rgba(theme.panel,.88),'--scheme-glass-strong':rgba(theme.panel,.96),
     '--scheme-edge':mixColors(theme.panel,theme.text,theme.light?.10:.12),'--scheme-wash':mixColors(theme.panel,theme.control,.06),
-    '--scheme-font':'"Segoe UI Variable", "Segoe UI", system-ui, sans-serif',
+    '--scheme-font':'"Segoe UI Variable", "Segoe UI", "GPT Pi Sans", system-ui, sans-serif',
     '--scheme-radius':theme.radiusDp+'px', '--scheme-stroke':theme.strokeDp+'px',
     '--scheme-shadow':theme.light?'0 4px 16px #00000008':'0 4px 16px #00000024',
   };

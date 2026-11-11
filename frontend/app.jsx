@@ -46,6 +46,7 @@ import { DashboardShell } from "./dashboard/shell/shell.jsx";
 import { ThemePicker, fluentAppearance } from "./appearance.jsx";
 import { resolveAppearance } from "./themes.mjs";
 import "./appearance.css";
+import "./platform-fonts.css";
 
 const errors = {
     connection:

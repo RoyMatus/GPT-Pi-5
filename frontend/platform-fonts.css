@@ -1,0 +1,19 @@
+/* Owner-approved Linux fallback. Local fonts only; no downloaded font binaries.
+   Keep Windows preview fonts first. Noto mono advance is adjusted to Consolas
+   (109.9609375 / 119.9998474 at 20px for ten digits). */
+@font-face {
+  font-family: "GPT Pi Sans";
+  size-adjust: 98.5%;
+  src: local("Cantarell Regular"), local("Cantarell-Regular");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GPT Pi Mono";
+  src: local("Noto Sans Mono Regular"), local("NotoSansMono-Regular");
+  size-adjust: 91.63423%;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

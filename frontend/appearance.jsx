@@ -22,7 +22,8 @@ export function useAppearance() {
 }
 
 export function fluentAppearance(theme) {
-  if(theme.isFluent) return theme.light?webLightTheme:webDarkTheme;
+  if(theme.isFluent) return {...(theme.light?webLightTheme:webDarkTheme),
+    fontFamilyBase:'"Segoe UI", "GPT Pi Sans", sans-serif'};
   const base=theme.light?webLightTheme:webDarkTheme;
   const hover=mixColors(theme.panel,theme.control,.12), pressed=mixColors(theme.panel,theme.control,.2);
   const colors={...base};
@@ -48,6 +49,7 @@ export function fluentAppearance(theme) {
     }
   }
   return {...colors,
+    fontFamilyBase:'"Segoe UI", "GPT Pi Sans", sans-serif',
     colorNeutralForegroundOnBrand:theme.onControl,
     colorNeutralForegroundInverted:theme.onControl,
     colorNeutralBackgroundInverted:theme.control,
